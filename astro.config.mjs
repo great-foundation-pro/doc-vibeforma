@@ -29,26 +29,9 @@ export default defineConfig({
         './src/styles/theme.css',
         './src/styles/site.css',
       ],
-      head: [
-        {
-          tag: 'meta',
-          attrs: { property: 'og:image', content: 'https://vibeforma.pro/og/docs.jpg' },
-        },
-        { tag: 'meta', attrs: { property: 'og:image:type', content: 'image/jpeg' } },
-        { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
-        { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
-        {
-          tag: 'meta',
-          attrs: {
-            property: 'og:image:alt',
-            content: 'VibeForma documentation — local voice input for Windows',
-          },
-        },
-        {
-          tag: 'meta',
-          attrs: { name: 'twitter:image', content: 'https://vibeforma.pro/og/docs.jpg' },
-        },
-      ],
+      components: {
+        Head: './src/components/Head.astro',
+      },
       plugins: [
         starlightBlog({
           title: { en: 'Blog', ru: 'Блог' },
