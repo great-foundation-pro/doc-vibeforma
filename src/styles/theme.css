@@ -1,0 +1,27 @@
+/* Shared design tokens: void / ice / pulse cyan / rare magenta sparks. */
+
+:root {
+  color-scheme: dark;
+  --vf-void: #04060a;
+  --vf-void-2: #060a11;
+  --vf-ice: #eef2f7;
+  --vf-pulse: #5be9ff;
+  --vf-pulse-soft: rgba(91, 233, 255, 0.12);
+  --vf-magenta: #ff3d8a;
+  --vf-active-glow: #5be9ff;
+  --vf-text: var(--vf-ice);
+  --vf-muted: rgba(238, 242, 247, 0.64);
+  --vf-faint: rgba(238, 242, 247, 0.38);
+  --vf-line: rgba(238, 242, 247, 0.12);
+  --vf-line-soft: rgba(238, 242, 247, 0.07);
+  --vf-line-strong: rgba(238, 242, 247, 0.26);
+  --vf-surface: rgba(14, 18, 26, 0.58);
+  --vf-surface-strong: rgba(11, 15, 22, 0.86);
+  --vf-display: 'Space Grotesk', 'Onest', system-ui, sans-serif;
+  --vf-body: 'Inter', system-ui, sans-serif;
+  --vf-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --vf-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --vf-pad: clamp(24px, 5vw, 72px);
+  --vf-radius: 12px;
+  --vf-max: 1280px;
+}

@@ -14,7 +14,7 @@ The network is needed in two cases:
 - Once, to download the recognition model.
 - For updates.
 
-Automatic updates are checked against a manifest signed with minisign/Ed25519. The updater keeps a backup and can roll back.
+Automatic updates are a plain zip checked against SHA256SUMS. The updater keeps a backup and can roll back.
 
 ## History
 

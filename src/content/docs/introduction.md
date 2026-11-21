@@ -25,7 +25,7 @@ VibeForma recognizes speech in about 99 languages.
 - A dictionary with import, export and preview.
 - A history that is off by default; when enabled, it keeps the last 100 dictations in `history.jsonl`.
 - Switching the recognition model.
-- Automatic updates from a signed manifest (minisign/Ed25519), with a backup and rollback.
+- Automatic updates from a plain zip checked against SHA256SUMS, with a backup and rollback.
 - Log rotation.
 
 ## Where to go next

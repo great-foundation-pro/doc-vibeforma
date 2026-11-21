@@ -24,7 +24,11 @@ export default defineConfig({
           href: 'https://github.com/FormaMindPro/vibeforma',
         },
       ],
-      customCss: ['./src/styles/site.css'],
+      customCss: [
+        './src/styles/fonts.css',
+        './src/styles/theme.css',
+        './src/styles/site.css',
+      ],
       plugins: [
         starlightBlog({
           title: { en: 'Blog', ru: 'Блог' },

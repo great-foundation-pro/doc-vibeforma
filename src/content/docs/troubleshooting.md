@@ -17,7 +17,7 @@ The recognition model is downloaded once, and that download needs the network. A
 
 ## An update did not finish
 
-Updates come from a manifest signed with minisign/Ed25519. The updater keeps a backup and can roll back.
+Updates are a plain zip checked against SHA256SUMS. The updater keeps a backup and can roll back.
 
 ## Where to look next
 
