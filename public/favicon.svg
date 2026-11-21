@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="VibeForma">
+  <rect width="32" height="32" rx="7" fill="#1a1b17" />
+  <path d="M9 20v-4M16 24V8M23 20v-6" stroke="#f8f5ec" stroke-width="2.6" stroke-linecap="round" />
+  <circle cx="24" cy="9" r="2.2" fill="#c8542c" />
+</svg>

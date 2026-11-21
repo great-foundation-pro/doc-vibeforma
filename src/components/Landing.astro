@@ -1,0 +1,507 @@
+---
+import '../styles/landing.css';
+
+interface Props {
+  locale?: 'en' | 'ru';
+}
+
+const { locale = 'en' } = Astro.props;
+const isRu = locale === 'ru';
+const base = isRu ? '/ru' : '';
+const docHref = (path: string) => `${base}${path}`;
+const canonical = isRu ? 'https://vibeforma.pro/ru/' : 'https://vibeforma.pro/';
+
+const waveHeights = [10, 22, 38, 30, 16, 44, 34, 20, 12, 28, 46, 36, 18, 10, 24, 40, 30, 14, 8, 18, 30, 22, 12, 6];
+
+const en = {
+  title: 'VibeForma — local voice dictation for Windows',
+  description:
+    'VibeForma is a local voice dictation tool for Windows: press a hotkey, speak, and the text appears where the cursor is. Recognition runs offline, in about 99 languages.',
+  skip: 'Skip to content',
+  nav: { docs: 'Documentation', blog: 'Blog', logs: 'Logs', github: 'GitHub' },
+  navLabel: 'Primary',
+  langSwitchLabel: 'Language',
+  switchToRussian: 'Switch to Russian',
+  switchToEnglish: 'Switch to English',
+  eyebrow: 'Local voice dictation · Windows 10/11',
+  tagline: 'From voice vibe to sharp form',
+  lead: 'Press a hotkey, speak, and the text appears wherever the cursor is. Recognition runs on your machine, not in the cloud.',
+  meta: ['About 99 languages', 'Works offline', 'MIT license'],
+  ctaPrimary: 'Install',
+  ctaSecondary: 'Read the documentation',
+  sheetLive: 'Dictation',
+  sheetPhrase: '“Notes for Thursday’s meeting.”',
+  sheetCaption: 'Text lands at the cursor',
+  whatEyebrow: 'What it does',
+  whatTitle: 'Speak. The text is already at the cursor.',
+  whatLead:
+    'VibeForma is a local dictation tool for Windows. It takes speech from the microphone and inserts the recognized text into the field where the cursor is.',
+  steps: [
+    { n: '01', title: 'Hotkey', text: 'The default input hotkey is Ctrl+Alt+Space.' },
+    {
+      n: '02',
+      title: 'Speech',
+      text: 'The recognition language is fixed in the settings; VibeForma recognizes speech in about 99 languages.',
+    },
+    {
+      n: '03',
+      title: 'Text',
+      text: 'The recognized text is inserted at the cursor; the clipboard is restored after the insertion.',
+    },
+  ],
+  note: 'Recognition runs on faster-whisper on your machine. The network is needed once, to download the model, and later for updates.',
+  featuresEyebrow: 'Key features',
+  featuresTitle: 'What is in the application',
+  featuresLead:
+    'The parts of VibeForma that matter day to day: local recognition, insertion that does not fight the keyboard layout, a dictionary and a history you control.',
+  features: [
+    {
+      title: 'Offline recognition',
+      text: 'faster-whisper runs on your machine. The network is needed to download the model, and later for updates.',
+    },
+    { title: 'About 99 languages', text: 'The recognition language is fixed in the settings.' },
+    {
+      title: 'Layout-independent insertion',
+      text: 'Shift+Insert inserts the text regardless of the keyboard layout; the clipboard is restored afterwards.',
+    },
+    { title: 'Dictionary', text: 'Import and export, with a preview before changes are applied.' },
+    { title: 'History off by default', text: 'When enabled, it keeps the last 100 dictations in history.jsonl.' },
+    {
+      title: 'Signed updates',
+      text: 'Updates come from a manifest signed with minisign/Ed25519; a backup is kept and a rollback is possible.',
+    },
+    {
+      title: 'Two interface languages',
+      text: 'English and Russian; interface locales are stored as JSON files.',
+    },
+    { title: 'Tray, panel, autostart', text: 'A tray icon, a monitoring panel and autostart.' },
+  ],
+  settingsLabel: 'Settings tabs',
+  settingsTabs: ['Recording', 'Model & language', 'Dictionary', 'History', 'Appearance', 'System'],
+  installEyebrow: 'Quick install',
+  installTitle: 'One command to install',
+  requirements: 'Windows 10/11 x64 · Python 3.10+ in PATH',
+  installCommand: 'irm https://raw.githubusercontent.com/FormaMindPro/vibeforma/main/install.ps1 | iex',
+  copyLabel: 'Copy',
+  copiedLabel: 'Copied',
+  installDetails: [
+    'Installs to %LOCALAPPDATA%\\VibeForma.',
+    'The installer accepts -Model, -Target, -Cpu, -DryRun, -NoRun.',
+    'The recognition model is downloaded once; after that, dictation works offline.',
+  ],
+  installLink: 'Installation guide',
+  exploreEyebrow: 'Explore',
+  exploreTitle: 'Documentation, notes and source',
+  explore: [
+    {
+      title: 'Documentation',
+      text: 'Introduction, installation, usage, privacy and troubleshooting.',
+      href: docHref('/introduction/'),
+      external: false,
+    },
+    { title: 'Blog', text: 'Notes about the product and the project.', href: docHref('/blog/'), external: false },
+    { title: 'Logs', text: 'The development journal of this site.', href: docHref('/logs/'), external: false },
+    {
+      title: 'GitHub',
+      text: 'Source code, README and install scripts.',
+      href: 'https://github.com/FormaMindPro/vibeforma',
+      external: true,
+    },
+  ],
+  footerDocsLabel: 'Documentation',
+  footerMoreLabel: 'Journal and source',
+  footerNote: 'MIT license · Built with Astro and Starlight',
+};
+
+const ru = {
+  title: 'VibeForma — локальная голосовая диктовка для Windows',
+  description:
+    'VibeForma — локальная голосовая диктовка для Windows: нажмите горячую клавишу, говорите, и текст появляется там, где стоит курсор. Распознавание работает офлайн, примерно на 99 языках.',
+  skip: 'Перейти к содержимому',
+  nav: { docs: 'Документация', blog: 'Блог', logs: 'Логи', github: 'GitHub' },
+  navLabel: 'Основная навигация',
+  langSwitchLabel: 'Язык',
+  switchToRussian: 'Переключиться на русский',
+  switchToEnglish: 'Переключиться на английский',
+  eyebrow: 'Локальная голосовая диктовка · Windows 10/11',
+  tagline: 'From voice vibe to sharp form',
+  lead: 'Нажмите горячую клавишу, говорите — текст появляется там, где стоит курсор. Распознавание идёт на вашем компьютере, а не в облаке.',
+  meta: ['Около 99 языков', 'Работает офлайн', 'Лицензия MIT'],
+  ctaPrimary: 'Установить',
+  ctaSecondary: 'Открыть документацию',
+  sheetLive: 'Диктовка',
+  sheetPhrase: '«Заметки ко встрече в четверг.»',
+  sheetCaption: 'Текст появляется у курсора',
+  whatEyebrow: 'Что делает',
+  whatTitle: 'Говорите. Текст уже у курсора.',
+  whatLead:
+    'VibeForma — локальная диктовка для Windows. Она принимает речь с микрофона и вставляет распознанный текст в то поле, где стоит курсор.',
+  steps: [
+    { n: '01', title: 'Горячая клавиша', text: 'Горячая клавиша по умолчанию — Ctrl+Alt+Space.' },
+    {
+      n: '02',
+      title: 'Речь',
+      text: 'Язык распознавания задаётся в настройках; VibeForma распознаёт речь примерно на 99 языках.',
+    },
+    {
+      n: '03',
+      title: 'Текст',
+      text: 'Распознанный текст вставляется в позицию курсора; буфер обмена после вставки восстанавливается.',
+    },
+  ],
+  note: 'В основе распознавания — faster-whisper; оно идёт на вашем компьютере. Сеть нужна один раз — чтобы скачать модель, — и потом для обновлений.',
+  featuresEyebrow: 'Возможности',
+  featuresTitle: 'Что есть в приложении',
+  featuresLead:
+    'То, что нужно в VibeForma каждый день: локальное распознавание, вставка, которая не зависит от раскладки, словарь и история, которой вы управляете.',
+  features: [
+    {
+      title: 'Офлайн-распознавание',
+      text: 'faster-whisper работает на вашем компьютере. Сеть нужна, чтобы скачать модель, и для обновлений.',
+    },
+    { title: 'Около 99 языков', text: 'Язык распознавания фиксируется в настройках.' },
+    {
+      title: 'Вставка независимо от раскладки',
+      text: 'Shift+Insert вставляет текст при любой раскладке; буфер обмена после вставки восстанавливается.',
+    },
+    { title: 'Словарь', text: 'Импорт и экспорт, предпросмотр перед применением изменений.' },
+    {
+      title: 'История выключена по умолчанию',
+      text: 'Если её включить, хранятся последние 100 диктовок в history.jsonl.',
+    },
+    {
+      title: 'Подписанные обновления',
+      text: 'Манифест подписан minisign/Ed25519; перед обновлением сохраняется резервная копия, возможен откат.',
+    },
+    {
+      title: 'Два языка интерфейса',
+      text: 'Английский и русский; локали интерфейса хранятся в JSON-файлах.',
+    },
+    { title: 'Трей, панель, автозапуск', text: 'Значок в трее, панель мониторинга и автозапуск.' },
+  ],
+  settingsLabel: 'Вкладки настроек',
+  settingsTabs: ['Recording', 'Model & language', 'Dictionary', 'History', 'Appearance', 'System'],
+  installEyebrow: 'Быстрая установка',
+  installTitle: 'Установка одной командой',
+  requirements: 'Windows 10/11 x64 · Python 3.10+ в PATH',
+  installCommand: 'irm https://raw.githubusercontent.com/FormaMindPro/vibeforma/main/install.ps1 | iex',
+  copyLabel: 'Копировать',
+  copiedLabel: 'Скопировано',
+  installDetails: [
+    'Ставится в %LOCALAPPDATA%\\VibeForma.',
+    'Установщик принимает параметры -Model, -Target, -Cpu, -DryRun, -NoRun.',
+    'Модель распознавания скачивается один раз; после этого диктовка работает офлайн.',
+  ],
+  installLink: 'Руководство по установке',
+  exploreEyebrow: 'Смотреть дальше',
+  exploreTitle: 'Документация, заметки и исходный код',
+  explore: [
+    {
+      title: 'Документация',
+      text: 'Введение, установка, использование, конфиденциальность и решение проблем.',
+      href: docHref('/introduction/'),
+      external: false,
+    },
+    { title: 'Блог', text: 'Заметки о продукте и проекте.', href: docHref('/blog/'), external: false },
+    { title: 'Логи', text: 'Журнал разработки этого сайта.', href: docHref('/logs/'), external: false },
+    {
+      title: 'GitHub',
+      text: 'Исходный код, README и установочные скрипты.',
+      href: 'https://github.com/FormaMindPro/vibeforma',
+      external: true,
+    },
+  ],
+  footerDocsLabel: 'Документация',
+  footerMoreLabel: 'Журнал и исходный код',
+  footerNote: 'Лицензия MIT · Сайт собран на Astro и Starlight',
+};
+
+const t = isRu ? ru : en;
+
+const footerDocs = [
+  { label: isRu ? 'Введение' : 'Introduction', href: docHref('/introduction/') },
+  { label: isRu ? 'Установка' : 'Installation', href: docHref('/installation/') },
+  { label: isRu ? 'Использование' : 'Usage', href: docHref('/usage/') },
+  { label: isRu ? 'Конфиденциальность' : 'Privacy', href: docHref('/privacy/') },
+  { label: isRu ? 'Решение проблем' : 'Troubleshooting', href: docHref('/troubleshooting/') },
+];
+
+const footerMore = [
+  { label: isRu ? 'Блог' : 'Blog', href: docHref('/blog/'), external: false },
+  { label: isRu ? 'Логи' : 'Logs', href: docHref('/logs/'), external: false },
+  { label: 'GitHub', href: 'https://github.com/FormaMindPro/vibeforma', external: true },
+];
+---
+
+<!doctype html>
+<html lang={isRu ? 'ru' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{t.title}</title>
+    <meta name="description" content={t.description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#f8f5ec" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="VibeForma" />
+    <meta property="og:title" content={t.title} />
+    <meta property="og:description" content={t.description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.skip}</a>
+
+    <header class="site-header">
+      <div class="wrap header-row">
+        <a class="brand" href={isRu ? '/ru/' : '/'} aria-label="VibeForma">
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <rect x="1" y="1" width="18" height="18" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.5"></rect>
+            <path
+              d="M5.8 12.4V10.6M10 14V6.6M14.2 12.4V9.2"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"></path>
+            <circle class="mark-dot" cx="14.9" cy="5.4" r="1.3"></circle>
+          </svg>
+          <span>VibeForma</span>
+        </a>
+
+        <nav class="site-nav" aria-label={t.navLabel}>
+          <a href={docHref('/introduction/')}>{t.nav.docs}</a>
+          <a href={docHref('/blog/')}>{t.nav.blog}</a>
+          <a href={docHref('/logs/')}>{t.nav.logs}</a>
+          <a href="https://github.com/FormaMindPro/vibeforma" target="_blank" rel="noopener noreferrer">{t.nav.github}</a>
+          <div class="lang-switch" role="group" aria-label={t.langSwitchLabel}>
+            {
+              isRu ? (
+                <>
+                  <a href="/" hreflang="en" lang="en" aria-label={t.switchToEnglish}>
+                    EN
+                  </a>
+                  <span class="current" aria-current="true">
+                    RU
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span class="current" aria-current="true">
+                    EN
+                  </span>
+                  <a href="/ru/" hreflang="ru" lang="ru" aria-label={t.switchToRussian}>
+                    RU
+                  </a>
+                </>
+              )
+            }
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="wrap hero-inner">
+          <div>
+            <p class="eyebrow">{t.eyebrow}</p>
+            <h1>VibeForma</h1>
+            <p class="tagline">{t.tagline}</p>
+            <p class="lead">{t.lead}</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#install">{t.ctaPrimary} <span class="arrow" aria-hidden="true">↓</span></a>
+              <a class="btn btn-secondary" href={docHref('/introduction/')}>
+                {t.ctaSecondary} <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+            <p class="meta-row">
+              {t.meta.map((item) => <span>{item}</span>)}
+            </p>
+          </div>
+
+          <div class="sheet" aria-hidden="true">
+            <div class="sheet-head">
+              <span class="sheet-live">{t.sheetLive}</span>
+              <span class="hotkey">Ctrl+Alt+Space</span>
+            </div>
+            <div class="wave">
+              {waveHeights.map((height, index) => <span style={`--h:${height}px;--i:${index}`}></span>)}
+            </div>
+            <p class="sheet-text">{t.sheetPhrase}</p>
+            <p class="sheet-caption">{t.sheetCaption}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="what">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">{t.whatEyebrow}</p>
+            <h2>{t.whatTitle}</h2>
+            <p class="section-lead">{t.whatLead}</p>
+          </div>
+          <ol class="steps">
+            {
+              t.steps.map((step) => (
+                <li>
+                  <span class="step-n">{step.n}</span>
+                  <h3 class="step-title">{step.title}</h3>
+                  <p class="step-text">{step.text}</p>
+                </li>
+              ))
+            }
+          </ol>
+          <p class="note">{t.note}</p>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">{t.featuresEyebrow}</p>
+            <h2>{t.featuresTitle}</h2>
+            <p class="section-lead">{t.featuresLead}</p>
+          </div>
+          <div class="feature-grid">
+            {
+              t.features.map((feature) => (
+                <article class="feature">
+                  <h3>{feature.title}</h3>
+                  <p>{feature.text}</p>
+                </article>
+              ))
+            }
+          </div>
+          <div class="settings-strip">
+            <span class="settings-label">{t.settingsLabel}</span>
+            {t.settingsTabs.map((tab) => <span class="settings-tab">{tab}</span>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="install">
+        <div class="wrap">
+          <div class="install-panel">
+            <div>
+              <p class="eyebrow">{t.installEyebrow}</p>
+              <h2>{t.installTitle}</h2>
+              <p class="requirements">{t.requirements}</p>
+              <div class="code-row">
+                <code>{t.installCommand}</code>
+                <button
+                  class="copy-btn"
+                  type="button"
+                  data-copy
+                  data-label={t.copyLabel}
+                  data-copied={t.copiedLabel}>{t.copyLabel}</button>
+              </div>
+              <a class="install-link" href={docHref('/installation/')}>{t.installLink} →</a>
+            </div>
+            <div>
+              <ul class="install-list">
+                {t.installDetails.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="explore">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">{t.exploreEyebrow}</p>
+            <h2>{t.exploreTitle}</h2>
+          </div>
+          <div class="explore-grid">
+            {
+              t.explore.map((card) => (
+                <a
+                  class="explore-card"
+                  href={card.href}
+                  target={card.external ? '_blank' : undefined}
+                  rel={card.external ? 'noopener noreferrer' : undefined}>
+                  <span class="card-top">
+                    <h3>{card.title}</h3>
+                    <span class="go" aria-hidden="true">
+                      {card.external ? '↗' : '→'}
+                    </span>
+                  </span>
+                  <p>{card.text}</p>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div>
+            <a class="footer-brand" href={isRu ? '/ru/' : '/'}>
+              <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                <rect x="1" y="1" width="18" height="18" rx="4.5" fill="none" stroke="currentColor" stroke-width="1.5"></rect>
+                <path
+                  d="M5.8 12.4V10.6M10 14V6.6M14.2 12.4V9.2"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"></path>
+                <circle class="mark-dot" cx="14.9" cy="5.4" r="1.3"></circle>
+              </svg>
+              <span>VibeForma</span>
+            </a>
+            <p class="footer-tagline">{t.tagline}</p>
+          </div>
+
+          <nav aria-label={t.footerDocsLabel}>
+            <h2 class="footer-heading">{t.footerDocsLabel}</h2>
+            <ul class="footer-list">
+              {footerDocs.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+            </ul>
+          </nav>
+
+          <nav aria-label={t.footerMoreLabel}>
+            <h2 class="footer-heading">{t.footerMoreLabel}</h2>
+            <ul class="footer-list">
+              {
+                footerMore.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noopener noreferrer' : undefined}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 FormaMindPro</p>
+          <p>{t.footerNote}</p>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      document.querySelectorAll('[data-copy]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var row = button.closest('.code-row');
+          var code = row ? row.querySelector('code') : null;
+          if (!code || !navigator.clipboard) return;
+          navigator.clipboard.writeText(code.textContent || '').then(function () {
+            var original = button.getAttribute('data-label') || button.textContent;
+            button.textContent = button.getAttribute('data-copied') || original;
+            window.setTimeout(function () {
+              button.textContent = original;
+            }, 1800);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

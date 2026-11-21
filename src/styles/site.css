@@ -1,0 +1,70 @@
+/*
+ * VibeForma documentation theme.
+ * Paper background, ink text, one signal accent (rust).
+ * Starlight reads the --sl-color-* scale, so both themes are redefined here
+ * and everything (nav, sidebar, code, asides) follows.
+ */
+
+:root,
+::backdrop {
+  /* Dark theme: ink desk */
+  --sl-color-white: #f4f1e8;
+  --sl-color-gray-1: #e8e4d8;
+  --sl-color-gray-2: #cfcabc;
+  --sl-color-gray-3: #a5a294;
+  --sl-color-gray-4: #78776c;
+  --sl-color-gray-5: #4c4c44;
+  --sl-color-gray-6: #2b2c27;
+  --sl-color-black: #191a17;
+
+  --sl-color-accent-low: #43200f;
+  --sl-color-accent: #d96a3e;
+  --sl-color-accent-high: #f0b49a;
+
+  --sl-color-text-accent: var(--sl-color-accent-high);
+  --sl-color-bg-nav: var(--sl-color-gray-6);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
+}
+
+:root[data-theme='light'],
+[data-theme='light'] ::backdrop {
+  /* Light theme: paper */
+  --sl-color-white: #191a17;
+  --sl-color-gray-1: #2c2d27;
+  --sl-color-gray-2: #45463e;
+  --sl-color-gray-3: #66675d;
+  --sl-color-gray-4: #8f9084;
+  --sl-color-gray-5: #c6c1b2;
+  --sl-color-gray-6: #e3ded1;
+  --sl-color-gray-7: #efeade;
+  --sl-color-black: #f8f5ec;
+
+  --sl-color-accent-low: #f1dcd1;
+  --sl-color-accent: #ac3a1b;
+  --sl-color-accent-high: #6f2410;
+
+  --sl-color-text-accent: var(--sl-color-accent);
+  --sl-color-bg-nav: var(--sl-color-gray-7);
+  --sl-color-bg-sidebar: var(--sl-color-bg);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--sl-color-accent) 24%, transparent);
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) {
+  letter-spacing: -0.015em;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, var(--sl-color-accent) 45%, transparent);
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+  text-decoration-color: var(--sl-color-accent);
+}
+
+.sl-markdown-content li::marker {
+  color: var(--sl-color-accent);
+}
