@@ -80,7 +80,7 @@ vibeforma.pro/
 
 ```
 vibeforma.pro/project/production/vibeforma.pro/   (этот каталог — исходник)
-   → github.com/FormaMindPro/doc-vibeforma   (публикация исходника на GitHub)
+   → github.com/great-foundation-pro/doc-vibeforma   (публикация исходника на GitHub)
       → установка на cool.6ministersbiz.pro  (развертывание)
 ```
 
