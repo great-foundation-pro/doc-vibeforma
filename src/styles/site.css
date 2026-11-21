@@ -224,14 +224,14 @@ site-search dialog::backdrop {
   backdrop-filter: blur(8px);
 }
 
-starlight-menu-button button {
+.sl-menu-button {
   border: 1px solid var(--vf-line-strong);
   background-color: rgba(238, 242, 247, 0.06);
   color: var(--vf-ice);
   box-shadow: none;
 }
 
-starlight-menu-button button:hover {
+.sl-menu-button:hover {
   border-color: rgba(91, 233, 255, 0.45);
   color: var(--vf-pulse);
 }
@@ -559,32 +559,32 @@ footer .meta a:hover {
 
 /* Blog */
 
-.posts > .preview {
+.sl-blog-posts > .sl-blog-preview {
   padding-bottom: 2.4rem;
   border-bottom: 1px solid var(--vf-line-soft);
 }
 
-.posts > .preview:last-child {
+.sl-blog-posts > .sl-blog-preview:last-child {
   border-bottom: 0;
   padding-bottom: 0;
 }
 
-.preview h2 {
+.sl-blog-preview-title {
   font-family: var(--vf-display);
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   font-weight: 500;
   letter-spacing: -0.025em;
 }
 
-.preview h2 a {
-  color: var(--vf-ice);
+.sl-blog-preview-link .sl-blog-preview-title {
+  color: var(--vf-ice) !important;
 }
 
-.preview h2 a:hover {
-  color: var(--vf-pulse);
+.sl-blog-preview-link:hover .sl-blog-preview-title {
+  color: var(--vf-pulse) !important;
 }
 
-.metadata {
+.sl-blog-metadata {
   color: var(--vf-faint);
   font-family: var(--vf-mono);
   font-size: 0.62rem;
@@ -592,11 +592,11 @@ footer .meta a:hover {
   text-transform: uppercase;
 }
 
-.metadata .metadata-alt {
+.sl-blog-metadata .sl-blog-metadata-secondary {
   color: var(--vf-faint);
 }
 
-.author .name {
+.sl-blog-author .sl-blog-author-name {
   color: var(--vf-muted);
 }
 
