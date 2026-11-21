@@ -1,6 +1,15 @@
 ---
+import { Image } from 'astro:assets';
 import '../styles/fonts.css';
 import '../styles/landing.css';
+import nebula from '../assets/landing/01-nebula.jpg';
+import starfield from '../assets/landing/02-starfield.jpg';
+import planet from '../assets/landing/03-planet.jpg';
+import wave from '../assets/landing/04-wave.jpg';
+import organic from '../assets/landing/05-organic.jpg';
+import city from '../assets/landing/06-city.jpg';
+import water from '../assets/landing/featured-water.jpg';
+import silhouette from '../assets/landing/trust-silhouette.jpg';
 
 interface Props {
   locale?: 'en' | 'ru';
@@ -15,14 +24,14 @@ const repo = 'https://github.com/FormaMindPro/vibeforma';
 const forma = 'https://formamind.pro';
 
 const media = {
-  nebula: '/assets/landing/01-nebula.jpg',
-  starfield: '/assets/landing/02-starfield.jpg',
-  planet: '/assets/landing/03-planet.jpg',
-  wave: '/assets/landing/04-wave.jpg',
-  organic: '/assets/landing/05-organic.jpg',
-  city: '/assets/landing/06-city.jpg',
-  water: '/assets/landing/featured-water.jpg',
-  silhouette: '/assets/landing/trust-silhouette.jpg',
+  nebula,
+  starfield,
+  planet,
+  wave,
+  organic,
+  city,
+  water,
+  silhouette,
 };
 
 const installParts = [
@@ -532,7 +541,7 @@ const installHref = docHref('/installation/');
               t.worlds.cards.map((card, index) => (
                 <article class="epoch-card">
                   <figure class="epoch-img" data-img-reveal="">
-                    <img src={t.worlds.images[index]} alt={card.alt} loading="lazy" />
+                    <Image src={t.worlds.images[index]} alt={card.alt} loading="lazy" widths={[480, 800]} sizes="(max-width: 900px) 78vw, 420px" />
                   </figure>
                   <div class="epoch-body">
                     <span class="epoch-no">{card.no}</span>
@@ -565,7 +574,7 @@ const installHref = docHref('/installation/');
           </div>
 
           <figure class="featured-img" data-img-reveal="" data-speed="1.1">
-            <img src={t.featured.src} alt={t.featured.alt} loading="lazy" />
+            <Image src={t.featured.src} alt={t.featured.alt} loading="lazy" widths={[520, 780, 1024]} sizes="(max-width: 900px) 88vw, 480px" />
             <figcaption><span>{t.featured.captionNo}</span>{t.featured.caption}</figcaption>
           </figure>
         </div>
@@ -578,7 +587,7 @@ const installHref = docHref('/installation/');
             <h2 class="h2 split glitch" set:html={t.trust.title}></h2>
             <p class="visit-copy" data-reveal="">{t.trust.copy}</p>
             <figure class="visit-img" data-img-reveal="">
-              <img src={t.trust.src} alt={t.trust.alt} loading="lazy" />
+              <Image src={t.trust.src} alt={t.trust.alt} loading="lazy" widths={[640, 960, 1280]} sizes="(max-width: 900px) 90vw, 640px" />
               <figcaption><span>{t.trust.figNo}</span>{t.trust.figCaption}</figcaption>
             </figure>
           </div>
