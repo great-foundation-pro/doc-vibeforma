@@ -603,6 +603,192 @@ const jsonLd = {
         </div>
       </section>
 
+      {isRu && (
+        <>
+          <section class="section catalog" id="features" data-shape="3" data-bg="#05080e" data-glow="#5be9ff" data-epoch="Функционал"><div class="wrap"><p class="kicker" data-reveal="">Функционал</p><h2 class="h2 split glitch">То, что уже <em>работает</em></h2><p class="catalog-copy" data-reveal="">Раздел, где расписан весь функционал: восемь категорий, у каждой — свои разделы.</p><div class="catalog-grid"><article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-speech" data-modal="speech"><span class="catalog-no">01</span><span class="catalog-flag">ГОТОВО</span><h3>Диктовка и русский язык</h3><p>Нажал, сказал — текст у курсора; локально, по-русски, без аккаунтов.</p></article><article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-panel" data-modal="panel"><span class="catalog-no">02</span><span class="catalog-flag">ГОТОВО</span><h3>Панель и окно настроек</h3><p>Прозрачная панель и живые настройки — без перезапуска сервиса.</p></article><article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-memory" data-modal="memory"><span class="catalog-no">03</span><span class="catalog-flag">ГОТОВО</span><h3>Память и текст под рукой</h3><p>История, словарь, сниппеты, статистика и безопасная вставка — всё локально.</p></article><article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-files-cli" data-modal="files-cli"><span class="catalog-no">04</span><span class="catalog-flag">ГОТОВО</span><h3>Файлы, CLI и агенты</h3><p>Второй вход в тот же движок: файл вместо микрофона; управление из скриптов.</p></article><article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-install" data-modal="install"><span class="catalog-no">05</span><span class="catalog-flag">ГОТОВО</span><h3>Установка и обновление</h3><p>Модель загружается один раз, дальше всё работает локально.</p></article><article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-privacy" data-modal="privacy"><span class="catalog-no">06</span><span class="catalog-flag">ГОТОВО</span><h3>Приватность и диагностика</h3><p>Ничего лишнего не записывается; проверка машины — одной командой.</p></article><article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-quality" data-modal="quality"><span class="catalog-no">07</span><span class="catalog-flag">ГОТОВО</span><h3>Качество и инфраструктура</h3><p>Качество сборки удерживается автоматически при каждом изменении.</p></article><article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-formamind" data-modal="formamind"><span class="catalog-no">08</span><span class="catalog-flag">ГОТОВО</span><h3>FormaMind и голосовые задачи</h3><p>Голос — вход в задачи проекта: VibeForma + FormaMind.</p></article></div><div class="vf-backdrop" data-backdrop="speech" aria-hidden="true"></div><div class="vf-modal" data-modal="speech" id="vf-modal-catalog-speech" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-speech" tabindex="-1"><div class="vf-bg" style="background-image:url('/catalog/01-speech.webp')"></div><button type="button" class="vf-close" data-close aria-label="Закрыть окно">✕</button><span class="p-when">Сейчас</span><h3 class="vf-title" id="vf-title-catalog-speech">Диктовка и русский язык</h3><p class="vf-desc">Нажал, сказал — текст у курсора в любом приложении Windows.</p><ul class="vf-items"><li>Хоткей — говорите — текст вставляется там, где стоял курсор.</li><li>Локальное распознавание на faster-whisper: сеть нужна только для первой загрузки модели.</li><li>Фраза завершается автоматически по паузе тишины.</li><li>Язык распознавания точный, без угадывания; названия языков — эндонимами.</li><li>Частичные транскрипции стримятся в панель почти в реальном времени.</li><li>Отмена диктовки — Esc в любой момент.</li><li>Hold to talk (hold_to_talk): нажали — говорите — отпустили, запись останавливается сама; альтернатива режиму переключения.</li><li>Глобальный хоткей: комбинации нормализуются, запись нажатием в онбординге; сочетания, занятые Windows, — только предупреждение.</li><li>Интерфейс — английский и русский из коробки.</li><li>Языки распознавания названы эндонимами: English, Русский, Українська, Deutsch.</li><li>Распознавание идёт ровно выбранным языком, без угадывания.</li><li>Переключение языка — в трее и в настройках.</li><li>Установщик говорит по-русски на русской Windows.</li></ul></div><div class="vf-backdrop" data-backdrop="panel" aria-hidden="true"></div><div class="vf-modal" data-modal="panel" id="vf-modal-catalog-panel" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-panel" tabindex="-1"><div class="vf-bg" style="background-image:url('/catalog/02-panel.webp')"></div><button type="button" class="vf-close" data-close aria-label="Закрыть окно">✕</button><span class="p-when">Сейчас</span><h3 class="vf-title" id="vf-title-catalog-panel">Панель и окно настроек</h3><p class="vf-desc">Прозрачная панель следит за диктовкой: уровень, паузы, черновик и действия над ним.</p><ul class="vf-items"><li>Панель мониторинга: уровень микрофона, индикатор VAD, стриминг распознанного текста; прозрачность и авторасширение настраиваются.</li><li>Рост панели пропорционален тексту: панель не «ползёт» вверх за экран, черновик держит минимум шесть строк.</li><li>DPI-aware геометрия панели и окна настроек: читаемость при 150%.</li><li>Диктовка с панели: кнопка микрофона, ряд «Корректировать / Копировать / Вставить / Отмена»; «Вставить» — в выбранное окно, без выбора — в буфер.</li><li>Листание сохранённых диктовок стрелками в заголовке панели (при включённой истории).</li><li>Оверлей распознавания: панель затемняется, по ней бежит процент; 100% — только с готовым текстом.</li><li>Режим приватности (кнопка-глаз): текст скрыт, уровень микрофона виден.</li><li>Синяя кнопка «Обновить» появляется при найденном релизе.</li><li>Скрытие панели ✕: иконка трея остаётся, повторный запуск показывает панель.</li><li>Скруглённые углы панели и тёмная полоса заголовка через DWM.</li><li>Окно с сайдбаром и девятью разделами: Запись, Горячие клавиши, Модель и язык, Словарь, Сниппеты, История, Статистика, Вид, Система.</li><li>Настройки применяются на живом сервисе без перезапуска.</li><li>Стабильная геометрия окна: размер считается один раз, ограничивается экраном, центрируется.</li><li>Служебные клавиши: Ctrl+F — поиск, Ctrl+S — сохранить, Esc — закрыть; Reset не трогает модель, словарь и историю.</li><li>Смена хоткея с защитой: невалидная комбинация не сохраняется, прежняя остаётся.</li><li>Смена модели через диалог прогресса внутри окна; при идущей диктовке — ответ «busy».</li></ul></div><div class="vf-backdrop" data-backdrop="memory" aria-hidden="true"></div><div class="vf-modal" data-modal="memory" id="vf-modal-catalog-memory" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-memory" tabindex="-1"><div class="vf-bg" style="background-image:url('/catalog/03-memory.webp')"></div><button type="button" class="vf-close" data-close aria-label="Закрыть окно">✕</button><span class="p-when">Сейчас</span><h3 class="vf-title" id="vf-title-catalog-memory">Память и текст под рукой</h3><p class="vf-desc">Локальная память диктовок: включается по желанию, хранится только на машине.</p><ul class="vf-items"><li>Локальная история по умолчанию выключена: последние 100 диктовок; выключение удаляет файл.</li><li>Таблица истории: «Когда / Знаков / Приложение / Текст», поиск, фильтры, удаление.</li><li>«Отменить последнюю вставку»: Ctrl+Z в то же окно, в пределах 30 секунд.</li><li>«Вернуть буфер»: буфер возвращается к состоянию до диктовки.</li><li>Словарь: пары термин → замена, до 500 пар; побеждает самый длинный термин; импорт и экспорт JSON.</li><li>Быстрое обучение: «как услышано → как нужно» из черновика и истории, только после подтверждения.</li><li>Сниппеты: произносимый триггер заменяется подготовленным текстом; до 500 пар, переносы сохраняются.</li><li>Вкладка сниппетов: правка, импорт/экспорт, предпросмотр, валидация.</li><li>Статистика: счётчики диктовок, слов, знаков и секунд по дням; только числа, никогда не текст.</li><li>Вставка, независимая от раскладки: Shift+Insert по умолчанию, Ctrl+V переключается.</li><li>Вставка только в окно, активное при нажатии хоткея: фокус не крадётся.</li><li>Возврат прежнего буфера через секунду, если его никто не трогал.</li><li>На Windows 10+ продиктованный текст исключается из истории буфера и облачной синхронизации.</li><li>Уведомления по умолчанию без текста («Вставлено, N знаков»); показ фразы — по желанию.</li><li>Вкладка клавиш перечисляет всё, что слушает приложение; редактируется только хоткей диктовки.</li></ul></div><div class="vf-backdrop" data-backdrop="files-cli" aria-hidden="true"></div><div class="vf-modal" data-modal="files-cli" id="vf-modal-catalog-files-cli" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-files-cli" tabindex="-1"><div class="vf-bg" style="background-image:url('/catalog/04-files-cli.webp')"></div><button type="button" class="vf-close" data-close aria-label="Закрыть окно">✕</button><span class="p-when">Сейчас</span><h3 class="vf-title" id="vf-title-catalog-files-cli">Файлы, CLI и агенты</h3><p class="vf-desc">Транскрибация файлов и локальный контракт для обвязок — всё на loopback-адресе.</p><ul class="vf-items"><li>Аудио- и видеофайлы, декодируемые локально.</li><li>Вывод в TXT, JSON, SRT и VTT с таймкодами.</li><li>Очередь заданий с паузой, возобновлением и приоритетом живой диктовки.</li><li>Пункт трея «Транскрибировать файл…» и строка прогресса в панели.</li><li>--transcribe в командной строке.</li><li>OpenAI-совместимый эндпоинт транскрибации и job-API.</li><li>Расширенный location.json и именованный канал для локальных обвязок.</li><li>Настройки корней файлов, лимитов размера и длительности, хранения заданий.</li><li>--toggle (запись), --cancel (отбросить), --status (состояние экземпляра).</li><li>Внешний хук (выключен по умолчанию): текст уходит на stdin вашей команды, без shell и метасимволов.</li><li>Локальный HTTP API (по умолчанию выключен): только 127.0.0.1, токен, не чаще запроса в секунду.</li><li>Автоматический порт: занятый заменяется, адрес публикуется в location.json; секрета в файле нет.</li><li>Ключ API создаётся при первом включении; слушатель стартует и останавливается на живом сервисе.</li></ul></div><div class="vf-backdrop" data-backdrop="install" aria-hidden="true"></div><div class="vf-modal" data-modal="install" id="vf-modal-catalog-install" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-install" tabindex="-1"><div class="vf-bg" style="background-image:url('/catalog/05-install.webp')"></div><button type="button" class="vf-close" data-close aria-label="Закрыть окно">✕</button><span class="p-when">Сейчас</span><h3 class="vf-title" id="vf-title-catalog-install">Установка и обновление</h3><p class="vf-desc">Модель загружается один раз, дальше всё работает локально.</p><ul class="vf-items"><li>Одна команда: irm … | iex — установщик сам находит Python, скачивает релиз и ставит сервис.</li><li>Установка — в %LOCALAPPDATA%\VibeForma: ярлыки и запись в «Параметрах → Приложения», без прав администратора.</li><li>Установщик — транзакция: сбой останавливает цепочку, повторный запуск продолжает с места сбоя.</li><li>Модель и каталог установки выбираются при установке.</li><li>Автообновление предлагает релиз, а не ставит молча — кнопка «Обновить» на панели.</li><li>Удаление — uninstall.cmd; модели и config.json остаются, переустановка стартует офлайн.</li></ul></div><div class="vf-backdrop" data-backdrop="privacy" aria-hidden="true"></div><div class="vf-modal" data-modal="privacy" id="vf-modal-catalog-privacy" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-privacy" tabindex="-1"><div class="vf-bg" style="background-image:url('/catalog/06-privacy.webp')"></div><button type="button" class="vf-close" data-close aria-label="Закрыть окно">✕</button><span class="p-when">Сейчас</span><h3 class="vf-title" id="vf-title-catalog-privacy">Приватность и диагностика</h3><p class="vf-desc">Ничего лишнего не записывается; проверка машины — одной командой.</p><ul class="vf-items"><li>Логи с ротацией: текст диктовки не пишется никогда; никакой телеметрии, аккаунтов, токенов.</li><li>Режим приватности панели и исключение текста из истории буфера.</li><li>Диагностика --doctor: Python, модель, CUDA/CPU, микрофон, хоткей; у каждой строки OK/WARN/FAIL; отчёт — без текста диктовки и токена.</li><li>Самопроверка --selftest: импорты, модель, тестовый аудиофайл, распознанный текст.</li><li>Каталог ошибок: у каждой ошибки код, понятное сообщение и следующее действие.</li><li>Руководство по типовым проблемам: микрофон, порт, место на диске, модель, вставка, обновления.</li></ul></div><div class="vf-backdrop" data-backdrop="quality" aria-hidden="true"></div><div class="vf-modal" data-modal="quality" id="vf-modal-catalog-quality" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-quality" tabindex="-1"><div class="vf-bg" style="background-image:url('/catalog/07-quality.webp')"></div><button type="button" class="vf-close" data-close aria-label="Закрыть окно">✕</button><span class="p-when">Сейчас</span><h3 class="vf-title" id="vf-title-catalog-quality">Качество и инфраструктура</h3><p class="vf-desc">Качество сборки удерживается автоматически при каждом изменении.</p><ul class="vf-items"><li>CI GitHub Actions: полный набор тестов на Windows, кроссплатформенное подмножество, ruff-гейт, strict mypy.</li><li>Тесты идут без модели, GPU и сети.</li><li>Один экземпляр: блокировка второго запуска, автозапуск с Windows, ротация логов.</li><li>status.json пишется сервисом на каждом изменении состояния.</li><li>Трей: настройки, панель, диагностика, пауза, устройство ввода, смена модели и языка, история, логи.</li><li>Первый запуск — помощник из трёх шагов: языки, микрофон с живым уровнем, хоткей записью нажатием.</li></ul></div><div class="vf-backdrop" data-backdrop="formamind" aria-hidden="true"></div><div class="vf-modal" data-modal="formamind" id="vf-modal-catalog-formamind" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-formamind" tabindex="-1"><div class="vf-bg" style="background-image:url('/catalog/08-formamind.webp')"></div><button type="button" class="vf-close" data-close aria-label="Закрыть окно">✕</button><span class="p-when">Сейчас</span><h3 class="vf-title" id="vf-title-catalog-formamind">FormaMind и голосовые задачи</h3><p class="vf-desc">Голос и задачи проекта — в одной среде с ИИ-ассистентом.</p><ul class="vf-items"><li>Среда управления проектами с ИИ-ассистентом — formamind.pro.</li><li>VibeForma — основной голосовой вход в FormaMind.</li><li>Нативная интеграция с FormaMind — голосовое управление задачами проекта.</li></ul></div></div></section>
+        </>
+      )}
+
+      {!isRu && (
+        <>
+          <section class="section catalog" id="features" data-shape="3" data-bg="#05080e" data-glow="#5be9ff" data-epoch="Features">
+            <div class="wrap">
+              <p class="kicker" data-reveal="">Features</p>
+              <h2 class="h2 split glitch">What already <em>works</em></h2>
+              <p class="catalog-copy" data-reveal="">The section that lays out everything the product does: eight categories, each with its own sections.</p>
+              <div class="catalog-grid">
+                <article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-speech" data-modal="speech"><span class="catalog-no">01</span><span class="catalog-flag">READY</span><h3>Dictation and Russian</h3><p>Press, speak — text at the cursor; local, Russian first, no accounts.</p></article>
+                <article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-panel" data-modal="panel"><span class="catalog-no">02</span><span class="catalog-flag">READY</span><h3>Panel and settings window</h3><p>A translucent panel and live settings — without restarting the service.</p></article>
+                <article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-memory" data-modal="memory"><span class="catalog-no">03</span><span class="catalog-flag">READY</span><h3>Memory and text at hand</h3><p>History, dictionary, snippets, statistics and safe paste — all local.</p></article>
+                <article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-files-cli" data-modal="files-cli"><span class="catalog-no">04</span><span class="catalog-flag">READY</span><h3>Files, CLI and agents</h3><p>A second entry into the same engine: a file instead of a microphone; control from scripts.</p></article>
+                <article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-install" data-modal="install"><span class="catalog-no">05</span><span class="catalog-flag">READY</span><h3>Install and update</h3><p>The model downloads once, then everything works locally.</p></article>
+                <article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-privacy" data-modal="privacy"><span class="catalog-no">06</span><span class="catalog-flag">READY</span><h3>Privacy and diagnostics</h3><p>Nothing extra is recorded; checking the machine — with one command.</p></article>
+                <article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-quality" data-modal="quality"><span class="catalog-no">07</span><span class="catalog-flag">READY</span><h3>Quality and infrastructure</h3><p>Build quality is kept automatically on every change.</p></article>
+                <article class="catalog-card" tabindex="0" role="button" aria-haspopup="dialog" aria-controls="vf-modal-catalog-formamind" data-modal="formamind"><span class="catalog-no">08</span><span class="catalog-flag">READY</span><h3>FormaMind and voice tasks</h3><p>Voice is the entry to project tasks: VibeForma + FormaMind.</p></article>
+              </div>
+              <div class="vf-backdrop" data-backdrop="speech" aria-hidden="true"></div>
+              <div class="vf-modal" data-modal="speech" id="vf-modal-catalog-speech" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-speech" tabindex="-1">
+                <div class="vf-bg" style="background-image:url('/catalog/01-speech.webp')"></div>
+                <button type="button" class="vf-close" data-close aria-label="Close window">✕</button>
+                <span class="p-when">Now</span>
+                <h3 class="vf-title" id="vf-title-catalog-speech">Dictation and Russian</h3>
+                <p class="vf-desc">Press, speak — text at the cursor in any Windows application.</p>
+                <ul class="vf-items">
+                  <li>Hotkey — speak — the text is inserted where the cursor stood.</li>
+                  <li>Local recognition on faster-whisper: the network is needed only for the first model download.</li>
+                  <li>The phrase ends automatically on a pause of silence.</li>
+                  <li>The recognition language is exact, no guessing; languages are named by their endonyms.</li>
+                  <li>Partial transcriptions stream into the panel in near real time.</li>
+                  <li>Cancel dictation — Esc at any moment.</li>
+                  <li>Hold to talk (hold_to_talk): press — speak — release, recording stops by itself; an alternative to toggle mode.</li>
+                  <li>Global hotkey: combinations are normalized, recording by key press in onboarding; combinations taken by Windows — a warning only.</li>
+                  <li>Interface — English and Russian out of the box.</li>
+                  <li>Recognition languages are named by endonyms: English, Русский, Українська, Deutsch.</li>
+                  <li>Recognition runs exactly in the selected language, no guessing.</li>
+                  <li>Language switching — in the tray and in the settings.</li>
+                  <li>The installer speaks Russian on Russian Windows.</li>
+                </ul>
+              </div>
+              <div class="vf-backdrop" data-backdrop="panel" aria-hidden="true"></div>
+              <div class="vf-modal" data-modal="panel" id="vf-modal-catalog-panel" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-panel" tabindex="-1">
+                <div class="vf-bg" style="background-image:url('/catalog/02-panel.webp')"></div>
+                <button type="button" class="vf-close" data-close aria-label="Close window">✕</button>
+                <span class="p-when">Now</span>
+                <h3 class="vf-title" id="vf-title-catalog-panel">Panel and settings window</h3>
+                <p class="vf-desc">A translucent panel watches dictation: level, pauses, draft and actions on it.</p>
+                <ul class="vf-items">
+                  <li>Monitoring panel: microphone level, VAD indicator, streaming recognized text; transparency and auto-expansion are configurable.</li>
+                  <li>The panel grows proportionally to the text: it doesn't crawl up off-screen, the draft keeps at least six lines.</li>
+                  <li>DPI-aware geometry of the panel and settings window: readable at 150%.</li>
+                  <li>Dictation from the panel: microphone button, a row of "Correct / Copy / Paste / Cancel"; "Paste" — into the selected window, without a selection — to the clipboard.</li>
+                  <li>Paging through saved dictations with arrows in the panel header (when history is on).</li>
+                  <li>Recognition overlay: the panel dims, a percentage runs across it; 100% — only with the text ready.</li>
+                  <li>Privacy mode (eye button): text hidden, microphone level visible.</li>
+                  <li>The blue "Update" button appears when a release is found.</li>
+                  <li>Hiding the panel ✕: the tray icon remains, launching again shows the panel.</li>
+                  <li>Rounded panel corners and a dark title bar via DWM.</li>
+                  <li>A window with a sidebar and nine sections: Recording, Hotkeys, Model and language, Dictionary, Snippets, History, Statistics, Appearance, System.</li>
+                  <li>Settings apply on the live service without a restart.</li>
+                  <li>Stable window geometry: size is computed once, limited by the screen, centered.</li>
+                  <li>Service keys: Ctrl+F — search, Ctrl+S — save, Esc — close; Reset doesn't touch the model, dictionary and history.</li>
+                  <li>Hotkey change with protection: an invalid combination isn't saved, the previous one remains.</li>
+                  <li>Model change via a progress dialog inside the window; during dictation — the answer "busy".</li>
+                </ul>
+              </div>
+              <div class="vf-backdrop" data-backdrop="memory" aria-hidden="true"></div>
+              <div class="vf-modal" data-modal="memory" id="vf-modal-catalog-memory" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-memory" tabindex="-1">
+                <div class="vf-bg" style="background-image:url('/catalog/03-memory.webp')"></div>
+                <button type="button" class="vf-close" data-close aria-label="Close window">✕</button>
+                <span class="p-when">Now</span>
+                <h3 class="vf-title" id="vf-title-catalog-memory">Memory and text at hand</h3>
+                <p class="vf-desc">Local dictation memory: enabled on demand, stored only on the machine.</p>
+                <ul class="vf-items">
+                  <li>Local history is off by default: the last 100 dictations; turning it off deletes the file.</li>
+                  <li>History table: "When / Characters / Application / Text", search, filters, deletion.</li>
+                  <li>"Undo last paste": Ctrl+Z into the same window, within 30 seconds.</li>
+                  <li>"Restore clipboard": the clipboard returns to the state before dictation.</li>
+                  <li>Dictionary: term → replacement pairs, up to 500 pairs; the longest term wins; JSON import and export.</li>
+                  <li>Quick learning: "as heard → as needed" from the draft and history, only after confirmation.</li>
+                  <li>Snippets: a spoken trigger is replaced with prepared text; up to 500 pairs, line breaks preserved.</li>
+                  <li>Snippets tab: editing, import/export, preview, validation.</li>
+                  <li>Statistics: counters of dictations, words, characters and seconds by day; numbers only, never text.</li>
+                  <li>Paste independent of the layout: Shift+Insert by default, Ctrl+V switchable.</li>
+                  <li>Paste only into the window active when the hotkey was pressed: focus isn't stolen.</li>
+                  <li>The previous clipboard is restored after a second if nobody touched it.</li>
+                  <li>On Windows 10+, dictated text is excluded from clipboard history and cloud sync.</li>
+                  <li>Notifications by default without text ("Pasted, N characters"); showing the phrase — optional.</li>
+                  <li>Hotkeys tab lists everything the app listens to; only the dictation hotkey is editable.</li>
+                </ul>
+              </div>
+              <div class="vf-backdrop" data-backdrop="files-cli" aria-hidden="true"></div>
+              <div class="vf-modal" data-modal="files-cli" id="vf-modal-catalog-files-cli" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-files-cli" tabindex="-1">
+                <div class="vf-bg" style="background-image:url('/catalog/04-files-cli.webp')"></div>
+                <button type="button" class="vf-close" data-close aria-label="Close window">✕</button>
+                <span class="p-when">Now</span>
+                <h3 class="vf-title" id="vf-title-catalog-files-cli">Files, CLI and agents</h3>
+                <p class="vf-desc">File transcription and a local contract for wrappers — all on the loopback address.</p>
+                <ul class="vf-items">
+                  <li>Audio and video files decoded locally.</li>
+                  <li>Output to TXT, JSON, SRT and VTT with timecodes.</li>
+                  <li>Job queue with pause, resume and priority of live dictation.</li>
+                  <li>Tray item "Transcribe file…" and a progress line in the panel.</li>
+                  <li>--transcribe on the command line.</li>
+                  <li>OpenAI-compatible transcription endpoint and job API.</li>
+                  <li>Extended location.json and a named pipe for local wrappers.</li>
+                  <li>Settings for file roots, size and duration limits, job storage.</li>
+                  <li>--toggle (record), --cancel (discard), --status (instance state).</li>
+                  <li>External hook (off by default): text goes to your command's stdin, without a shell and metacharacters.</li>
+                  <li>Local HTTP API (off by default): 127.0.0.1 only, token, no more than one request per second.</li>
+                  <li>Automatic port: a busy one is replaced, the address is published in location.json; no secret in the file.</li>
+                  <li>The API key is created on first enable; the listener starts and stops on the live service.</li>
+                </ul>
+              </div>
+              <div class="vf-backdrop" data-backdrop="install" aria-hidden="true"></div>
+              <div class="vf-modal" data-modal="install" id="vf-modal-catalog-install" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-install" tabindex="-1">
+                <div class="vf-bg" style="background-image:url('/catalog/05-install.webp')"></div>
+                <button type="button" class="vf-close" data-close aria-label="Close window">✕</button>
+                <span class="p-when">Now</span>
+                <h3 class="vf-title" id="vf-title-catalog-install">Install and update</h3>
+                <p class="vf-desc">The model downloads once, then everything works locally.</p>
+                <ul class="vf-items">
+                  <li>One command: irm … | iex — the installer finds Python, downloads the release and sets up the service.</li>
+                  <li>Installation — to %LOCALAPPDATA%\VibeForma: shortcuts and an entry in "Settings → Apps", no admin rights.</li>
+                  <li>The installer is a transaction: a failure stops the chain, a re-run continues from the failure point.</li>
+                  <li>The model and installation directory are chosen during setup.</li>
+                  <li>Auto-update offers a release rather than installing silently — the "Update" button on the panel.</li>
+                  <li>Removal — uninstall.cmd; models and config.json remain, reinstallation starts offline.</li>
+                </ul>
+              </div>
+              <div class="vf-backdrop" data-backdrop="privacy" aria-hidden="true"></div>
+              <div class="vf-modal" data-modal="privacy" id="vf-modal-catalog-privacy" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-privacy" tabindex="-1">
+                <div class="vf-bg" style="background-image:url('/catalog/06-privacy.webp')"></div>
+                <button type="button" class="vf-close" data-close aria-label="Close window">✕</button>
+                <span class="p-when">Now</span>
+                <h3 class="vf-title" id="vf-title-catalog-privacy">Privacy and diagnostics</h3>
+                <p class="vf-desc">Nothing extra is recorded; checking the machine — with one command.</p>
+                <ul class="vf-items">
+                  <li>Rotating logs: dictation text is never written; no telemetry, accounts, tokens.</li>
+                  <li>Panel privacy mode and exclusion of text from clipboard history.</li>
+                  <li>--doctor diagnostics: Python, model, CUDA/CPU, microphone, hotkey; every line OK/WARN/FAIL; the report — without dictation text and token.</li>
+                  <li>--selftest self-check: imports, model, test audio file, recognized text.</li>
+                  <li>Error catalog: every error has a code, a clear message and the next action.</li>
+                  <li>Troubleshooting guide: microphone, port, disk space, model, paste, updates.</li>
+                </ul>
+              </div>
+              <div class="vf-backdrop" data-backdrop="quality" aria-hidden="true"></div>
+              <div class="vf-modal" data-modal="quality" id="vf-modal-catalog-quality" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-quality" tabindex="-1">
+                <div class="vf-bg" style="background-image:url('/catalog/07-quality.webp')"></div>
+                <button type="button" class="vf-close" data-close aria-label="Close window">✕</button>
+                <span class="p-when">Now</span>
+                <h3 class="vf-title" id="vf-title-catalog-quality">Quality and infrastructure</h3>
+                <p class="vf-desc">Build quality is kept automatically on every change.</p>
+                <ul class="vf-items">
+                  <li>GitHub Actions CI: the full test suite on Windows, a cross-platform subset, ruff gate, strict mypy.</li>
+                  <li>Tests run without a model, GPU and network.</li>
+                  <li>Single instance: second launch blocked, autostart with Windows, log rotation.</li>
+                  <li>status.json is written by the service on every state change.</li>
+                  <li>Tray: settings, panel, diagnostics, pause, input device, model and language switch, history, logs.</li>
+                  <li>First launch — a three-step assistant: languages, microphone with live level, hotkey by key press.</li>
+                </ul>
+              </div>
+              <div class="vf-backdrop" data-backdrop="formamind" aria-hidden="true"></div>
+              <div class="vf-modal" data-modal="formamind" id="vf-modal-catalog-formamind" role="dialog" aria-modal="true" aria-labelledby="vf-title-catalog-formamind" tabindex="-1">
+                <div class="vf-bg" style="background-image:url('/catalog/08-formamind.webp')"></div>
+                <button type="button" class="vf-close" data-close aria-label="Close window">✕</button>
+                <span class="p-when">Now</span>
+                <h3 class="vf-title" id="vf-title-catalog-formamind">FormaMind and voice tasks</h3>
+                <p class="vf-desc">Voice and project tasks — in one environment with an AI assistant.</p>
+                <ul class="vf-items">
+                  <li>A project management environment with an AI assistant — formamind.pro.</li>
+                  <li>VibeForma is the primary voice input to FormaMind.</li>
+                  <li>Native integration with FormaMind — voice control of project tasks.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
       <section class="section featured" id="water" data-shape="3" data-bg="#04080d" data-glow="#4fb6e0" data-epoch={t.epochs[3].name}>
         <div class="wrap featured-grid">
           <div class="featured-lead">
@@ -656,24 +842,23 @@ const jsonLd = {
           <p class="kicker" data-reveal="">{t.plan.kicker}</p>
           <h2 class="h2 split glitch" set:html={t.plan.title}></h2>
 
-          <div class="program-list">
-            {
-              t.plan.rows.map((row) => (
-                <a
-                  class="program-row"
-                  href={row.href}
-                  data-reveal=""
-                  target={row.external ? '_blank' : undefined}
-                  rel={row.external ? 'noopener noreferrer' : undefined}
-                >
-                  <span class="p-when">{row.when}</span>
-                  <span class="p-name">{row.name}</span>
-                  <span class="p-desc">{row.desc}</span>
-                  <span class="p-arrow">→</span>
-                </a>
-              ))
-            }
-          </div>
+          {isRu ? (
+            <>
+              <p class="flight-copy" data-reveal="">План из этого списка выполнен — всё перечисленное уже работает, полный каталог функций — в секции выше. Дальше развиваемся открыто: исходный код, обсуждения и пожелания живут на GitHub. Смотрите, предлагайте, участвуйте.</p><div class="flight-grid"><a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/discussions/categories/ideas" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-ideas.webp')"></div><span class="flight-tag">ideas</span><h3 class="flight-name">Пожелания</h3><p class="flight-desc">Расскажите, чего не хватает в работе с текстом и голосом. Идеи отсюда становятся функциями — этот сайт вырос из таких пожеланий.</p><span class="flight-cta">Предложить идею →</span></a><a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/discussions" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-discussions.webp')"></div><span class="flight-tag">discussions</span><h3 class="flight-name">Обсуждения</h3><p class="flight-desc">Открытые разговоры о подходе, сценариях и опыте. Задайте вопрос, поделитесь своим потоком работы — ответят живые люди.</p><span class="flight-cta">Вступить в обсуждение →</span></a><a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/issues" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-issues.webp')"></div><span class="flight-tag">issues</span><h3 class="flight-name">Замечания</h3><p class="flight-desc">Что-то пошло не так? Опишите шаги, приложите лог — разберёмся и отметим исправление в релизах.</p><span class="flight-cta">Сообщить о проблеме →</span></a><a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/wiki" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-wiki.webp')"></div><span class="flight-tag">wiki</span><h3 class="flight-name">Вики</h3><p class="flight-desc">Установка, настройка, команды и ответы на частые вопросы — вся документация в одном месте.</p><span class="flight-cta">Открыть вики →</span></a><a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/releases" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-releases.webp')"></div><span class="flight-tag">releases</span><h3 class="flight-name">Релизы</h3><p class="flight-desc">Что нового: версии, изменения, исправления. Следите за тем, как продукт становится лучше.</p><span class="flight-cta">Смотреть релизы →</span></a><a class="flight-card" href="https://github.com/FormaMindPro/vibeforma" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-code.webp')"></div><span class="flight-tag">code</span><h3 class="flight-name">Код</h3><p class="flight-desc">Исходный код открыт: изучайте, форкайте, собирайте свою сборку. Двигаем продукт вместе.</p><span class="flight-cta">Открыть репозиторий →</span></a></div>
+            </>
+          ) : (
+            <>
+              <p class="flight-copy" data-reveal="">The plan from this list is done — everything listed already works, and the full catalog of features is in the section above. From here we grow in the open: the source code, discussions and ideas live on GitHub. Look around, suggest, take part.</p>
+              <div class="flight-grid">
+                <a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/discussions/categories/ideas" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-ideas.webp')"></div><span class="flight-tag">ideas</span><h3 class="flight-name">Wishes</h3><p class="flight-desc">Tell us what's missing in working with text and voice. Ideas from here become features — this site grew from such wishes.</p><span class="flight-cta">Suggest an idea →</span></a>
+                <a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/discussions" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-discussions.webp')"></div><span class="flight-tag">discussions</span><h3 class="flight-name">Discussions</h3><p class="flight-desc">Open conversations about the approach, scenarios and experience. Ask a question, share your workflow — real people answer.</p><span class="flight-cta">Join the discussion →</span></a>
+                <a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/issues" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-issues.webp')"></div><span class="flight-tag">issues</span><h3 class="flight-name">Issues</h3><p class="flight-desc">Something went wrong? Describe the steps, attach a log — we'll sort it out and note the fix in the releases.</p><span class="flight-cta">Report a problem →</span></a>
+                <a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/wiki" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-wiki.webp')"></div><span class="flight-tag">wiki</span><h3 class="flight-name">Wiki</h3><p class="flight-desc">Installation, setup, commands and answers to frequent questions — all the documentation in one place.</p><span class="flight-cta">Open the wiki →</span></a>
+                <a class="flight-card" href="https://github.com/FormaMindPro/vibeforma/releases" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-releases.webp')"></div><span class="flight-tag">releases</span><h3 class="flight-name">Releases</h3><p class="flight-desc">What's new: versions, changes, fixes. Follow how the product gets better.</p><span class="flight-cta">View releases →</span></a>
+                <a class="flight-card" href="https://github.com/FormaMindPro/vibeforma" target="_blank" rel="noopener"><div class="flight-img" style="background-image:url('/catalog/github-code.webp')"></div><span class="flight-tag">code</span><h3 class="flight-name">Code</h3><p class="flight-desc">The source code is open: study it, fork it, build your own version. Let's move the product forward together.</p><span class="flight-cta">Open the repository →</span></a>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -774,6 +959,95 @@ const jsonLd = {
     <script type="application/json" id="vf-i18n" set:html={JSON.stringify(t.js)}></script>
     <script>
       import '../scripts/landing.js';
+    </script>
+
+    <script is:inline>
+// card-202 patch: modal wiring for the flight function cards (classic script, ASCII only).
+(function () {
+  'use strict';
+  var OPEN = 'is-open';
+  var LOCK = 'vf-lock';
+  var openModal = null;
+  var lastTrigger = null;
+  var modals = {};
+  var backdrops = {};
+
+  document.querySelectorAll('.vf-modal').forEach(function (m) {
+    var key = m.getAttribute('data-modal');
+    if (key && !modals[key]) { modals[key] = m; }
+  });
+  document.querySelectorAll('.vf-backdrop').forEach(function (b) {
+    var key = b.getAttribute('data-backdrop');
+    if (key) {
+      if (!backdrops[key]) { backdrops[key] = b; }
+      b.addEventListener('click', function () { closeModal(); });
+    }
+  });
+
+  function openModalFn(key, trigger) {
+    var m = modals[key];
+    if (!m || openModal === m) { return; }
+    if (openModal) { closeModal(); }
+    openModal = m;
+    lastTrigger = trigger || null;
+    m.classList.add(OPEN);
+    if (backdrops[key]) { backdrops[key].classList.add(OPEN); }
+    document.body.classList.add(LOCK);
+    var target = m.querySelector('.vf-close') || m;
+    if (typeof target.focus === 'function') { target.focus(); }
+  }
+
+  function closeModal() {
+    if (!openModal) { return; }
+    var key = openModal.getAttribute('data-modal');
+    openModal.classList.remove(OPEN);
+    if (backdrops[key]) { backdrops[key].classList.remove(OPEN); }
+    document.body.classList.remove(LOCK);
+    if (lastTrigger && typeof lastTrigger.focus === 'function') { lastTrigger.focus(); }
+    openModal = null;
+    lastTrigger = null;
+  }
+
+  // card-206 patch: catalog cards open the same modals (click + keyboard).
+  document.querySelectorAll('button.program-row[data-modal], article.catalog-card[data-modal]').forEach(function (t) {
+    t.addEventListener('click', function () {
+      openModalFn(t.getAttribute('data-modal'), t);
+    });
+    if (t.tagName !== 'BUTTON') {
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModalFn(t.getAttribute('data-modal'), t);
+        }
+      });
+    }
+  });
+  document.querySelectorAll('.vf-modal [data-close]').forEach(function (c) {
+    c.addEventListener('click', function () { closeModal(); });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!openModal) { return; }
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeModal();
+      return;
+    }
+    if (e.key === 'Tab') {
+      var items = openModal.querySelectorAll('button, a[href]');
+      if (!items.length) { return; }
+      var first = items[0];
+      var last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+})();
     </script>
   </body>
 </html>
