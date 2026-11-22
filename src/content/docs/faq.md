@@ -33,7 +33,7 @@ No. VibeForma 0.4.0 is Windows 10/11 only.
 
 ## Can it transcribe audio and video files?
 
-Yes, since 0.4.0. The same recognition engine takes `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav` and `m4a` files, one at a time, and can walk a folder as a batch. Results are written as TXT, JSON, SRT or VTT. See [File transcription](/file-transcription/).
+Yes. The same recognition engine takes `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav` and `m4a` files, one at a time, and can walk a folder as a batch. Results are written as TXT, JSON, SRT or VTT. See [File transcription](/file-transcription/).
 
 ## Does file transcription need ffmpeg?
 

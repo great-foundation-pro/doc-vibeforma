@@ -25,7 +25,7 @@ The current release is a complete local dictation and file transcription tool:
 - **Native FormaMind integration** — voice control of project tasks and a tighter link between the project tool and the voice layer.
 - **Project workflows on top of the file mode** — recordings becoming notes, tasks and documents without leaving the machine.
 
-The agent surfaces are already shipped: the named pipe, `location.json` schema 2, the file CLI, the OpenAI-compatible endpoint and the job API are in 0.4.0. FormaMind itself is in development. The published documentation does not present it as finished.
+The agent surfaces are in 0.4.0: the named pipe, `location.json` schema 2, the file CLI, the OpenAI-compatible endpoint and the job API. FormaMind itself is in development. The published documentation does not present it as finished.
 
 ## Later :badge[Later]{variant=caution}
 

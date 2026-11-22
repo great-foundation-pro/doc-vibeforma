@@ -34,6 +34,34 @@ const alt = path.startsWith('/ru')
   : 'VibeForma — local voice dictation for Windows';
 ---
 
+<script is:inline>
+  // The docs are dark by default. Seed the choice before Starlight reads it;
+  // a visitor's stored pick (dark, light or auto) is never overwritten.
+  (() => {
+    try {
+      const key = 'starlight-theme';
+      if (localStorage.getItem(key) === null && !localStorage.getItem('vf-theme-defaulted')) {
+        localStorage.setItem(key, 'dark');
+        localStorage.setItem('vf-theme-defaulted', '1');
+      }
+    } catch (e) {}
+  })();
+</script>
+<script is:inline>
+  // giscus picks its frame theme from the OS by default; the page may carry a
+  // stored theme instead. Align the widget with data-theme before it loads.
+  (() => {
+    const sync = () => {
+      const script = document.querySelector('script[src^="https://giscus.app/client.js"]');
+      if (!script || script.dataset.vfTheme === 'synced') return;
+      script.dataset.vfTheme = 'synced';
+      const theme = document.documentElement.dataset.theme;
+      if (theme === 'light' || theme === 'dark') script.dataset.theme = theme;
+    };
+    new MutationObserver(sync).observe(document.documentElement, { childList: true, subtree: true });
+    sync();
+  })();
+</script>
 <Default {...Astro.props} />
 <meta property="og:image" content={image} />
 <meta property="og:image:type" content="image/jpeg" />

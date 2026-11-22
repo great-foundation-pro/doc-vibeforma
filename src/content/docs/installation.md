@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Install VibeForma on Windows — the one-line command, installer parameters, the install transaction, shortcuts, migration and removal.
+description: Install VibeForma on Windows — the one-line command, installer parameters, the install transaction, shortcuts and removal.
 ---
 
 VibeForma installs from a PowerShell script into your user profile. No administrator rights are required, and the installer refuses system directories on purpose.
@@ -75,10 +75,6 @@ The installer refuses protected locations because an app that writes its configu
 The installer creates shortcuts on the desktop, in the Start menu and in autostart. They launch the app directly through `pythonw.exe main.py` — not through `run.cmd` — so no console window appears.
 
 It also registers the app in **Settings → Apps** without administrator rights. The version is shown in the settings.
-
-## Migration from WhisperDictation
-
-If an older WhisperDictation installation is found, the installer copies `config.json` (including `hotwords`) and the models, and removes the old desktop, autostart and Start menu shortcuts. The old folder itself is copied, not deleted.
 
 ## First run
 

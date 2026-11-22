@@ -61,7 +61,7 @@ An open-source macOS dictation app. Its documentation focuses on building from s
 
 ### Buzz
 
-A desktop app and CLI for transcribing audio and video files with Whisper. Transcription is its center, and it can process a batch of files; VibeForma now transcribes files and folders too, but keeps dictation first and processes one file at a time. Buzz is not built around dictating into the window you are working in.
+A desktop app and CLI for transcribing audio and video files with Whisper. Transcription is its center, and it can process a batch of files; VibeForma also transcribes files and folders, but keeps dictation first and processes one file at a time. Buzz is not built around dictating into the window you are working in.
 
 ### Vibe
 
@@ -103,9 +103,9 @@ A commercial editor for audio and video with transcription at its center. It is 
 ## Where VibeForma differs
 
 - **Windows-first, not cross-platform.** VibeForma invests in Windows behavior: insertion into the window that was active at the hotkey, clipboard restoration, exclusion from Windows clipboard history and cloud clipboard, DPI-aware windows and a tray icon. Competitors spread the same effort across three platforms.
-- **Exact language pinning.** VibeForma removed automatic language detection. The model recognizes exactly the chosen language; the menu offers 26 language codes, while the model itself supports about 99 languages. This favors predictable Russian and mixed-vocabulary dictation over guessing.
+- **Exact language pinning.** The model recognizes exactly the chosen language; the menu offers 26 language codes, while the model itself supports about 99 languages. This favors predictable Russian and mixed-vocabulary dictation over guessing.
 - **A local API and a hook, not only a CLI.** The optional HTTP API listens on `127.0.0.1` and requires a token. It accepts short WAV recordings, an OpenAI-compatible file endpoint and a job API for long files, and publishes discovery through `location.json`. `hook_command` sends the recognized text to a user command through stdin, without a shell, with a timeout. This is the bridge for editors, agents and project tools.
-- **FormaMind as the intended host.** VibeForma is the voice layer of FormaMind, a project-management tool. The file and agent surfaces shipped in 0.4.0; the native FormaMind integration is the remaining step.
+- **FormaMind as the intended host.** VibeForma is the voice layer of FormaMind, a project-management tool. The file and agent surfaces are in 0.4.0; the native FormaMind integration is the remaining step.
 - **A full English/Russian pair.** The application and the documentation exist in both languages with the same page structure. Most open-source analogues document in English only; most commercial ones localize the help center, not the product.
 - **No account, no cloud, no telemetry.** There is nothing to sign in to and no server that receives audio. The network is used for the model download and update checks, and both are named explicitly.
 - **Small and honest.** 0.4.0 does not pretend to be a meeting platform. Limits are documented on a separate page.

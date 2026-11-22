@@ -3,7 +3,7 @@ title: File transcription
 description: Transcribe audio and video files locally — single files, folder batches, the queue and dictation priority, the panel progress strip, limits and where results land.
 ---
 
-File transcription is the second input of the same recognition engine: instead of a microphone, VibeForma takes a path. It arrived in 0.3.0; folder batches and the live progress strip arrived in 0.4.0. Everything stays on this computer — no cloud, no upload and no external `ffmpeg` binary.
+File transcription is the second input of the same recognition engine: instead of a microphone, VibeForma takes a path. It takes one file at a time or a whole folder as a batch, with a live progress strip in the panel. Everything stays on this computer — no cloud, no upload and no external `ffmpeg` binary.
 
 ![The panel while a single file is transcribed.](../../assets/docs/app/hud-file-en.png)
 
@@ -57,7 +57,7 @@ The panel grows a bottom strip while a file or a batch runs. It shows:
 | Bar | A moving segment while the position is unknown, a real fill once the percent is known |
 | Counter | For a batch: `N/M — P%`, plus the number of failed files |
 
-An error of one file appears in the strip while the batch goes on. A finished result stays for 8 seconds and then disappears; dictation, the hotkey and dragging the panel behave as before.
+An error of one file appears in the strip while the batch goes on. A finished result stays for 8 seconds and then disappears; dictation, the hotkey and dragging the panel keep working normally.
 
 ## Long files
 

@@ -61,7 +61,7 @@ for (const group of groups) {
   lines.push('');
   for (const page of group.pages || []) {
     const purpose = page.purpose_ru ? `: ${page.purpose_ru}` : '';
-    lines.push(`- [${page.title_ru}](${site}/ru${page.path}/${purpose})`);
+    lines.push(`- [${page.title_ru}](${site}/ru${page.path}/)${purpose}`);
   }
   lines.push('');
 }

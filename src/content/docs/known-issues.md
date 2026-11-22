@@ -44,12 +44,6 @@ This page is the honest boundary of the product. Some limits are deliberate desi
 | No silent update by default | A release is offered; automatic installation only with `auto_update: auto`. |
 | Python required | The installer needs Python 3.10–3.14 on the machine. |
 
-## Documentation
-
-| Issue | Detail |
-|---|---|
-| Stale `VibeForma.exe` mention | Some older README text still names `VibeForma.exe`. There is no separate executable in 0.4.0: use `run.cmd` or `.venv\Scripts\python.exe main.py`. |
-
 ## Data and history
 
 | Limit | Detail |

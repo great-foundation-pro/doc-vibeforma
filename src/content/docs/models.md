@@ -69,7 +69,7 @@ Two different numbers, often confused:
 - **The model** supports about 99 languages. That is a property of Whisper.
 - **The recognition menu** offers 26 language codes. That is the list VibeForma exposes.
 
-The recognition language is exact. VibeForma removed automatic detection: the model recognizes the chosen language and nothing else. This is deliberate — automatic detection on short phrases and mixed vocabulary is unreliable, and a wrong guess ruins the phrase.
+The recognition language is exact. The model recognizes the chosen language and nothing else. This is deliberate — automatic detection on short phrases and mixed vocabulary is unreliable, and a wrong guess ruins the phrase.
 
 Language names are shown as endonyms — English, Русский, Українська, Deutsch — each language in its own script. The code is stored in `config.json`.
 

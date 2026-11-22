@@ -76,11 +76,10 @@ export default defineConfig({
         './src/styles/theme.css',
         './src/styles/site.css',
       ],
-      // Expressive Code is Starlight's code renderer: Shiki-based syntax
-      // highlighting, a copy button and file frames. The site is dark-only,
-      // so one dark theme is enough; the frame follows the site tokens.
+      // Expressive Code switches with the site theme: a dark and a light
+      // Shiki theme keep code readable on both desks.
       expressiveCode: {
-        themes: ['github-dark-default'],
+        themes: ['github-dark-default', 'github-light'],
         useStarlightUiThemeColors: true,
         styleOverrides: {
           borderRadius: '0.6rem',

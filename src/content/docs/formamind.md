@@ -33,7 +33,7 @@ VibeForma exists to make that layer local, predictable and always available: one
 | File transcription for video and podcasts, including folder batches | Works in 0.4.0 |
 | Native FormaMind integration | In development |
 
-The honest summary: VibeForma already works as a dictation tool and as a local file transcription tool. FormaMind is in development, and the native bridge between them is not finished.
+The honest summary: VibeForma works as a dictation tool and as a local file transcription tool. FormaMind is in development, and the native bridge between them is not finished.
 
 ## How to use VibeForma with a project tool today
 
@@ -70,7 +70,7 @@ The API is loopback-only and requires the token. Details: [Local API](/local-api
 - **Native FormaMind integration** — voice control of project tasks and a tighter connection between the project tool and the voice layer.
 - **Project workflows on top of the file mode** — turning recordings into project notes, tasks and documents without leaving the local machine.
 
-The agent surfaces are already shipped: the named pipe, `location.json` schema 2, `--transcribe` and `--transcribe-folder`, the OpenAI-compatible endpoint and the job API are in 0.4.0. What remains is the native FormaMind bridge; the [roadmap](/roadmap/) states it without dates, and the published documentation does not promise it as available.
+The agent surfaces are in 0.4.0: the named pipe, `location.json` schema 2, `--transcribe` and `--transcribe-folder`, the OpenAI-compatible endpoint and the job API. What remains is the native FormaMind bridge; the [roadmap](/roadmap/) states it without dates, and the published documentation does not promise it as available.
 
 ## What this means for you today
 

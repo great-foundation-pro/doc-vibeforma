@@ -12,7 +12,7 @@ The installed copy exposes a small command line. It talks to the running service
 | `run.cmd` | The shortest path; runs the app with the bundled virtual environment |
 | `.venv\Scripts\python.exe main.py` | The explicit Python entry point |
 
-An older README mentions `VibeForma.exe`. There is no separate executable in 0.4.0: the installed copy is a source copy with `run.cmd`, `main.py` and `.venv`. Use one of the two entries above.
+There is no separate executable in 0.4.0: the installed copy is a source copy with `run.cmd`, `main.py` and `.venv`. Use one of the two entries above.
 
 Examples below use `run.cmd`.
 

@@ -62,9 +62,9 @@ irm https://raw.githubusercontent.com/FormaMindPro/vibeforma/main/install.ps1 -O
 
 ## Versioning
 
-The current version is shown in **Settings → System** and in `status.json`. Release notes are in the repository's `CHANGELOG.md` and on the GitHub Releases page.
+The current version is shown in **Settings → System** and in `status.json`. Release notes are on the GitHub Releases page.
 
-The documentation describes version 0.4.0. Pages are updated with the product; a renamed page keeps a redirect from its old URL.
+The documentation describes version 0.4.0. Pages are updated with the product.
 
 ## If an update does not finish
 
