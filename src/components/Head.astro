@@ -63,8 +63,8 @@ let file = `${previewSlug(pagePath)}-${lang}.jpg`;
 if (!fs.existsSync(path.join(ogDir, file))) file = `landing-${lang}.jpg`;
 const origin = Astro.site ?? new URL('https://vibeforma.pro');
 const image = new URL(`/og/${file}`, origin).href;
-const canonical = new URL(pagePath === '/' ? '/' : `${pagePath}/`, origin).href;
-const alt = description ? `VibeForma \u2014 ${title}. ${description}` : `VibeForma \u2014 ${title}`;
+const canonical = new URL(pathname === '/' ? '/' : `${pathname}/`, origin).href;
+const alt = `VibeForma \u2014 ${title}`;
 const hasStructuredData = route.head.some(
   (tag) => tag.tag === 'script' && tag.attrs?.type === 'application/ld+json',
 );
