@@ -6,9 +6,11 @@
  *
  *   node scripts/build-llms.mjs
  *
- * The structure lives in the project's card-194 folder. Both locales are
- * emitted: English at the site root, Russian under /ru/. The file is a plain
- * index for agents, not a copy of the pages.
+ * The structure is committed with the site as scripts/docs-structure.json so
+ * the build stays self-contained; the project's card-194 folder is a local
+ * development fallback. Both locales are emitted: English at the site root,
+ * Russian under /ru/. The file is a plain index for agents, not a copy of the
+ * pages.
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
@@ -16,12 +18,14 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const structurePath = join(root, '..', '..', '..', 'project', 'cards', 'card-194', 'docs-structure.json');
+const localStructurePath = join(root, 'scripts', 'docs-structure.json');
+const projectStructurePath = join(root, '..', '..', '..', 'project', 'cards', 'card-194', 'docs-structure.json');
+const structurePath = existsSync(localStructurePath) ? localStructurePath : projectStructurePath;
 const publicDir = join(root, 'public');
 const output = join(publicDir, 'llms.txt');
 
 if (!existsSync(structurePath)) {
-  console.error(`llms: structure not found at ${structurePath}`);
+  console.error(`llms: structure not found at ${localStructurePath} or ${projectStructurePath}`);
   process.exit(1);
 }
 

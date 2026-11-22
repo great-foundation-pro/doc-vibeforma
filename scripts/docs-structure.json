@@ -1,0 +1,1409 @@
+{
+  "schema_version": "1.0",
+  "product": "VibeForma",
+  "product_version": "0.2.4",
+  "generated": "2026-11-22",
+  "card": "card-194",
+  "canonical_locale": "en",
+  "locales": [
+    "en",
+    "ru"
+  ],
+  "audiences": [
+    {
+      "id": "new-user",
+      "title_ru": "Новый пользователь",
+      "need_ru": "понять, что это, и получить первую диктовку"
+    },
+    {
+      "id": "daily-user",
+      "title_ru": "Постоянный пользователь",
+      "need_ru": "решить рабочую задачу: сменить модель, добавить слово, найти историю"
+    },
+    {
+      "id": "admin",
+      "title_ru": "ИТ-администратор",
+      "need_ru": "требования, установка, приватность, безопасность, обновления"
+    },
+    {
+      "id": "developer",
+      "title_ru": "Разработчик и агент",
+      "need_ru": "CLI, локальный API, файлы, сборка из исходников"
+    }
+  ],
+  "principles": [
+    {
+      "id": "two-speeds",
+      "title_ru": "Две скорости входа: объяснение за две минуты и Quickstart до первой диктовки",
+      "source": "Superwhisper, Wispr Flow"
+    },
+    {
+      "id": "task-first",
+      "title_ru": "Навигация по задачам пользователя, а не по списку вкладок продукта",
+      "source": "Descript, Superwhisper"
+    },
+    {
+      "id": "diatixis",
+      "title_ru": "Разделение четырёх видов страниц: tutorial, how-to, reference, explanation",
+      "source": "Diataxis"
+    },
+    {
+      "id": "symptom-help",
+      "title_ru": "Troubleshooting по симптому, известные ограничения отдельно",
+      "source": "Handy, Superwhisper, Wispr Flow"
+    },
+    {
+      "id": "privacy-area",
+      "title_ru": "Приватность и безопасность — самостоятельная область, а не абзац в README",
+      "source": "Vibe, Wispr Flow, Superwhisper"
+    },
+    {
+      "id": "developer-first-class",
+      "title_ru": "CLI, локальный API и агентская интеграция — равноправные reference-страницы",
+      "source": "Aqua Voice, Superwhisper"
+    },
+    {
+      "id": "no-dead-ends",
+      "title_ru": "Каждая страница заканчивается «что дальше» и связанными ссылками",
+      "source": "Write the Docs, Descript"
+    },
+    {
+      "id": "locale-parity",
+      "title_ru": "EN — канон, RU — параллельный набор с теми же slug и проверкой parity",
+      "source": "Wispr Flow hreflang"
+    },
+    {
+      "id": "docs-as-code",
+      "title_ru": "Единый источник, сборка, проверка ссылок, ревью, история изменений",
+      "source": "Write the Docs"
+    },
+    {
+      "id": "ai-readable",
+      "title_ru": "llms.txt со всеми страницами и описаниями с первого релиза",
+      "source": "Wispr Flow, Superwhisper, Descript"
+    },
+    {
+      "id": "versioned",
+      "title_ru": "Версия документации и честный changelog; переименования только с redirect",
+      "source": "Superwhisper, Wispr Flow"
+    },
+    {
+      "id": "single-source",
+      "title_ru": "Один факт — одна страница; остальные ссылаются, а не повторяют",
+      "source": "Diataxis, Write the Docs"
+    },
+    {
+      "id": "one-feature-one-page",
+      "title_ru": "Один пункт функционала — одна страница: темы не объединяются, чтобы каждая росла отдельно",
+      "source": "распоряжение человека 2026-11-22"
+    }
+  ],
+  "groups": [
+    {
+      "id": "start",
+      "title_en": "Start",
+      "title_ru": "Начало",
+      "purpose_ru": "Провести от «что это» до первой успешной диктовки.",
+      "pages": [
+        {
+          "id": "introduction",
+          "path": "/introduction",
+          "title_en": "What is VibeForma?",
+          "title_ru": "Что такое VibeForma",
+          "type": "explanation",
+          "status": "update",
+          "current": "src/content/docs/introduction.md",
+          "audience": [
+            "new-user"
+          ],
+          "purpose_ru": "За две минуты понять, что делает продукт, как он устроен и кому подходит.",
+          "content_ru": [
+            "Проблема: голос быстрее набора, но облачные диктовки забирают текст на сервер.",
+            "Принцип: нажал hotkey, сказал, текст появился в поле курсора.",
+            "Локальная обработка faster-whisper: запись и распознавание на машине.",
+            "Что входит: панель, трей, автозапуск, словарь, сниппеты, история и статистика, модели, языки, обновления.",
+            "Кому подходит и чем отличается от облачных аналогов.",
+            "Связка с FormaMind: VibeForma — голосовой слой проектного инструмента, две части одной системы.",
+            "Куда дальше: Quickstart, Установка, Приватность."
+          ],
+          "sources": [
+            "README.md#VibeForma",
+            "app/vibeforma/app.py"
+          ]
+        },
+        {
+          "id": "comparison",
+          "path": "/comparison",
+          "title_en": "VibeForma and alternatives",
+          "title_ru": "VibeForma и аналоги",
+          "type": "explanation",
+          "status": "new",
+          "audience": [
+            "new-user",
+            "admin",
+            "developer"
+          ],
+          "purpose_ru": "Помочь выбрать инструмент и честно показать место VibeForma среди аналогов: сходство, отличия, сильные и слабые стороны.",
+          "content_ru": [
+            "Зачем страница: сравнение по функциям, а не рейтинг и не реклама.",
+            "Кого сравниваем: Handy, VoiceInk, Buzz, Vibe, Whispering, whisper.cpp, Superwhisper, Wispr Flow, Aqua Voice, Descript.",
+            "Критерии: платформы, локальная обработка, диктовка, файловая транскрибация, CLI и API, языки интерфейса, цена и аккаунт, открытый код, зрелость.",
+            "Сходство: локальные модели Whisper и faster-whisper, hotkey-диктовка, словарь и замены, история, настройки модели.",
+            "Отличия VibeForma: Windows-only, локальный API и CLI, hook_command, полная пара EN/RU, FormaMind как голосовой слой, без аккаунтов и телеметрии, MIT.",
+            "Где уступаем: нет macOS, iOS и Android; файловый режим только в 0.3.0; меньше языков интерфейса; нет встреч, облака, команд и биллинга.",
+            "Итоговая таблица: продукт, тип, платформы, локальность, диктовка, файлы, CLI/API, языки интерфейса, цена, исходный код.",
+            "Пометка «не проверено» там, где публичных данных нет; дата среза и ссылки на официальные docs.",
+            "Что делаем по-своему: голосовой слой FormaMind, локальный API с hook_command, честные ограничения, документация EN/RU с parity.",
+            "Как выбрать: сценарии для Windows-диктовки, macOS, транскрибации файлов и разработки; ссылки на Quickstart, Модели и Дорожную карту."
+          ],
+          "sources": [
+            "research.md",
+            "analogues.json",
+            "https://superwhisper.com/docs/",
+            "https://docs.wisprflow.ai/",
+            "https://aquavoice.com/docs/quickstart"
+          ]
+        },
+        {
+          "id": "quickstart",
+          "path": "/quickstart",
+          "title_en": "Quickstart",
+          "title_ru": "Быстрый старт",
+          "type": "tutorial",
+          "status": "new",
+          "audience": [
+            "new-user"
+          ],
+          "purpose_ru": "Довести до первой вставленной фразы за пять минут, без чтения справочника.",
+          "content_ru": [
+            "Требования одной строкой и ссылка на полную страницу.",
+            "Одна команда установки PowerShell.",
+            "Первый запуск: три шага онбординга — язык, проверка микрофона, запись hotkey нажатием.",
+            "Три шага: hotkey, фраза, пауза; ожидаемый результат.",
+            "Проверка: текст появился в поле курсора.",
+            "Если текста нет: короткий указатель на Troubleshooting.",
+            "Что дальше: Диктовка и Горячие клавиши."
+          ],
+          "sources": [
+            "README.md#Quick start",
+            "install.ps1",
+            "docs/TROUBLESHOOTING.md"
+          ]
+        },
+        {
+          "id": "installation",
+          "path": "/installation",
+          "title_en": "Installation",
+          "title_ru": "Установка",
+          "type": "how-to",
+          "status": "update",
+          "current": "src/content/docs/installation.md",
+          "audience": [
+            "new-user",
+            "admin"
+          ],
+          "purpose_ru": "Установить, запустить и удалить VibeForma предсказуемо.",
+          "content_ru": [
+            "Требования кратко и ссылка на системные требования.",
+            "Установка одной командой и что она делает по шагам; флаги -Model, -Target, -Cpu, -DryRun, -NoRun.",
+            "Установка из zip и portable-вариант.",
+            "Установка как транзакция: предпроверки, откат, продолжение после сбоя, всё в install.log.",
+            "Диалог установки: модель, устройство, язык, автозапуск.",
+            "Выбор каталога установки и ярлыки (рабочий стол, Пуск, автозапуск) через pythonw.",
+            "Миграция со старой установки WhisperDictation.",
+            "Первый запуск, онбординг из трёх шагов и проверка трея.",
+            "Обновление и откат; ссылка на страницу обновлений.",
+            "Удаление и что остаётся на диске.",
+            "Установщик говорит по-русски на русской Windows; предупреждение SmartScreen и antivirus."
+          ],
+          "sources": [
+            "README.md#Install",
+            "install.ps1",
+            "install_steps.py",
+            "docs/TROUBLESHOOTING.md"
+          ]
+        },
+        {
+          "id": "requirements",
+          "path": "/requirements",
+          "title_en": "System requirements",
+          "title_ru": "Системные требования",
+          "type": "reference",
+          "status": "new",
+          "audience": [
+            "new-user",
+            "admin"
+          ],
+          "purpose_ru": "Проверить машину до установки и выбрать модель под железо.",
+          "content_ru": [
+            "Windows 10/11 x64; поддерживаемые редакции.",
+            "Python 3.10+ для запуска из исходников; установщик несёт venv.",
+            "CPU и GPU: минимальная и рекомендуемая конфигурация.",
+            "CUDA float16 на NVIDIA и автоматический CPU int8 fallback; что работает без GPU.",
+            "Захват звука: WASAPI и legacy, windowed-sinc ресемплер, повтор при сбое устройства.",
+            "RAM и диск под модели: 3.1 / 1.6 / 1.5 / 0.5 ГБ плюс запас.",
+            "Сеть: скачивание модели при установке и проверка обновлений.",
+            "Права пользователя и ограничения администрируемых машин."
+          ],
+          "sources": [
+            "README.md#Models",
+            "app/doctor.py",
+            "app/config.py"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "using",
+      "title_en": "Using VibeForma",
+      "title_ru": "Использование",
+      "purpose_ru": "Решать ежедневные задачи: диктовать, настраивать, находить текст.",
+      "pages": [
+        {
+          "id": "dictation",
+          "path": "/dictation",
+          "title_en": "Dictation",
+          "title_ru": "Диктовка",
+          "type": "how-to",
+          "status": "update",
+          "current": "src/content/docs/usage.md",
+          "audience": [
+            "new-user",
+            "daily-user"
+          ],
+          "purpose_ru": "Продиктовать текст в любое приложение и понять поведение вставки.",
+          "content_ru": [
+            "Режим переключения: нажал, сказал, нажал.",
+            "Режим удержания hold-to-talk: держишь клавишу, говоришь.",
+            "Панель: индикатор уровня, индикатор VAD, частичные транскрипции примерно каждые 1,5 с, отмена.",
+            "Захват 16 кГц, VAD Silero; фраза завершается по тишине 2000 мс или по лимиту 120 с.",
+            "Звуковые сигналы начала и конца записи.",
+            "Куда вставляется текст: окно, активное в момент нажатия hotkey; при смене фокуса — вопрос, фокус не крадётся.",
+            "Буфер: Shift+Insert или Ctrl+V; прежнее содержимое возвращается через 1 с, если не изменилось; возврат отключается настройкой.",
+            "Уведомления без текста: «Вставлено, N знаков»; показ фразы — opt-in.",
+            "Язык распознавания фиксирован до смены в настройках.",
+            "Ограничения: нет автоопределения языка, нет записи в файл."
+          ],
+          "sources": [
+            "README.md#Usage",
+            "app/hotkey.py",
+            "app/insert.py",
+            "card-192"
+          ]
+        },
+        {
+          "id": "hotkeys",
+          "path": "/hotkeys",
+          "title_en": "Keyboard shortcuts",
+          "title_ru": "Горячие клавиши",
+          "type": "reference",
+          "status": "new",
+          "audience": [
+            "daily-user"
+          ],
+          "purpose_ru": "Одна таблица всех сочетаний: что нажать, где работает, что делает.",
+          "content_ru": [
+            "Диктовка: Ctrl+Alt+Space по умолчанию; меняется в настройках.",
+            "Hold-to-talk: та же клавиша при включённом режиме удержания.",
+            "Esc: отмена фразы; Esc на панели; Esc в настройках.",
+            "Ctrl+Enter: вставить просмотренный черновик панели.",
+            "Ctrl+Z: отменить последнюю вставку в то же окно в течение 30 с.",
+            "Запись hotkey нажатием в онбординге; невалидная комбинация не сохраняется, при неудаче — откат.",
+            "Shift+Insert: вставка приложения, работает при любой раскладке.",
+            "Ctrl+V: альтернативная вставка, не работает на нелатинской раскладке.",
+            "Ctrl+F и Ctrl+S в настройках; Delete и Ctrl+A в истории.",
+            "Пометка: редактируется только клавиша диктовки, остальные фиксированы."
+          ],
+          "sources": [
+            "app/settings_window.py",
+            "app/locales/en.json",
+            "app/locales/ru.json",
+            "card-192"
+          ]
+        },
+        {
+          "id": "settings",
+          "path": "/settings",
+          "title_en": "Settings",
+          "title_ru": "Настройки",
+          "type": "how-to",
+          "status": "update",
+          "current": "src/content/docs/usage.md",
+          "audience": [
+            "daily-user"
+          ],
+          "purpose_ru": "Найти нужный раздел и выполнить типовые изменения без чтения справочника.",
+          "content_ru": [
+            "Девять разделов: Запись, Горячие клавиши, Модель и язык, Словарь, Сниппеты, История, Статистика, Вид, Система.",
+            "Поиск по настройкам Ctrl+F, сохранение Ctrl+S, закрытие Esc, сброс.",
+            "Настройки применяются к живому сервису без перезапуска.",
+            "Смена hotkey с защитой от невалидной комбинации и откатом.",
+            "Смена модели через диалог прогресса: download → load → remove → done.",
+            "Сценарии: сменить модель, язык, способ вставки, private mode.",
+            "Ссылка на полный справочник настроек."
+          ],
+          "sources": [
+            "app/settings_window.py",
+            "README.md#Usage"
+          ]
+        },
+        {
+          "id": "models",
+          "path": "/models",
+          "title_en": "Models and languages",
+          "title_ru": "Модели и языки",
+          "type": "how-to",
+          "status": "update",
+          "current": "src/content/docs/usage.md",
+          "audience": [
+            "daily-user",
+            "admin"
+          ],
+          "purpose_ru": "Выбрать модель под скорость и качество и понять, как работает язык.",
+          "content_ru": [
+            "Четыре модели: large-v3, large-v3-turbo (по умолчанию), medium, small.",
+            "Размер, скорость и качество каждой; рекомендация под железо.",
+            "Одна загруженная модель на сервис, offline-first; смена из настроек и трея без перезапуска, при неудаче — откат.",
+            "Скачивание с прогрессом download → load → remove → done; хранение предыдущей модели.",
+            "Язык фиксирован; 26 кодов в интерфейсе с эндонимами, движок поддерживает около 99 языков.",
+            "Пресеты пунктуации и заглавных для ru, en, uk, de, fr, es; hotwords в подсказке модели.",
+            "CUDA float16 на NVIDIA и автоматический CPU int8 fallback.",
+            "Где лежат модели и сколько занимают."
+          ],
+          "sources": [
+            "README.md#Models",
+            "README.md#Languages",
+            "app/asr.py",
+            "app/config.py"
+          ]
+        },
+        {
+          "id": "interface",
+          "path": "/interface",
+          "title_en": "Panel, tray and autostart",
+          "title_ru": "Панель, трей и автозапуск",
+          "type": "how-to",
+          "status": "new",
+          "audience": [
+            "daily-user"
+          ],
+          "purpose_ru": "Понять, где живёт сервис и как им управлять, не открывая настройки.",
+          "content_ru": [
+            "Панель: уровень микрофона, индикатор VAD, стриминг текста, прозрачность, авторасширение; рост пропорционален тексту.",
+            "Кнопки панели: микрофон, «Корректировать», «Копировать», «Вставить в указанное место», «Отмена»; скрытие ✕ оставляет трей.",
+            "Листание сохранённых диктовок стрелками ‹ › в заголовке панели.",
+            "Оверлей распознавания: затемнение, бегущий процент, 100% только с готовым текстом для проверки.",
+            "Приватный режим панели кнопкой-глазом (hud_privacy).",
+            "Кнопка «Обновить» на панели при найденном релизе.",
+            "Трей: 12 пунктов меню; иконка окрашена по состоянию сервиса.",
+            "Геометрия: DPI-aware панель и окно (читаемость при 150%), стабильные размеры, прокрутка вкладок, скруглённые углы DWM.",
+            "Автозапуск при входе в Windows; один экземпляр сервиса (service.lock).",
+            "status.json обновляется на каждом изменении состояния.",
+            "Что делать, если панель скрыта, а сервис работает."
+          ],
+          "sources": [
+            "app/hud.py",
+            "app/tray.py",
+            "app/vibeforma/app.py",
+            "README.md#Usage"
+          ]
+        },
+        {
+          "id": "updates",
+          "path": "/updates",
+          "title_en": "Updates",
+          "title_ru": "Обновления",
+          "type": "how-to",
+          "status": "new",
+          "audience": [
+            "daily-user",
+            "admin"
+          ],
+          "purpose_ru": "Обновляться без сюрпризов и понимать, что скачивается и когда.",
+          "content_ru": [
+            "Автопроверка каждые два часа в простое; интервал настраивается.",
+            "Обновление предлагается, а не ставится молча.",
+            "Кнопка «Обновить» на панели и ручная проверка в настройках.",
+            "Скачивание zip и проверка SHA256SUMS.",
+            "Резервная копия и откат при неудачном обновлении.",
+            "Что происходит с настройками и моделями.",
+            "Куда смотреть, если обновление не применилось."
+          ],
+          "sources": [
+            "README.md#Updating",
+            "app/updater.py",
+            "docs/TROUBLESHOOTING.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "text-tools",
+      "title_en": "Text and records",
+      "title_ru": "Текст и записи",
+      "purpose_ru": "Словарь, сниппеты, история и статистика — текстовые инструменты и записи диктовок.",
+      "pages": [
+        {
+          "id": "dictionary",
+          "path": "/dictionary",
+          "title_en": "Dictionary",
+          "title_ru": "Словарь",
+          "type": "how-to",
+          "status": "update",
+          "current": "src/content/docs/usage.md",
+          "audience": [
+            "daily-user"
+          ],
+          "purpose_ru": "Научить распознавание именам, терминам и редким словам и заменять их после распознавания.",
+          "content_ru": [
+            "Словарь: пары термин → замена, регистронезависимо, побеждает самый длинный термин, один проход; до 500 пар.",
+            "Термины попадают в подсказку распознавания, замены применяются после распознавания.",
+            "Добавление, изменение и удаление терминов; регистр и точная форма слова.",
+            "Импорт и экспорт JSON с предпросмотром; где хранится словарь в config.json.",
+            "Быстрое обучение из правок: «как услышано → как нужно», подсказка после двух повторов, в словарь только по подтверждению.",
+            "corrections.json хранит только изменившиеся слова, не весь текст.",
+            "Ограничения: словарь не заменяет модель и не переводит."
+          ],
+          "sources": [
+            "app/dictionary.py",
+            "app/dictlearn.py",
+            "app/settings_window.py",
+            "README.md",
+            "card-187"
+          ]
+        },
+        {
+          "id": "snippets",
+          "path": "/snippets",
+          "title_en": "Snippets",
+          "title_ru": "Сниппеты",
+          "type": "how-to",
+          "status": "new",
+          "audience": [
+            "daily-user"
+          ],
+          "purpose_ru": "Подставлять подготовленный текст по произносимому триггеру: адреса, шаблоны, подписи, длинные вставки.",
+          "content_ru": [
+            "Сниппет: произносимый триггер → подготовленный текст после распознавания.",
+            "Литеральное совпадение без учёта регистра, с границами слов; побеждает самый длинный триггер, один проход.",
+            "Переносы строк сохраняются; до 500 пар; предупреждение об однословных триггерах из частых слов.",
+            "Вкладка сниппетов: add / update / remove, импорт и экспорт, предпросмотр замены.",
+            "Где хранятся сниппеты в config.json и как перенести их на другую машину.",
+            "Ограничения: сниппеты не заменяют модель, не переводят и не выполняют команды."
+          ],
+          "sources": [
+            "app/snippets.py",
+            "app/settings_window.py",
+            "app/config.py",
+            "card-181"
+          ]
+        },
+        {
+          "id": "history",
+          "path": "/history",
+          "title_en": "History",
+          "title_ru": "История",
+          "type": "how-to",
+          "status": "new",
+          "audience": [
+            "daily-user"
+          ],
+          "purpose_ru": "Включить, найти, отменить и удалить прошлые диктовки, понимая приватность.",
+          "content_ru": [
+            "История выключена по умолчанию; 100 последних диктовок; выключение удаляет файл.",
+            "Файл history.jsonl и его расположение; атомарная запись.",
+            "Таблица: Когда / Знаков / Приложение / Текст; поиск по фразам.",
+            "Фильтры: приложение, дата (сегодня, 7 или 30 дней), направление (вставлено или скопировано).",
+            "Выделение строк, в том числе множественное; удаление кнопкой и клавишей Delete; Ctrl+A.",
+            "«Отменить последнюю вставку»: Ctrl+Z в то же окно в течение 30 с, иначе предупреждение.",
+            "Приватность: история не покидает машину."
+          ],
+          "sources": [
+            "app/history.py",
+            "app/settings_window.py",
+            "app/insert.py",
+            "README.md#What stays on disk",
+            "card-143",
+            "card-179",
+            "card-186"
+          ]
+        },
+        {
+          "id": "statistics",
+          "path": "/statistics",
+          "title_en": "Statistics",
+          "title_ru": "Статистика",
+          "type": "how-to",
+          "status": "new",
+          "audience": [
+            "daily-user"
+          ],
+          "purpose_ru": "Посмотреть, сколько вы диктуете: счётчики по дням без хранения текста.",
+          "content_ru": [
+            "Счётчики: диктовки, слова, знаки, секунды по дням.",
+            "Только числа, никогда не текст: статистика не хранит содержимое диктовок.",
+            "Где считается и где хранится; связь с включённой историей.",
+            "Что происходит со статистикой при выключении истории и очистке данных.",
+            "Как читать счётчики и какие выводы они не позволяют сделать.",
+            "Приватность: статистика не покидает машину."
+          ],
+          "sources": [
+            "app/history.py",
+            "app/settings_window.py",
+            "README.md#What stays on disk"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "integrations",
+      "title_en": "Integrations",
+      "title_ru": "Интеграции",
+      "purpose_ru": "Показать, как VibeForma встраивается в проектный инструмент FormaMind и во внешние сценарии.",
+      "pages": [
+        {
+          "id": "formamind",
+          "path": "/formamind",
+          "title_en": "VibeForma in FormaMind",
+          "title_ru": "VibeForma в FormaMind",
+          "type": "explanation",
+          "status": "new",
+          "audience": [
+            "daily-user",
+            "developer"
+          ],
+          "purpose_ru": "Показать, как VibeForma работает голосовым слоем проектного инструмента FormaMind и что это даёт команде.",
+          "content_ru": [
+            "FormaMind — проектный инструмент команды: задачи, тексты, вайп-кодинг; FormaMind в разработке.",
+            "VibeForma — голосовой ввод: нажал, сказал, текст оказался в поле FormaMind.",
+            "Сценарии: промпты и комментарии при вайп-кодинге, тексты и документация, транскрибация видео и подкастов.",
+            "Сейчас: диктовка работает в любом приложении, включая FormaMind; локальный API и CLI доступны для программного вызова.",
+            "Дальше: нативная интеграция FormaMind, голосовое управление задачами, файловый режим для видео и подкастов (card-193).",
+            "Границы: VibeForma самостоятелен и полезен без FormaMind; всё локально, без аккаунтов и телеметрии.",
+            "Ссылки: Установка, Диктовка, Локальный API, Дорожная карта."
+          ],
+          "sources": [
+            "распоряжение человека 2026-11-22",
+            "README.md",
+            "card-193",
+            "project/production/vibeforma.pro/src/components/Landing.astro"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reference",
+      "title_en": "Reference",
+      "title_ru": "Справочник",
+      "purpose_ru": "Факты без интерпретации: параметры, файлы, команды, API.",
+      "pages": [
+        {
+          "id": "settings-reference",
+          "path": "/settings-reference",
+          "title_en": "Settings reference",
+          "title_ru": "Справочник настроек",
+          "type": "reference",
+          "status": "new",
+          "audience": [
+            "daily-user",
+            "admin"
+          ],
+          "purpose_ru": "Полная таблица параметров: имя, значения, default, эффект, ключ config.json.",
+          "content_ru": [
+            "Recording: устройство, режим удержания, способ вставки.",
+            "Hotkeys: клавиша диктовки и фиксированные сочетания.",
+            "Model & language: модель, устройство, язык, hotwords.",
+            "Dictionary: пары термин → замена и импорт/экспорт.",
+            "Snippets: триггер → текст, импорт/экспорт, предпросмотр.",
+            "History: включение, хранение, фильтры.",
+            "Statistics: счётчики по дням, только числа.",
+            "Appearance: тема, панель, приватный режим.",
+            "System: автозапуск, интервал обновлений, hook_command, локальный API.",
+            "Для каждого параметра: значения, значение по умолчанию, ключ config.json."
+          ],
+          "sources": [
+            "app/settings_window.py",
+            "app/config.py",
+            "README.md"
+          ]
+        },
+        {
+          "id": "files-and-paths",
+          "path": "/files-and-paths",
+          "title_en": "Files and locations",
+          "title_ru": "Файлы и расположение",
+          "type": "reference",
+          "status": "new",
+          "audience": [
+            "admin",
+            "developer"
+          ],
+          "purpose_ru": "Найти любой файл продукта, сделать backup и понять, что остаётся после удаления.",
+          "content_ru": [
+            "config.json: настройки, словарь, сниппеты, hotwords.",
+            "models\\: скачанные модели Whisper.",
+            "logs\\: пять ротированных файлов по 1 МБ, без текста диктовок.",
+            "history.jsonl: история при включении.",
+            "corrections.json: пары обучения словаря, только изменившиеся слова.",
+            "location.json и status.json: обнаружение и состояние сервиса.",
+            "service.lock: один экземпляр сервиса.",
+            "install.log и временные _http_in_*.wav.",
+            "Backup и перенос настроек; что удаляется при удалении продукта."
+          ],
+          "sources": [
+            "README.md#What stays on disk",
+            "app/vibeforma/app.py",
+            "install_steps.py"
+          ]
+        },
+        {
+          "id": "cli",
+          "path": "/cli",
+          "title_en": "Command line",
+          "title_ru": "Командная строка",
+          "type": "reference",
+          "status": "new",
+          "audience": [
+            "developer",
+            "admin"
+          ],
+          "purpose_ru": "Управлять запущенным сервисом из скриптов и внешних команд.",
+          "content_ru": [
+            "Флаги установленной копии: --toggle, --cancel, --status.",
+            "Требование запущенного экземпляра; exit code 0/1.",
+            "status.json: state, version, pid, ts; устаревание 60 секунд.",
+            "hook_command: текст в stdin, без shell, hook_timeout_s 1–30 с.",
+            "Примеры для PowerShell.",
+            "Будущее: --transcribe в 0.3.0 — резерв, не публикуется до релиза."
+          ],
+          "sources": [
+            "README.md#Command line and external hook",
+            "app/vibeforma/app.py",
+            "card-193"
+          ]
+        },
+        {
+          "id": "local-api",
+          "path": "/local-api",
+          "title_en": "Local API",
+          "title_ru": "Локальный API",
+          "type": "reference",
+          "status": "new",
+          "audience": [
+            "developer"
+          ],
+          "purpose_ru": "Подключить внешнюю форму или агента к локальному распознаванию.",
+          "content_ru": [
+            "Выключен по умолчанию; включение в System; ключ API создаётся автоматически.",
+            "Только 127.0.0.1; токен X-VibeForma-Token.",
+            "Автопорт: занятый порт заменяется свободным, location.json публикует фактический.",
+            "GET /health: ok, app, api, port, version, model, language, state.",
+            "POST /transcribe: WAV до 10 МБ, один запрос в секунду, только в простое.",
+            "Ответ {\"text\": \"...\"}; временный файл удаляется всегда.",
+            "location.json для обнаружения порта и эндпоинта.",
+            "Будущее: OpenAI-совместимый /v1/audio/transcriptions и jobs — после 0.3.0."
+          ],
+          "sources": [
+            "README.md#Local HTTP API",
+            "app/vibeforma/http_api.py",
+            "card-193"
+          ]
+        },
+        {
+          "id": "glossary",
+          "path": "/glossary",
+          "title_en": "Glossary",
+          "title_ru": "Глоссарий",
+          "type": "reference",
+          "status": "new",
+          "audience": [
+            "new-user",
+            "developer"
+          ],
+          "purpose_ru": "Одинаково понимать термины на всех страницах и в интерфейсе.",
+          "content_ru": [
+            "Диктовка, hotkey, toggle, hold-to-talk.",
+            "Панель, HUD, трей, сервис.",
+            "Модель, hotwords, словарь, сниппет, триггер, история, статистика.",
+            "VAD, частичная транскрипция, оверлей.",
+            "Вставка, буфер обмена, private mode.",
+            "Локальный API, location.json, status.json, service.lock.",
+            "EN/RU-соответствия терминов."
+          ],
+          "sources": [
+            "README.md",
+            "app/locales/en.json",
+            "app/locales/ru.json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "help",
+      "title_en": "Help",
+      "title_ru": "Помощь",
+      "purpose_ru": "Быстро снять проблему и понять границы продукта.",
+      "pages": [
+        {
+          "id": "troubleshooting",
+          "path": "/troubleshooting",
+          "title_en": "Troubleshooting",
+          "title_ru": "Решение проблем",
+          "type": "how-to",
+          "status": "update",
+          "current": "src/content/docs/troubleshooting.md",
+          "audience": [
+            "daily-user"
+          ],
+          "purpose_ru": "Найти свой симптом и пройти проверку до результата.",
+          "content_ru": [
+            "Микрофон молчит: устройство, уровень, права.",
+            "Hotkey ничего не делает: конфликт, режим, сервис.",
+            "Текст не вставился: способ вставки, раскладка, target.",
+            "Неверный язык или качество: модель, язык, hotwords.",
+            "Сниппет не сработал: границы слов, регистр, конфликт со словарём.",
+            "История или статистика пусты: история выключена.",
+            "Модель не загружается и не хватает диска.",
+            "Обновление не применилось.",
+            "Локальный API не отвечает.",
+            "Windows предупреждает об установке.",
+            "Ошибка с кодом: найти код в каталоге ошибок и выполнить следующее действие.",
+            "Каждый симптом: причина, шаги, ожидаемый результат, ссылка на диагностику."
+          ],
+          "sources": [
+            "docs/TROUBLESHOOTING.md",
+            "TROUBLESHOOTING.md",
+            "app/doctor.py"
+          ]
+        },
+        {
+          "id": "faq",
+          "path": "/faq",
+          "title_en": "FAQ",
+          "title_ru": "Частые вопросы",
+          "type": "explanation",
+          "status": "new",
+          "audience": [
+            "new-user",
+            "admin"
+          ],
+          "purpose_ru": "Закрыть короткие вопросы, которые не тянут отдельную страницу.",
+          "content_ru": [
+            "Бесплатно ли и нужен ли аккаунт.",
+            "Работает ли без интернета.",
+            "Сколько языков и есть ли автоопределение.",
+            "Насколько точен продукт и от чего зависит качество.",
+            "Почему antivirus реагирует на установку.",
+            "Где хранятся данные и как их удалить.",
+            "Есть ли portable-режим и несколько пользователей."
+          ],
+          "sources": [
+            "README.md",
+            "docs/TROUBLESHOOTING.md",
+            "app/config.py"
+          ]
+        },
+        {
+          "id": "diagnostics",
+          "path": "/diagnostics",
+          "title_en": "Diagnostics and logs",
+          "title_ru": "Диагностика и логи",
+          "type": "how-to",
+          "status": "new",
+          "audience": [
+            "daily-user",
+            "admin"
+          ],
+          "purpose_ru": "Собрать факты для разбора и отправить отчёт без лишних данных.",
+          "content_ru": [
+            "--doctor: Python, зависимости, модель, CUDA, микрофон, hotkey, диск; отчёт read-only.",
+            "--selftest: импорты → модель → test_ru.wav → распознанный текст.",
+            "Каталог ошибок: код, понятное сообщение, следующее действие; сообщения локализованы.",
+            "Где лежат логи и как работает ротация.",
+            "status.json и location.json: что читать.",
+            "Что приложить к отчёту об ошибке.",
+            "Приватность: в логах нет текста диктовок и заголовков окон.",
+            "log_window_titles: временное включение для диагностики."
+          ],
+          "sources": [
+            "app/doctor.py",
+            "README.md#Privacy",
+            "README.md#What stays on disk"
+          ]
+        },
+        {
+          "id": "known-issues",
+          "path": "/known-issues",
+          "title_en": "Known issues and limitations",
+          "title_ru": "Известные ограничения",
+          "type": "reference",
+          "status": "new",
+          "audience": [
+            "new-user",
+            "admin"
+          ],
+          "purpose_ru": "Честно показать, чего продукт не делает, до покупки и установки.",
+          "content_ru": [
+            "Только Windows 10/11 x64.",
+            "Нет автоопределения языка: язык фиксируется вручную.",
+            "Нет подписанного установщика и манифеста обновлений.",
+            "Установленная копия запускается через run.cmd и python, без VibeForma.exe.",
+            "Ограничения CUDA и машин без GPU.",
+            "Bluetooth-микрофоны, административные приложения, clipboard-менеджеры.",
+            "Вне границ: diarization, перевод, субтитры в видео, облачная синхронизация, пакетная обработка.",
+            "Один экземпляр сервиса: повторный запуск поднимает панель, а не второй сервис.",
+            "История выключена по умолчанию."
+          ],
+          "sources": [
+            "README.md",
+            "docs/TROUBLESHOOTING.md",
+            "card-193",
+            "card-192"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "privacy",
+      "title_en": "Privacy and security",
+      "title_ru": "Приватность и безопасность",
+      "purpose_ru": "Показать, что остаётся на машине, когда нужна сеть и как защищён локальный контур.",
+      "pages": [
+        {
+          "id": "privacy",
+          "path": "/privacy",
+          "title_en": "Privacy",
+          "title_ru": "Приватность",
+          "type": "explanation",
+          "status": "update",
+          "current": "src/content/docs/privacy.md",
+          "audience": [
+            "new-user",
+            "admin"
+          ],
+          "purpose_ru": "Понять, какие данные покидают машину и какие нет.",
+          "content_ru": [
+            "Запись и распознавание — локальные процессы.",
+            "Сеть: скачивание модели при установке и проверка обновлений.",
+            "Нет телеметрии и аккаунтов; токен локального API не покидает машину.",
+            "Что остаётся на диске и где.",
+            "Исключение из истории буфера обмена и облачной синхронизации.",
+            "Уведомления без текста по умолчанию; показ фразы — opt-in.",
+            "corrections.json хранит только изменившиеся слова, не весь текст.",
+            "Private mode панели.",
+            "Удаление данных."
+          ],
+          "sources": [
+            "README.md#Privacy",
+            "README.md#What stays on disk",
+            "app/config.py"
+          ]
+        },
+        {
+          "id": "security",
+          "path": "/security",
+          "title_en": "Security",
+          "title_ru": "Безопасность",
+          "type": "explanation",
+          "status": "new",
+          "audience": [
+            "admin",
+            "developer"
+          ],
+          "purpose_ru": "Оценить риск локального API, hook-команды и обновлений.",
+          "content_ru": [
+            "Локальный API выключен по умолчанию, слушает только loopback.",
+            "Токен создаётся автоматически и хранится в config.json.",
+            "hook_command: доверенная команда пользователя, stdin с текстом, без shell, таймаут 1–30 с.",
+            "Обновления: zip и проверка SHA256SUMS; нет подписи манифеста.",
+            "Источник моделей и проверка целостности.",
+            "Antivirus false positives и SmartScreen.",
+            "Как сообщить об уязвимости."
+          ],
+          "sources": [
+            "README.md#Local HTTP API",
+            "README.md#Updating",
+            "app/vibeforma/http_api.py"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "project",
+      "title_en": "Project",
+      "title_ru": "Проект",
+      "purpose_ru": "Показать развитие продукта и путь для тех, кто хочет участвовать.",
+      "pages": [
+        {
+          "id": "changelog",
+          "path": "/changelog",
+          "title_en": "Changelog",
+          "title_ru": "История версий",
+          "type": "reference",
+          "status": "new",
+          "audience": [
+            "new-user",
+            "admin",
+            "developer"
+          ],
+          "purpose_ru": "Увидеть, что изменилось между версиями и что делать при обновлении.",
+          "content_ru": [
+            "Формат Added / Changed / Fixed / Security.",
+            "Версии 0.2.x и ссылка на GitHub Releases.",
+            "Заметки об обновлении и несовместимостях.",
+            "Версия документации и продукта.",
+            "Ссылка на CHANGELOG.md как источник."
+          ],
+          "sources": [
+            "CHANGELOG.md",
+            "https://github.com/FormaMindPro/vibeforma/releases"
+          ]
+        },
+        {
+          "id": "roadmap",
+          "path": "/roadmap",
+          "title_en": "Roadmap",
+          "title_ru": "Дорожная карта",
+          "type": "explanation",
+          "status": "new",
+          "audience": [
+            "new-user",
+            "developer"
+          ],
+          "purpose_ru": "Показать направление без обещания дат.",
+          "content_ru": [
+            "Статусы now / next / later.",
+            "Файловый режим: транскрибация аудио и видео (card-193).",
+            "FormaMind: голосовое управление задачами и текстами, нативная интеграция.",
+            "Агентская интеграция: CLI, локальный API, location.json.",
+            "Улучшение моделей и качества пунктуации.",
+            "Как предложить функцию через GitHub issues.",
+            "Правило: даты не обещаются, статусы честные."
+          ],
+          "sources": [
+            "card-193",
+            "card-161",
+            "https://github.com/FormaMindPro/vibeforma/issues"
+          ]
+        },
+        {
+          "id": "development",
+          "path": "/development",
+          "title_en": "Development",
+          "title_ru": "Разработка",
+          "type": "how-to",
+          "status": "new",
+          "audience": [
+            "developer"
+          ],
+          "purpose_ru": "Собрать и запустить продукт из исходников, прогнать тесты.",
+          "content_ru": [
+            "Структура репозитория: app/, app/vibeforma/, tests/, tools/.",
+            "Python 3.10+, venv, установка зависимостей.",
+            "Запуск из исходников и сборка zip.",
+            "pytest и ruff; strict mypy; что считается зелёным.",
+            "CI: полный набор на Windows, подмножество на Ubuntu; около 40 тест-файлов идут без модели, GPU и сети.",
+            "Архитектура: ASR, hotkey, insert, hud, tray, http_api, dictionary, snippets, history, doctor, updater.",
+            "Один экземпляр (service.lock), автозапуск, ротация логов.",
+            "Сборка docs-сайта Astro Starlight.",
+            "Релизный workflow и тег v*."
+          ],
+          "sources": [
+            "README.md#Development",
+            "pyproject.toml",
+            ".github/workflows/release.yml"
+          ]
+        },
+        {
+          "id": "contributing",
+          "path": "/contributing",
+          "title_en": "Contributing",
+          "title_ru": "Участие",
+          "type": "how-to",
+          "status": "new",
+          "audience": [
+            "developer"
+          ],
+          "purpose_ru": "Понять правила и прислать изменение, которое примут.",
+          "content_ru": [
+            "Issues и pull requests; чего ждать от ревью.",
+            "Английский язык ядра: код, комментарии, логи, CHANGELOG.",
+            "ASCII в исполняемом коде и тестах.",
+            "Локализация только в app/locales и README.ru.md; новый язык — один файл локали.",
+            "Тест проверяет: ядро на английском, кириллица только в локалях.",
+            "Правки документации: EN и RU вместе.",
+            "Лицензия MIT и атрибуция."
+          ],
+          "sources": [
+            "README.md#Language of the repository",
+            "LICENSE",
+            "app/locales"
+          ]
+        }
+      ]
+    }
+  ],
+  "future": [
+    {
+      "id": "file-transcription",
+      "group": "text-tools",
+      "path": "/file-transcription",
+      "title_en": "File transcription",
+      "title_ru": "Транскрибация файлов",
+      "type": "how-to",
+      "status": "future",
+      "publish": false,
+      "after": "card-193",
+      "audience": [
+        "daily-user",
+        "developer"
+      ],
+      "purpose_ru": "Транскрибировать аудио и видео из трея и из CLI, не мешая диктовке.",
+      "content_ru": [
+        "Пункт трея «Транскрибировать файл…».",
+        "Поддерживаемые форматы: mp4, mkv, mov, webm, mp3, wav, m4a.",
+        "Декодирование через PyAV без внешнего ffmpeg.",
+        "Прогресс в HUD, пауза при диктовке и возобновление.",
+        "Выход TXT, JSON, SRT, VTT.",
+        "CLI --transcribe и локальный API для агентов.",
+        "Всё локально, без сети."
+      ],
+      "sources": [
+        "card-193",
+        "project/cards/card-193/spec.md"
+      ]
+    },
+    {
+      "id": "formats",
+      "group": "reference",
+      "path": "/formats",
+      "title_en": "Transcript formats",
+      "title_ru": "Форматы расшифровки",
+      "type": "reference",
+      "status": "future",
+      "publish": false,
+      "after": "card-193",
+      "audience": [
+        "developer"
+      ],
+      "purpose_ru": "Описать TXT, JSON, SRT и VTT: поля, таймкоды, кодировку.",
+      "content_ru": [
+        "TXT: чистый текст, UTF-8.",
+        "JSON: сегменты с start, end, text.",
+        "SRT: нумерованные блоки и таймкоды.",
+        "VTT: заголовок WEBVTT и таймкоды.",
+        "Кодировка и переводы строк.",
+        "Ограничения и примеры."
+      ],
+      "sources": [
+        "card-193",
+        "project/cards/card-193/spec.md"
+      ]
+    },
+    {
+      "id": "agents",
+      "group": "integrations",
+      "path": "/agents",
+      "title_en": "AI agents and integrations",
+      "title_ru": "ИИ-агенты и интеграции",
+      "type": "how-to",
+      "status": "future",
+      "publish": false,
+      "after": "card-193",
+      "audience": [
+        "developer"
+      ],
+      "purpose_ru": "Подключить VibeForma к любому харнессу через location.json, CLI и API.",
+      "content_ru": [
+        "location.json: launcher, python, entry, канал, форматы, лимиты.",
+        "CLI --transcribe и именованный канал текущего пользователя.",
+        "OpenAI-совместимый /v1/audio/transcriptions.",
+        "Job-API /jobs для длинных файлов.",
+        "Ограничения: локально, без сети и UNC.",
+        "Примеры для внешнего харнесса."
+      ],
+      "sources": [
+        "card-193",
+        "project/cards/card-193/spec.md"
+      ]
+    }
+  ],
+  "coverage": {
+    "source": "project/cards/card-195/inventory.md",
+    "features_total": 74,
+    "groups_total": 15,
+    "groups": [
+      {
+        "id": "dictation-recognition",
+        "title_ru": "Диктовка и распознавание",
+        "features": 11,
+        "pages": [
+          "dictation",
+          "models",
+          "requirements",
+          "introduction"
+        ]
+      },
+      {
+        "id": "hotkey-modes",
+        "title_ru": "Режимы хоткея",
+        "features": 2,
+        "pages": [
+          "dictation",
+          "hotkeys",
+          "settings"
+        ]
+      },
+      {
+        "id": "settings-window",
+        "title_ru": "Окно настроек",
+        "features": 6,
+        "pages": [
+          "settings",
+          "settings-reference"
+        ]
+      },
+      {
+        "id": "hud-panel",
+        "title_ru": "HUD / панель мониторинга",
+        "features": 10,
+        "pages": [
+          "interface",
+          "dictation",
+          "updates",
+          "settings-reference"
+        ]
+      },
+      {
+        "id": "history",
+        "title_ru": "История",
+        "features": 4,
+        "pages": [
+          "history"
+        ]
+      },
+      {
+        "id": "dictionary-learning",
+        "title_ru": "Словарь и обучение",
+        "features": 2,
+        "pages": [
+          "dictionary"
+        ]
+      },
+      {
+        "id": "snippets",
+        "title_ru": "Сниппеты",
+        "features": 2,
+        "pages": [
+          "snippets"
+        ]
+      },
+      {
+        "id": "statistics",
+        "title_ru": "Статистика",
+        "features": 1,
+        "pages": [
+          "statistics"
+        ]
+      },
+      {
+        "id": "insert-clipboard",
+        "title_ru": "Вставка и буфер обмена",
+        "features": 5,
+        "pages": [
+          "dictation",
+          "privacy",
+          "interface"
+        ]
+      },
+      {
+        "id": "hotkeys-summary",
+        "title_ru": "Горячие клавиши (сводка)",
+        "features": 1,
+        "pages": [
+          "hotkeys"
+        ]
+      },
+      {
+        "id": "cli-api",
+        "title_ru": "CLI и локальный API",
+        "features": 5,
+        "pages": [
+          "cli",
+          "local-api",
+          "security"
+        ]
+      },
+      {
+        "id": "install-update-remove",
+        "title_ru": "Установка, обновление, удаление",
+        "features": 9,
+        "pages": [
+          "installation",
+          "requirements",
+          "updates",
+          "known-issues"
+        ]
+      },
+      {
+        "id": "privacy-diagnostics",
+        "title_ru": "Приватность и диагностика",
+        "features": 6,
+        "pages": [
+          "privacy",
+          "security",
+          "diagnostics",
+          "troubleshooting"
+        ]
+      },
+      {
+        "id": "localization",
+        "title_ru": "Локализация",
+        "features": 4,
+        "pages": [
+          "introduction",
+          "models",
+          "installation",
+          "contributing"
+        ]
+      },
+      {
+        "id": "infrastructure",
+        "title_ru": "Инфраструктура и качество",
+        "features": 6,
+        "pages": [
+          "development",
+          "interface",
+          "files-and-paths",
+          "cli"
+        ]
+      }
+    ],
+    "not_implemented": [
+      {
+        "id": "file-mode",
+        "title_ru": "Файловый режим 0.3.0",
+        "status": "future",
+        "pages": [
+          "file-transcription",
+          "formats",
+          "agents",
+          "roadmap"
+        ]
+      },
+      {
+        "id": "exe-entry",
+        "title_ru": "Устаревшее имя VibeForma.exe",
+        "status": "known-issue",
+        "pages": [
+          "known-issues"
+        ]
+      },
+      {
+        "id": "out-of-scope",
+        "title_ru": "Diarization, перевод, субтитры, облако, пакетная обработка",
+        "status": "limits",
+        "pages": [
+          "known-issues"
+        ]
+      }
+    ]
+  },
+  "navigation": {
+    "top": [
+      "Docs",
+      "Blog",
+      "Roadmap",
+      "GitHub"
+    ],
+    "sidebar_groups": 8,
+    "max_items_per_group": 8,
+    "page_template": [
+      "title и description",
+      "prerequisites",
+      "steps или таблица",
+      "expected result",
+      "what next",
+      "related links",
+      "edit this page",
+      "last updated"
+    ],
+    "required_footer": [
+      "what next",
+      "related links",
+      "edit this page",
+      "report an issue"
+    ],
+    "search": "Starlight Pagefind, EN и RU раздельно",
+    "language_switch": "тот же slug под /ru/"
+  },
+  "localization": {
+    "canonical": "en",
+    "translated": [
+      "ru"
+    ],
+    "same_slugs": true,
+    "titles_and_descriptions": "обе локали обязательны",
+    "screenshots": "на языке страницы",
+    "ui_labels": "совпадают с локалью приложения",
+    "parity_gate": "каждая опубликованная страница имеет EN и RU"
+  },
+  "migration": [
+    {
+      "current": "src/content/docs/introduction.md",
+      "targets": [
+        "introduction"
+      ],
+      "action": "rewrite"
+    },
+    {
+      "current": "src/content/docs/installation.md",
+      "targets": [
+        "installation",
+        "requirements"
+      ],
+      "action": "split"
+    },
+    {
+      "current": "src/content/docs/usage.md",
+      "targets": [
+        "dictation",
+        "hotkeys",
+        "settings",
+        "models",
+        "dictionary",
+        "history",
+        "interface",
+        "snippets",
+        "statistics"
+      ],
+      "action": "split"
+    },
+    {
+      "current": "src/content/docs/privacy.md",
+      "targets": [
+        "privacy",
+        "security"
+      ],
+      "action": "split"
+    },
+    {
+      "current": "src/content/docs/troubleshooting.md",
+      "targets": [
+        "troubleshooting",
+        "diagnostics",
+        "faq",
+        "known-issues"
+      ],
+      "action": "split"
+    }
+  ],
+  "gates": {
+    "build": "node project/production/vibeforma.pro/scripts/verify-build.mjs --all",
+    "required_pages": 31,
+    "locale_parity": true,
+    "link_check": true,
+    "screenshots_alt": true,
+    "llms_txt": true
+  }
+}
