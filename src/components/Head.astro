@@ -49,17 +49,40 @@ const alt = path.startsWith('/ru')
 </script>
 <script is:inline>
   // giscus picks its frame theme from the OS by default; the page may carry a
-  // stored theme instead. Align the widget with data-theme before it loads.
+  // stored theme instead. Align the widget before it loads and follow later
+  // theme switches through the widget's own setConfig message.
   (() => {
-    const sync = () => {
-      const script = document.querySelector('script[src^="https://giscus.app/client.js"]');
-      if (!script || script.dataset.vfTheme === 'synced') return;
-      script.dataset.vfTheme = 'synced';
-      const theme = document.documentElement.dataset.theme;
-      if (theme === 'light' || theme === 'dark') script.dataset.theme = theme;
+    const origin = 'https://giscus.app';
+    const theme = () => {
+      const value = document.documentElement.dataset.theme;
+      return value === 'light' || value === 'dark' ? value : '';
     };
-    new MutationObserver(sync).observe(document.documentElement, { childList: true, subtree: true });
-    sync();
+    const sync = () => {
+      const value = theme();
+      if (!value) return;
+      const script = document.querySelector('script[src^="https://giscus.app/client.js"]');
+      if (script && script.dataset.theme !== value) script.dataset.theme = value;
+      const frame = document.querySelector('iframe.giscus-frame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ giscus: { setConfig: { theme: value } } }, origin);
+      }
+    };
+    let queued = false;
+    const schedule = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        sync();
+      });
+    };
+    new MutationObserver(schedule).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+      childList: true,
+      subtree: true,
+    });
+    schedule();
   })();
 </script>
 <Default {...Astro.props} />
