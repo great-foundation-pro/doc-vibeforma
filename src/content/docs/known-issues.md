@@ -1,6 +1,6 @@
 ---
 title: Known issues and limitations
-description: What VibeForma 0.2.4 does not do, which limits are deliberate, and which issues are known.
+description: What VibeForma 0.4.0 does not do, which limits are deliberate, and which issues are known.
 ---
 
 This page is the honest boundary of the product. Some limits are deliberate design choices; some are known issues; some are out of scope.
@@ -22,7 +22,18 @@ This page is the honest boundary of the product. Some limits are deliberate desi
 | 26 menu codes | The menu offers 26 language codes; the model supports about 99 languages. The menu is not the model's full list. |
 | No diarization | VibeForma does not separate speakers. |
 | 120-second phrase cap | A longer recording stops at the limit. |
-| No file transcription in 0.2.4 | Audio and video files are planned for 0.3.0, not available today. |
+
+## File transcription
+
+| Limit | Detail |
+|---|---|
+| One file at a time | A folder batch is a queue, not parallel processing. |
+| Local disks only | UNC shares and network paths are refused; `file_roots` can narrow the allowed roots. |
+| Default limits | 4096 MB per file and 6 hours of duration; both are config keys. |
+| No overwrite by default | An existing output is skipped unless `--force` is passed. |
+| Recorded batch failures | A bad file or a duplicate output name is recorded as an error; the rest of the batch continues. |
+| Word timings are off | `file_word_timestamps` adds them to JSON and is off by default. |
+| Long-file speed depends on hardware | The batched path helps on CUDA; a CPU-only machine is slower. |
 
 ## Installation and updates
 
@@ -37,8 +48,7 @@ This page is the honest boundary of the product. Some limits are deliberate desi
 
 | Issue | Detail |
 |---|---|
-| Stale `VibeForma.exe` mention | The product README still names `VibeForma.exe` in its command-line section. There is no separate executable in 0.2.4: use `run.cmd` or `.venv\Scripts\python.exe main.py`. |
-| Future pages are reserved | File transcription, formats and agents pages are reserved but not published until the feature ships. |
+| Stale `VibeForma.exe` mention | Some older README text still names `VibeForma.exe`. There is no separate executable in 0.4.0: use `run.cmd` or `.venv\Scripts\python.exe main.py`. |
 
 ## Data and history
 
@@ -56,9 +66,10 @@ This page is the honest boundary of the product. Some limits are deliberate desi
 |---|---|
 | Off by default | The API does not listen until you enable it. |
 | Loopback only | No remote access. |
-| 10 MB WAV | One short recording per request. |
+| 10 MB WAV | `/transcribe` takes one short recording per request. |
 | One request per second | A faster client gets `429`. |
 | Idle only | A dictation has priority; a busy service returns `409`. |
+| Synchronous file cap | `/v1/audio/transcriptions` stops at `file_max_sync_s` (900 s); longer files go to `/jobs`. |
 
 ## Out of scope
 
@@ -68,7 +79,7 @@ These are not planned as part of the dictation product:
 - translation;
 - video subtitles;
 - cloud recognition;
-- batch processing of file queues;
+- parallel transcription of several files at once;
 - meetings, summaries, teams and billing;
 - mobile apps.
 

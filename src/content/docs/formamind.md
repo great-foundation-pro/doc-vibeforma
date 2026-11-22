@@ -24,16 +24,16 @@ VibeForma exists to make that layer local, predictable and always available: one
 
 | Capability | Status |
 |---|---|
-| Dictation into any Windows application, including an editor or a FormaMind window | Works in 0.2.4 |
+| Dictation into any Windows application, including an editor or a FormaMind window | Works in 0.4.0 |
 | Local recognition with faster-whisper | Works |
 | Dictionary and snippets for project vocabulary | Works |
-| Command line: `--toggle`, `--cancel`, `--status`, `--doctor`, `--selftest` | Works |
+| Command line: `--toggle`, `--cancel`, `--status`, `--transcribe`, `--transcribe-folder`, `--doctor`, `--selftest` | Works |
 | Local HTTP API on `127.0.0.1` | Works when enabled |
 | `hook_command` — send recognized text to your own command | Works when configured |
-| File transcription for video and podcasts | Not in 0.2.4; planned for 0.3.0 |
+| File transcription for video and podcasts, including folder batches | Works in 0.4.0 |
 | Native FormaMind integration | In development |
 
-The honest summary: VibeForma already works as a dictation tool. FormaMind is in development, and the native bridge between them is not finished.
+The honest summary: VibeForma already works as a dictation tool and as a local file transcription tool. FormaMind is in development, and the native bridge between them is not finished.
 
 ## How to use VibeForma with a project tool today
 
@@ -54,10 +54,12 @@ Add project names and terms to the [dictionary](/dictionary/) so they are recogn
 
 With the API enabled, a local tool can:
 
-- check `GET /health` for state, version, model and language;
-- send a WAV file to `POST /transcribe` with the `X-VibeForma-Token` header.
+- check `GET /health` for state, version, model, language and the file queue;
+- send a short WAV to `POST /transcribe` with the `X-VibeForma-Token` header;
+- send an audio or video file to the OpenAI-compatible `POST /v1/audio/transcriptions`;
+- queue a long file with `POST /jobs` and read the result from `GET /jobs/<id>/result`.
 
-The API is loopback-only, rate-limited and accepts WAV up to 10 MB. Details: [Local API](/local-api/).
+The API is loopback-only and requires the token. Details: [Local API](/local-api/).
 
 ### Drive the service from the command line
 
@@ -65,17 +67,16 @@ The API is loopback-only, rate-limited and accepts WAV up to 10 MB. Details: [Lo
 
 ## What is being built
 
-- **File transcription (0.3.0)** — a second input into the same engine: a file instead of a microphone. Planned outputs are TXT, JSON, SRT and VTT, with timecodes, a job queue, pause and resume, and priority for live dictation. This is the piece that turns video and podcast recordings into text inside the same workflow.
-- **Agent and harness surfaces** — a named pipe, an extended `location.json`, a `--transcribe` CLI path and an OpenAI-compatible transcription endpoint.
 - **Native FormaMind integration** — voice control of project tasks and a tighter connection between the project tool and the voice layer.
+- **Project workflows on top of the file mode** — turning recordings into project notes, tasks and documents without leaving the local machine.
 
-These are plans, not shipped features. The [roadmap](/roadmap/) states them without dates, and the published documentation does not promise them as available.
+The agent surfaces are already shipped: the named pipe, `location.json` schema 2, `--transcribe` and `--transcribe-folder`, the OpenAI-compatible endpoint and the job API are in 0.4.0. What remains is the native FormaMind bridge; the [roadmap](/roadmap/) states it without dates, and the published documentation does not promise it as available.
 
 ## What this means for you today
 
 - If you want **local dictation on Windows**, VibeForma is ready now. Start with [Quickstart](/quickstart/).
-- If you want **video and podcast transcription**, it is not in 0.2.4. Watch the [roadmap](/roadmap/) or use a file transcription tool in the meantime.
-- If you are **building an integration**, the CLI, the hook and the local API are usable today; the file and agent surfaces are being designed for 0.3.0.
+- If you want **video and podcast transcription**, 0.4.0 does it locally, including a whole folder as a batch. See [File transcription](/file-transcription/).
+- If you are **building an integration**, the CLI, the named pipe, the OpenAI-compatible endpoint and the job API are usable today. See [AI agents and integrations](/agents/).
 
 ## Where to go next
 

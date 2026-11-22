@@ -27,25 +27,27 @@ Recognition uses faster-whisper, a local implementation of the Whisper model. Th
 ## What is included
 
 - **Dictation** in toggle or hold-to-talk mode, with voice activity detection, a 120-second phrase limit and `Esc` to cancel.
+- **File transcription** of audio and video on the same local engine, including folder batches, four output formats and a progress strip in the panel.
 - **A monitoring panel** with the microphone level, VAD indicator, streaming text, a privacy mode and actions for the latest draft.
 - **Nine settings sections**, applied to the running service without a restart.
 - **Four models** — large-v3, large-v3-turbo (default), medium and small — switchable without restarting the app, with rollback if a download fails.
 - **A dictionary** for terms and replacements, and **snippets** for spoken triggers.
 - **History** — off by default, the last 100 dictations when enabled — and **statistics** that store numbers, never text.
 - **A panel, tray icon and autostart**, one running instance, and rotating logs.
-- **A command line** (`--toggle`, `--cancel`, `--status`, `--doctor`, `--selftest`) and an optional local HTTP API bound to `127.0.0.1`.
+- **A command line** (`--toggle`, `--cancel`, `--status`, `--transcribe`, `--transcribe-folder`, `--doctor`, `--selftest`) and an optional local HTTP API bound to `127.0.0.1`.
 - **English and Russian** interface and documentation.
 
 VibeForma is free and open source under the MIT license.
 
 ## What it does not do
 
-VibeForma 0.2.4 is a dictation tool, not a meeting or media platform:
+VibeForma 0.4.0 is a local dictation and file transcription tool, not a meeting or media platform:
 
 - It runs on Windows only.
 - It does not detect the language automatically; you choose it.
-- It does not transcribe audio or video files yet. File transcription is planned for 0.3.0 and is not part of 0.2.4.
-- It has no cloud, accounts, teams, billing, translation, speaker diarization or video subtitles.
+- It transcribes files one at a time, not several in parallel.
+- It does not summarize meetings, label speakers, translate or burn subtitles into video.
+- It has no cloud, accounts, teams or billing.
 
 The full list is on [Known issues and limitations](/known-issues/).
 

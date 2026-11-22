@@ -26,6 +26,12 @@ Terms are listed with the English and Russian forms used in the app and in these
 | History | История | The optional local record of the last 100 dictations. |
 | Statistics | Статистика | Local counters of dictations, words, characters and seconds. |
 | Hook | Хук, `hook_command` | A user command that receives recognized text on stdin. |
+| File transcription | Транскрибация файлов | Recognizing an audio or video file instead of the microphone. |
+| Folder batch | Пакет папки | A queue of media files from one folder, processed one at a time. |
+| Job | Задача | One queued file; its state and progress are exposed by `/jobs`. |
+| Transcript | Расшифровка | The text result, written as TXT, JSON, SRT or VTT. |
+| SRT / VTT | SRT / VTT | Subtitle formats with timecodes. |
+| Named pipe | Именованный канал | The per-user local channel the CLI uses without a port or token. |
 | Local API | Локальный API | The optional HTTP listener on `127.0.0.1`. |
 | Loopback | Loopback | The local interface `127.0.0.1`; traffic does not leave the machine. |
 | Token | Токен | The secret required by the local API, stored in `config.json`. |

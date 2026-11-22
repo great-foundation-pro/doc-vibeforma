@@ -3,7 +3,7 @@ title: Settings reference
 description: Every VibeForma setting by section — key, default, values and effect.
 ---
 
-This page lists the settings the 0.2.4 source and documentation name explicitly. A UI setting without a documented key still lives in `config.json`, but this page does not invent a key name for it.
+This page lists the settings the 0.4.0 source and documentation name explicitly. A UI setting without a documented key still lives in `config.json`, but this page does not invent a key name for it.
 
 Defaults are the values a fresh installation writes.
 
@@ -76,9 +76,25 @@ Statistics have no settings. They count dictations, words, characters and second
 | Automatic install | `auto_update` | off | `auto` or off | `auto` installs a found release without asking. |
 | Local API | stored in `config.json` | off | on / off | Starts the loopback HTTP listener. |
 | API port | port setting | `8787` | a port number | The preferred port; a busy port falls back to a free loopback port. |
-| API token | stored in `config.json` | generated on first enable | secret string | Required by `POST /transcribe`. |
+| API token | stored in `config.json` | generated on first enable | secret string | Required by every API request. |
 | Log window titles | `log_window_titles` | `false` | `true` / `false` | Adds target window titles to the log. Off by default; only the handle and character count are logged. |
 | Onboarding completed | `onboarding_done` | `false` | `true` / `false` | Whether the three-step assistant has been completed. |
+
+## File transcription
+
+These keys live in `config.json`; the settings window has no separate tab for them.
+
+| Setting | Key | Default | Values | Effect |
+|---|---|---|---|---|
+| Allowed roots | `file_roots` | empty | list of folders | Empty allows every local fixed or removable disk; a list restricts file jobs to those roots. |
+| Maximum file size | `file_max_mb` | `4096` | megabytes | A larger file is refused. |
+| Maximum duration | `file_max_s` | `21600` | seconds | A longer file is refused. |
+| Synchronous API limit | `file_max_sync_s` | `900` | seconds | Longer files must use `/jobs` instead of `/v1/audio/transcriptions`. |
+| Job retention | `job_keep_s` | `86400` | seconds | How long a finished job stays in memory. |
+| Word timestamps | `file_word_timestamps` | `false` | `true` / `false` | Adds word-level timings to JSON output. |
+| Include subfolders | `file_folder_recursive` | `false` | `true` / `false` | The tray folder dialog walks subfolders. |
+| Batched long files | `file_batched` | `true` | `true` / `false` | Files at or above 60 seconds use the batched inference path. |
+| Batch size | `file_batch_size` | `8` | 1–16 | Blocks per batched pass. |
 
 ## Automation
 
@@ -98,4 +114,5 @@ Settings are saved with `Ctrl+S` in the settings window. Most apply to the runni
 - [Settings](/settings/) — the sections in context.
 - [Files and locations](/files-and-paths/) — paths and formats.
 - [Command line](/cli/) — flags that act on the running service.
+- [File transcription](/file-transcription/) — the file keys in context.
 - [Local API](/local-api/) — the API settings.

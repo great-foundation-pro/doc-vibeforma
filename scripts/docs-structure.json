@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "product": "VibeForma",
-  "product_version": "0.2.4",
+  "product_version": "0.4.0",
   "generated": "2026-11-22",
   "card": "card-194",
   "canonical_locale": "en",
@@ -552,6 +552,34 @@
             "app/settings_window.py",
             "README.md#What stays on disk"
           ]
+        },
+        {
+          "id": "file-transcription",
+          "group": "text-tools",
+          "path": "/file-transcription",
+          "title_en": "File transcription",
+          "title_ru": "Транскрибация файлов",
+          "type": "how-to",
+          "status": "published",
+          "publish": true,
+          "audience": [
+            "daily-user",
+            "developer"
+          ],
+          "purpose_ru": "Транскрибировать аудио и видео из трея и из CLI, не мешая диктовке.",
+          "content_ru": [
+            "Пункт трея «Транскрибировать файл…».",
+            "Поддерживаемые форматы: mp4, mkv, mov, webm, mp3, wav, m4a.",
+            "Декодирование через PyAV без внешнего ffmpeg.",
+            "Прогресс в HUD, пауза при диктовке и возобновление.",
+            "Выход TXT, JSON, SRT, VTT.",
+            "CLI --transcribe и локальный API для агентов.",
+            "Всё локально, без сети."
+          ],
+          "sources": [
+            "card-193",
+            "project/cards/card-193/spec.md"
+          ]
         }
       ]
     },
@@ -587,6 +615,32 @@
             "README.md",
             "card-193",
             "project/production/vibeforma.pro/src/components/Landing.astro"
+          ]
+        },
+        {
+          "id": "agents",
+          "group": "integrations",
+          "path": "/agents",
+          "title_en": "AI agents and integrations",
+          "title_ru": "ИИ-агенты и интеграции",
+          "type": "how-to",
+          "status": "published",
+          "publish": true,
+          "audience": [
+            "developer"
+          ],
+          "purpose_ru": "Подключить VibeForma к любому харнессу через location.json, CLI и API.",
+          "content_ru": [
+            "location.json: launcher, python, entry, канал, форматы, лимиты.",
+            "CLI --transcribe и именованный канал текущего пользователя.",
+            "OpenAI-совместимый /v1/audio/transcriptions.",
+            "Job-API /jobs для длинных файлов.",
+            "Ограничения: локально, без сети и UNC.",
+            "Примеры для внешнего харнесса."
+          ],
+          "sources": [
+            "card-193",
+            "project/cards/card-193/spec.md"
           ]
         }
       ]
@@ -734,6 +788,32 @@
             "README.md",
             "app/locales/en.json",
             "app/locales/ru.json"
+          ]
+        },
+        {
+          "id": "formats",
+          "group": "reference",
+          "path": "/formats",
+          "title_en": "Transcript formats",
+          "title_ru": "Форматы расшифровки",
+          "type": "reference",
+          "status": "published",
+          "publish": true,
+          "audience": [
+            "developer"
+          ],
+          "purpose_ru": "Описать TXT, JSON, SRT и VTT: поля, таймкоды, кодировку.",
+          "content_ru": [
+            "TXT: чистый текст, UTF-8.",
+            "JSON: сегменты с start, end, text.",
+            "SRT: нумерованные блоки и таймкоды.",
+            "VTT: заголовок WEBVTT и таймкоды.",
+            "Кодировка и переводы строк.",
+            "Ограничения и примеры."
+          ],
+          "sources": [
+            "card-193",
+            "project/cards/card-193/spec.md"
           ]
         }
       ]
@@ -1043,91 +1123,7 @@
       ]
     }
   ],
-  "future": [
-    {
-      "id": "file-transcription",
-      "group": "text-tools",
-      "path": "/file-transcription",
-      "title_en": "File transcription",
-      "title_ru": "Транскрибация файлов",
-      "type": "how-to",
-      "status": "future",
-      "publish": false,
-      "after": "card-193",
-      "audience": [
-        "daily-user",
-        "developer"
-      ],
-      "purpose_ru": "Транскрибировать аудио и видео из трея и из CLI, не мешая диктовке.",
-      "content_ru": [
-        "Пункт трея «Транскрибировать файл…».",
-        "Поддерживаемые форматы: mp4, mkv, mov, webm, mp3, wav, m4a.",
-        "Декодирование через PyAV без внешнего ffmpeg.",
-        "Прогресс в HUD, пауза при диктовке и возобновление.",
-        "Выход TXT, JSON, SRT, VTT.",
-        "CLI --transcribe и локальный API для агентов.",
-        "Всё локально, без сети."
-      ],
-      "sources": [
-        "card-193",
-        "project/cards/card-193/spec.md"
-      ]
-    },
-    {
-      "id": "formats",
-      "group": "reference",
-      "path": "/formats",
-      "title_en": "Transcript formats",
-      "title_ru": "Форматы расшифровки",
-      "type": "reference",
-      "status": "future",
-      "publish": false,
-      "after": "card-193",
-      "audience": [
-        "developer"
-      ],
-      "purpose_ru": "Описать TXT, JSON, SRT и VTT: поля, таймкоды, кодировку.",
-      "content_ru": [
-        "TXT: чистый текст, UTF-8.",
-        "JSON: сегменты с start, end, text.",
-        "SRT: нумерованные блоки и таймкоды.",
-        "VTT: заголовок WEBVTT и таймкоды.",
-        "Кодировка и переводы строк.",
-        "Ограничения и примеры."
-      ],
-      "sources": [
-        "card-193",
-        "project/cards/card-193/spec.md"
-      ]
-    },
-    {
-      "id": "agents",
-      "group": "integrations",
-      "path": "/agents",
-      "title_en": "AI agents and integrations",
-      "title_ru": "ИИ-агенты и интеграции",
-      "type": "how-to",
-      "status": "future",
-      "publish": false,
-      "after": "card-193",
-      "audience": [
-        "developer"
-      ],
-      "purpose_ru": "Подключить VibeForma к любому харнессу через location.json, CLI и API.",
-      "content_ru": [
-        "location.json: launcher, python, entry, канал, форматы, лимиты.",
-        "CLI --transcribe и именованный канал текущего пользователя.",
-        "OpenAI-совместимый /v1/audio/transcriptions.",
-        "Job-API /jobs для длинных файлов.",
-        "Ограничения: локально, без сети и UNC.",
-        "Примеры для внешнего харнесса."
-      ],
-      "sources": [
-        "card-193",
-        "project/cards/card-193/spec.md"
-      ]
-    }
-  ],
+  "future": [],
   "coverage": {
     "source": "project/cards/card-195/inventory.md",
     "features_total": 74,

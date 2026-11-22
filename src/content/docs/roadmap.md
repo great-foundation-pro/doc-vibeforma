@@ -5,42 +5,27 @@ description: What VibeForma is working on now, next and later — without dates 
 
 The roadmap states direction, not deadlines. Features move when they are ready and accepted, not when a date says so.
 
-## Now — 0.2.4 :badge[Current]{variant=success}
+## Now — 0.4.0 :badge[Current]{variant=success}
 
-The current release is a complete local dictation tool:
+The current release is a complete local dictation and file transcription tool:
 
 - local recognition with four models and a fixed language;
 - toggle and hold-to-talk modes, VAD and a 120-second phrase limit;
-- a monitoring panel with streaming, privacy mode and a draft action row;
+- a monitoring panel with streaming, privacy mode, a draft action row and a file progress strip;
 - nine settings sections applied to the live service;
 - dictionary, snippets, history and statistics;
+- **file transcription** of audio and video, folder batches, TXT/JSON/SRT/VTT output and a queue that gives dictation priority;
 - a tray menu, autostart and a single-instance lock;
-- a CLI and an optional loopback HTTP API;
+- a CLI with `--transcribe`, `--transcribe-folder` and `--cancel-batch`;
+- an optional loopback HTTP API, an OpenAI-compatible endpoint and a job API;
 - English and Russian documentation.
 
-## Next — 0.3.0 :badge[Next]{variant=note}
+## Next — FormaMind and deeper agent workflows :badge[Next]{variant=note}
 
-**File transcription** is the next feature: a second input into the same recognition engine, a file instead of a microphone.
-
-Planned scope:
-
-- audio and video files, decoded locally;
-- output in TXT, JSON, SRT and VTT with timecodes;
-- a job queue with pause, resume and priority for live dictation;
-- a tray item **Transcribe file…** and a progress line in the panel;
-- `--transcribe` on the command line;
-- an OpenAI-compatible transcription endpoint and a job API;
-- an extended `location.json` and a named pipe for local harnesses;
-- settings for file roots, size and duration limits, and job retention.
-
-The feature is being built. The documentation pages for file transcription, formats and agents are reserved but not published until the release is accepted.
-
-## Next — agents and FormaMind :badge[Next]{variant=note}
-
-- **Agent surfaces** — a stable local contract for harnesses that need to transcribe files and read results.
 - **Native FormaMind integration** — voice control of project tasks and a tighter link between the project tool and the voice layer.
+- **Project workflows on top of the file mode** — recordings becoming notes, tasks and documents without leaving the machine.
 
-FormaMind itself is in development. The published documentation does not present it as finished.
+The agent surfaces are already shipped: the named pipe, `location.json` schema 2, the file CLI, the OpenAI-compatible endpoint and the job API are in 0.4.0. FormaMind itself is in development. The published documentation does not present it as finished.
 
 ## Later :badge[Later]{variant=caution}
 
@@ -54,7 +39,7 @@ These are out of scope for the dictation product:
 - translation;
 - video subtitles;
 - cloud recognition;
-- batch processing of file queues;
+- parallel transcription of several files at once;
 - meetings, summaries, teams and billing;
 - mobile apps;
 - macOS and Linux versions.

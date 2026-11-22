@@ -63,6 +63,15 @@ If the panel is visible, it shows the microphone level and the text while VibeFo
 - A notification reports the number of characters, not the text itself.
 - If you copied something before dictating, the previous clipboard is restored after about one second.
 
+## Transcribe a file
+
+1. Right-click the tray icon and choose **Transcribe file…**.
+2. Pick an audio or video file — `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav` or `m4a`.
+3. Watch the strip at the bottom of the panel: state, file name and percent. Dictation keeps working and pauses the file between segments.
+4. When it finishes, the notification names the transcript; **Tray → Open result folder** opens its folder.
+
+For a whole folder, choose **Transcribe folder…**; the top level is included by default. Results land beside their sources as SRT unless another format is chosen. More on [File transcription](/file-transcription/).
+
 ## If something does not work
 
 - No text appears: make sure the cursor is in a text field, then try `Shift+Insert`. This insertion does not depend on the keyboard layout.
@@ -76,5 +85,6 @@ More in [Troubleshooting](/troubleshooting/) and [Diagnostics and logs](/diagnos
 
 - [Dictation](/dictation/) — modes, insertion and the panel.
 - [Settings](/settings/) — the nine sections and what they change.
+- [File transcription](/file-transcription/) — files, folder batches and the progress strip.
 - [Dictionary](/dictionary/) — teach VibeForma your names and terms.
 - [Keyboard shortcuts](/hotkeys/) — every key the app listens to.

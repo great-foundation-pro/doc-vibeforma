@@ -2,7 +2,7 @@
 
 > Local voice dictation for Windows. Press a hotkey, speak, and the text appears where the cursor is.
 
-Version: 0.2.4. Documentation languages: English and Russian.
+Version: 0.4.0. Documentation languages: English and Russian.
 
 ## Documentation
 
@@ -29,10 +29,12 @@ Version: 0.2.4. Documentation languages: English and Russian.
 - [Snippets](https://vibeforma.pro/snippets/): how-to
 - [History](https://vibeforma.pro/history/): how-to
 - [Statistics](https://vibeforma.pro/statistics/): how-to
+- [File transcription](https://vibeforma.pro/file-transcription/): how-to
 
 ### Integrations
 
 - [VibeForma in FormaMind](https://vibeforma.pro/formamind/): explanation
+- [AI agents and integrations](https://vibeforma.pro/agents/): how-to
 
 ### Reference
 
@@ -41,6 +43,7 @@ Version: 0.2.4. Documentation languages: English and Russian.
 - [Command line](https://vibeforma.pro/cli/): reference
 - [Local API](https://vibeforma.pro/local-api/): reference
 - [Glossary](https://vibeforma.pro/glossary/): reference
+- [Transcript formats](https://vibeforma.pro/formats/): reference
 
 ### Help
 
@@ -86,10 +89,12 @@ Version: 0.2.4. Documentation languages: English and Russian.
 - [Сниппеты](https://vibeforma.pro/ru/snippets/: Подставлять подготовленный текст по произносимому триггеру: адреса, шаблоны, подписи, длинные вставки.)
 - [История](https://vibeforma.pro/ru/history/: Включить, найти, отменить и удалить прошлые диктовки, понимая приватность.)
 - [Статистика](https://vibeforma.pro/ru/statistics/: Посмотреть, сколько вы диктуете: счётчики по дням без хранения текста.)
+- [Транскрибация файлов](https://vibeforma.pro/ru/file-transcription/: Транскрибировать аудио и видео из трея и из CLI, не мешая диктовке.)
 
 ### Интеграции
 
 - [VibeForma в FormaMind](https://vibeforma.pro/ru/formamind/: Показать, как VibeForma работает голосовым слоем проектного инструмента FormaMind и что это даёт команде.)
+- [ИИ-агенты и интеграции](https://vibeforma.pro/ru/agents/: Подключить VibeForma к любому харнессу через location.json, CLI и API.)
 
 ### Справочник
 
@@ -98,6 +103,7 @@ Version: 0.2.4. Documentation languages: English and Russian.
 - [Командная строка](https://vibeforma.pro/ru/cli/: Управлять запущенным сервисом из скриптов и внешних команд.)
 - [Локальный API](https://vibeforma.pro/ru/local-api/: Подключить внешнюю форму или агента к локальному распознаванию.)
 - [Глоссарий](https://vibeforma.pro/ru/glossary/: Одинаково понимать термины на всех страницах и в интерфейсе.)
+- [Форматы расшифровки](https://vibeforma.pro/ru/formats/: Описать TXT, JSON, SRT и VTT: поля, таймкоды, кодировку.)
 
 ### Помощь
 

@@ -8,6 +8,7 @@ VibeForma is local by design: speech recognition runs on your machine, and there
 ## What never leaves the machine
 
 - **Audio.** It is captured, recognized and discarded. Recordings are not stored after recognition.
+- **File audio and transcripts.** Files are decoded and recognized locally. A transcript is written beside its source only when you transcribe a file, and it is not uploaded.
 - **Recognized text.** It goes to the target window and, if you enable it, to the local history file. It is not uploaded.
 - **Dictionary, snippets, hotwords.** They stay in `config.json`.
 - **History and statistics.** Both are local files.

@@ -137,6 +137,20 @@ Turn it on under the history table in **Settings → History**. Turning it off d
 
 **Expected:** new dictations appear in the table; old ones cannot be recovered after the file is deleted.
 
+## File transcription does not start
+
+| Symptom | Likely cause | Next step |
+|---|---|---|
+| `the model is loading`, exit 1 | The service is still loading | Wait and retry; `run.cmd --status` shows the state. |
+| Exit 4 from `--transcribe-folder` | No supported file at the top level | Add `--recursive`, or check the extensions. |
+| A path is refused, or the API answers 403 | A network path, or a root outside `file_roots` | Move the file to a local disk or widen `file_roots`. |
+| An output is skipped | The transcript already exists | Pass `--force`. |
+| The file is refused as too large or too long | `file_max_mb` or `file_max_s` | Raise the key or split the file. |
+| A batch pauses and resumes later | A dictation took priority | Wait; the batch resumes on the same file. |
+| The progress strip does not appear | The panel is hidden | Show the panel from the tray. |
+
+**Expected:** the strip names the file, and the transcript appears beside the source or under `--out`.
+
 ## The API returns 401 or 409
 
 | Code | Cause | Next step |

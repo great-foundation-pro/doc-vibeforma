@@ -35,7 +35,7 @@ VibeForma sits between the first and the third group: it is an open-source, loca
 
 | Product | Type | Platforms | Recognition | Dictation | File transcription | CLI / API | UI languages | Price | Source |
 |---|---|---|---|---|---|---|---|---|---|
-| **VibeForma 0.2.4** | local dictation | Windows 10/11 | local faster-whisper | Yes | No — planned for 0.3.0 | CLI + local HTTP API + hook | English, Russian | Free | Open source, MIT |
+| **VibeForma 0.4.0** | local dictation and file transcription | Windows 10/11 | local faster-whisper | Yes | Yes — files and folder batches | CLI + local HTTP API + job API + hook | English, Russian | Free | Open source, MIT |
 | Handy | local dictation | Windows, macOS, Linux | local Whisper | Yes | n/v | CLI parameters | English (n/v) | Free | Open source |
 | VoiceInk | local dictation | macOS | local Whisper | Yes | n/v | n/v | English (n/v) | Free source build | Open source |
 | Buzz | local transcription | Windows, macOS, Linux | local Whisper | No | Yes | CLI | n/v | Free | Open source |
@@ -61,7 +61,7 @@ An open-source macOS dictation app. Its documentation focuses on building from s
 
 ### Buzz
 
-A desktop app and CLI for transcribing audio and video files with Whisper. It is strong exactly where VibeForma 0.2.4 is not: batch file transcription. It is not built around dictating into the window you are working in.
+A desktop app and CLI for transcribing audio and video files with Whisper. Transcription is its center, and it can process a batch of files; VibeForma now transcribes files and folders too, but keeps dictation first and processes one file at a time. Buzz is not built around dictating into the window you are working in.
 
 ### Vibe
 
@@ -104,15 +104,15 @@ A commercial editor for audio and video with transcription at its center. It is 
 
 - **Windows-first, not cross-platform.** VibeForma invests in Windows behavior: insertion into the window that was active at the hotkey, clipboard restoration, exclusion from Windows clipboard history and cloud clipboard, DPI-aware windows and a tray icon. Competitors spread the same effort across three platforms.
 - **Exact language pinning.** VibeForma removed automatic language detection. The model recognizes exactly the chosen language; the menu offers 26 language codes, while the model itself supports about 99 languages. This favors predictable Russian and mixed-vocabulary dictation over guessing.
-- **A local API and a hook, not only a CLI.** The optional HTTP API listens on `127.0.0.1`, requires a token and accepts WAV up to 10 MB, one request per second, only while the service is idle. `hook_command` sends the recognized text to a user command through stdin, without a shell, with a timeout. This is the bridge for editors, agents and project tools.
-- **FormaMind as the intended host.** VibeForma is the voice layer of FormaMind, a project-management tool. That integration shapes the roadmap: dictation today, file transcription and agent surfaces next.
+- **A local API and a hook, not only a CLI.** The optional HTTP API listens on `127.0.0.1` and requires a token. It accepts short WAV recordings, an OpenAI-compatible file endpoint and a job API for long files, and publishes discovery through `location.json`. `hook_command` sends the recognized text to a user command through stdin, without a shell, with a timeout. This is the bridge for editors, agents and project tools.
+- **FormaMind as the intended host.** VibeForma is the voice layer of FormaMind, a project-management tool. The file and agent surfaces shipped in 0.4.0; the native FormaMind integration is the remaining step.
 - **A full English/Russian pair.** The application and the documentation exist in both languages with the same page structure. Most open-source analogues document in English only; most commercial ones localize the help center, not the product.
 - **No account, no cloud, no telemetry.** There is nothing to sign in to and no server that receives audio. The network is used for the model download and update checks, and both are named explicitly.
-- **Small and honest.** 0.2.4 does not pretend to be a meeting platform. Limits are documented on a separate page.
+- **Small and honest.** 0.4.0 does not pretend to be a meeting platform. Limits are documented on a separate page.
 
 ## Where VibeForma is stronger
 
-- **Dictation into the window you were working in**, with a focus-change question instead of silent insertion into the wrong place.
+- **Dictation into the window you were working in**, with the text kept in a panel draft when the target window changed, instead of silent insertion into the wrong place.
 - **Clipboard care**: the previous clipboard is restored after one second if nothing new was copied; dictated text is excluded from Windows clipboard history and cloud synchronization.
 - **Russian as a first-class language**: a pinned language, endonyms in the menu, a Russian interface and Russian documentation.
 - **Developer surfaces without a cloud account**: a loopback API and a CLI that talk to the running local service.
@@ -122,12 +122,12 @@ A commercial editor for audio and video with transcription at its center. It is 
 ## Where VibeForma is weaker
 
 - **Windows only.** There is no macOS, Linux, iOS or Android version.
-- **No file transcription in 0.2.4.** Buzz, Vibe, Whispering, Superwhisper and Descript can transcribe files today; VibeForma's file mode is planned for 0.3.0.
+- **One file at a time.** VibeForma transcribes files and folders, but its queue is sequential. Buzz, Vibe, Whispering, Superwhisper and Descript are transcription-first tools and can be a better fit for high-volume batch work.
 - **Two interface languages.** Commercial help centers cover many more.
 - **No meetings, summaries, teams or billing.** Superwhisper, Wispr Flow and Descript cover scenarios VibeForma does not.
 - **No cloud models.** Everything runs on the local machine, so a very weak CPU or GPU means slower recognition; cloud products offload that cost.
 - **No mobile.** Dictation happens only at a Windows desk.
-- **Smaller ecosystem and shorter track record.** The project is at 0.2.4; the commercial products have years of releases and larger support teams.
+- **Smaller ecosystem and shorter track record.** The project is at 0.4.0; the commercial products have years of releases and larger support teams.
 - **Unsigned installer.** Windows SmartScreen may warn; there is no code-signing certificate yet.
 
 ## What VibeForma does its own way
@@ -142,7 +142,7 @@ A commercial editor for audio and video with transcription at its center. It is 
 
 - **You work on Windows and want local dictation everywhere** → VibeForma. Start with [Quickstart](/quickstart/).
 - **You need macOS or Linux** → Handy, VoiceInk (macOS) or Whispering.
-- **You need to transcribe recorded files today** → Buzz, Vibe or Whispering; VibeForma's file mode is on the [roadmap](/roadmap/).
+- **You need to transcribe recorded files** → VibeForma for local files and folder batches; Buzz or Whispering for transcription-first batch work.
 - **You want meetings, summaries and mobile apps** → Superwhisper, Wispr Flow or Descript.
 - **You are building an editor or agent integration** → VibeForma's [local API](/local-api/) and [command line](/cli/), or Aqua Voice if you need a commercial API and CLI service.
 - **You need an engine, not an app** → whisper.cpp or faster-whisper directly.
@@ -162,4 +162,4 @@ Snapshot: 22 November 2026. Sources read for this page:
 - [Aqua Voice documentation](https://aquavoice.com/docs/quickstart)
 - [Descript help center](https://help.descript.com/)
 
-Product facts for VibeForma come from the 0.2.4 source inventory and the project's own documentation. Where a public source did not confirm a capability, the table says **n/v** instead of guessing.
+Product facts for VibeForma come from the 0.4.0 source and `CHANGELOG.md`, and from the project's own documentation. Where a public source did not confirm a capability, the table says **n/v** instead of guessing.

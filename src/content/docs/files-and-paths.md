@@ -33,6 +33,7 @@ The single configuration file. It holds:
 - `hotwords`;
 - the selected model and language;
 - the local API switch, port and token;
+- the file-mode limits and roots;
 - `onboarding_done`.
 
 It is written atomically through a temporary file and `os.replace`, so a crash does not leave a broken configuration.
@@ -66,14 +67,26 @@ Published by the service so local tools can find it without guessing:
 
 | Field | Meaning |
 |---|---|
-| `schema` | The file schema version |
-| `app` | Application name |
+| `schema` | The file schema version; `2` adds the file-mode fields |
+| `app` | Application name (`vibeforma`) |
 | `version` | Product version |
-| `config` | Path to the configuration |
+| `launcher`, `python`, `entry` | The three ways to start the app |
+| `install_dir`, `config`, `app_dir` | Paths a local tool may need |
+| `pid`, `updated` | The writing process and a Unix timestamp |
+| `file_mode` | `true` once the named pipe listens, `false` while loading |
+| `formats`, `languages` | What the running build accepts |
+| `max_file_mb`, `max_file_s`, `max_sync_s` | The limits in force |
+| `pipe` | Present only when the pipe is listening |
 | `api` | `on`, `off` or `error` |
 | `port` | The actual port the API listens on |
 
 There is no secret in this file. The token stays in `config.json`.
+
+## File transcription outputs
+
+A transcript is written beside its source file by default, with the source stem and the format extension (`meeting.mp4` → `meeting.srt`). `--out` names another file or folder; for a folder batch it mirrors the tree under the destination. An existing output is skipped unless `--force` is passed.
+
+TXT, JSON, SRT and VTT are described on [Transcript formats](/formats/). The API answers in the response body and writes no files.
 
 ## status.json
 
@@ -89,11 +102,11 @@ The installer and updater write each step and the tail of an error here. It is t
 
 ## Temporary files
 
-`POST /transcribe` writes a temporary WAV named `_http_in_*.wav` and deletes it on any outcome. Audio is not kept after recognition.
+`POST /transcribe` writes a temporary WAV named `_http_in_*.wav` and deletes it on any outcome. `POST /v1/audio/transcriptions` and `POST /jobs` use `_file_in_*` and `_file_job_*` files in the logs folder for an uploaded body and delete them when done. Audio is not kept after recognition.
 
 ## Backup and removal
 
-- **Back up** `config.json`, `models\`, and — if you need them — `history.jsonl`, `stats.json`, `corrections.json`.
+- **Back up** `config.json`, `models\`, and — if you need them — `history.jsonl`, `stats.json`, `corrections.json`. Transcripts are ordinary files next to their sources; back them up with those folders.
 - **Uninstall** removes shortcuts, autostart and service files; models and `config.json` stay unless `--remove-data` is passed.
 - **A clean reset** is a reinstall with `--remove-data`, or deleting the install directory after uninstalling.
 

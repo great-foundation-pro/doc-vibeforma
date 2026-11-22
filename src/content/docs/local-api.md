@@ -1,6 +1,6 @@
 ---
 title: Local API
-description: The optional loopback HTTP API — enabling it, the token, /health, /transcribe, limits, status codes and examples.
+description: The optional loopback HTTP API — enabling it, the token, /health, /capabilities, file transcription, the job API, limits and status codes.
 ---
 
 VibeForma can expose a small HTTP API for local tools. It is **off by default**. When enabled, it listens only on `127.0.0.1` and requires a token.
@@ -33,16 +33,22 @@ Tools should read `location.json` instead of assuming 8787:
 
 ```json
 {
-  "schema": 1,
-  "app": "VibeForma",
-  "version": "0.2.4",
+  "schema": 2,
+  "app": "vibeforma",
+  "version": "0.4.0",
   "config": "C:\\Users\\you\\AppData\\Local\\VibeForma\\config.json",
   "api": "on",
-  "port": 8787
+  "port": 8787,
+  "file_mode": true,
+  "pipe": "\\\\.\\pipe\\VibeForma-you",
+  "formats": ["txt", "json", "srt", "vtt"],
+  "max_file_mb": 4096,
+  "max_file_s": 21600,
+  "max_sync_s": 900
 }
 ```
 
-The file contains no secret. The token stays in `config.json`.
+The file contains no secret. The token stays in `config.json`. The full schema is on [AI agents and integrations](/agents/).
 
 ## Authentication
 
@@ -50,6 +56,12 @@ Every request must carry the token:
 
 ```
 X-VibeForma-Token: <token>
+```
+
+The file endpoint also accepts the OpenAI-style header:
+
+```
+Authorization: Bearer <token>
 ```
 
 The comparison is constant-time (`hmac.compare_digest`). A missing or wrong token returns `401`.
@@ -66,12 +78,20 @@ Reports the service state:
 |---|---|
 | `ok` | Whether the service is healthy |
 | `app` | Application name |
-| `api` | API state |
+| `api` | API state (`1` while listening) |
 | `port` | Actual listening port |
 | `version` | Product version |
 | `model` | Loaded model |
 | `language` | Recognition language |
 | `state` | idle, recording, processing, paused, updating, error |
+| `file_mode` | `true` when the file queue is ready, `loading` while the model loads |
+| `model_loading` | The inverse of readiness |
+| `dictation_priority` | Always `true`: live dictation wins |
+| `jobs_running`, `jobs_queued` | The file queue |
+
+### `GET /capabilities`
+
+Repeats the discovery facts for a harness that found no `location.json`: `file_mode`, `word_timestamps`, `formats`, `models`, `languages`, `max_file_mb`, `max_file_s`, `max_sync_s`, `pipe`, `launcher`, `python`, `entry` and the queue counters. It answers `503` while the model is still loading.
 
 ### `POST /transcribe`
 
@@ -89,18 +109,51 @@ Transcribes one short WAV recording.
 
 On success the response carries the recognized text as JSON. A temporary WAV named `_http_in_*.wav` is created in the logs folder and deleted on any outcome.
 
+### `POST /v1/audio/transcriptions`
+
+The OpenAI-compatible file endpoint. It takes multipart form data:
+
+| Field | Meaning |
+|---|---|
+| `file` | Audio or video file; required |
+| `model` | Accepted for compatibility |
+| `language` | Recognition language, for example `ru` |
+| `response_format` | `json`, `text`, `srt`, `vtt` or `verbose_json` |
+| `prompt` | Initial prompt, up to 1024 characters |
+| `temperature` | Sampling temperature |
+
+The synchronous answer stops at `file_max_sync_s` (900 seconds by default). A longer file returns `413` with `"job_endpoint": "/jobs"`. The response is the transcript itself; the endpoint does not write files.
+
+### The job API
+
+For long files, uploads or paths on disk:
+
+| Method and path | What it does |
+|---|---|
+| `POST /jobs` | Queues a file; multipart `file` or JSON `{ "path": "...", "language": "ru", "formats": ["srt"] }`; answers `202` with `job_id`, `state` and a `Location` header |
+| `GET /jobs/<id>` | `state`, `progress`, `source`, `language`, `model`, `duration_s`, `segments`, `outputs`, `error` |
+| `GET /jobs/<id>/result?format=txt` | The finished transcript as `txt`, `json`, `srt` or `vtt` |
+| `DELETE /jobs/<id>` | Cancels the job |
+
+A job pauses while a dictation runs and resumes when the service is idle. `GET /jobs/<id>/result` answers `409` until the job is done.
+
 ## Status codes
 
 | Code | When |
 |---|---|
 | `200` | The request succeeded |
+| `202` | A job was accepted |
+| `400` | A bad field, an unknown format, a missing path or an uninstalled model |
 | `401` | The token is missing or wrong |
-| `404` | Unknown path |
-| `409` | The service is busy — for example, a dictation is running |
+| `403` | The path is outside the allowed file roots |
+| `404` | Unknown path or job |
+| `409` | The service is busy, a dictation is running, or the job is not done |
 | `411` | `Content-Length` is missing |
-| `413` | The body is larger than 10 MB |
-| `415` | `Content-Type` is not `audio/wav` |
-| `429` | More than one request per second |
+| `413` | The body or the file is too large; for the file endpoint, use `/jobs` |
+| `415` | `Content-Type` is not supported |
+| `429` | More than one request per second on `/transcribe` |
+| `500` | The recognition or writing step failed |
+| `503` | The model is still loading |
 
 A rejected request is read up to 1 MB and then answered, so the client receives the status code instead of a connection reset.
 
@@ -115,11 +168,10 @@ $token = $config.http_token
 Invoke-RestMethod -Uri "http://127.0.0.1:8787/health" `
   -Headers @{ "X-VibeForma-Token" = $token }
 
-Invoke-RestMethod -Uri "http://127.0.0.1:8787/transcribe" `
+Invoke-RestMethod -Uri "http://127.0.0.1:8787/v1/audio/transcriptions" `
   -Method Post `
   -Headers @{ "X-VibeForma-Token" = $token } `
-  -ContentType "audio/wav" `
-  -InFile "C:\audio\phrase.wav"
+  -Form @{ file = Get-Item "D:\audio\note.m4a"; response_format = "json" }
 ```
 
 ### curl
@@ -128,18 +180,18 @@ Invoke-RestMethod -Uri "http://127.0.0.1:8787/transcribe" `
 curl -s http://127.0.0.1:8787/health \
   -H "X-VibeForma-Token: $VIBEFORMA_TOKEN"
 
-curl -s -X POST http://127.0.0.1:8787/transcribe \
+curl -s -X POST http://127.0.0.1:8787/v1/audio/transcriptions \
   -H "X-VibeForma-Token: $VIBEFORMA_TOKEN" \
-  -H "Content-Type: audio/wav" \
-  --data-binary @phrase.wav
+  -F "file=@note.m4a" \
+  -F "response_format=srt"
 ```
 
 ## What the API does not do
 
 - It does not accept audio from another machine.
-- It does not transcribe long files. The 10 MB WAV limit and the one-request-per-second rate are dictation limits; file transcription is planned for 0.3.0.
 - It does not expose settings, history or the dictionary.
 - It does not use TLS, because the traffic never leaves the loopback interface.
+- It does not process files in parallel: the queue runs one file at a time, and dictation has priority.
 
 ## Security notes
 
@@ -157,15 +209,16 @@ More on [Security](/security/).
 |---|---|
 | Connection refused | The API is off, or the service is not running |
 | `401` | The token in the request does not match `config.json` |
-| `404` | The path is `/health` or `/transcribe`; nothing else exists |
+| `403` | The path is on a network share or outside `file_roots` |
+| `404` | The path or job id is wrong |
 | `409` | The service is recording or processing; retry when idle |
-| `413` | The WAV is over 10 MB; send a shorter phrase |
-| `415` | Set `Content-Type: audio/wav` |
-| `429` | Wait at least one second between requests |
+| `413` | The file is over `file_max_sync_s`; post it to `/jobs` |
+| `429` | Wait at least one second between `/transcribe` requests |
+| `503` | The model is still loading; retry after it is ready |
 
 ## Where to go next
 
-- [Command line](/cli/) — the hook and the flags.
-- [Security](/security/) — the threat model and reporting.
-- [Files and locations](/files-and-paths/) — `location.json` and `config.json`.
-- [VibeForma in FormaMind](/formamind/) — the integration this API serves.
+- [File transcription](/file-transcription/) — the queue, batches and limits.
+- [AI agents and integrations](/agents/) — discovery and a minimal client.
+- [Command line](/cli/) — the named-pipe route without a port.
+- [Transcript formats](/formats/) — `response_format` and result formats.

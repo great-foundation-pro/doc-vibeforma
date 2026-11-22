@@ -21,7 +21,7 @@ Accuracy depends on the model, the microphone, the room and the language. The pr
 
 ## Is my voice sent anywhere?
 
-No. Recognition runs locally. Audio is not uploaded and is not kept after recognition. The local API can send a WAV to a local process, but only on `127.0.0.1`.
+No. Recognition runs locally. Audio and files are not uploaded, and recording audio is not kept after recognition. The local API can send a file to a local process, but only on `127.0.0.1`.
 
 ## Do I need an account?
 
@@ -29,11 +29,15 @@ No. There is no sign-in, no telemetry and no cloud sync.
 
 ## Does it run on macOS, Linux, iOS or Android?
 
-No. VibeForma 0.2.4 is Windows 10/11 only.
+No. VibeForma 0.4.0 is Windows 10/11 only.
 
 ## Can it transcribe audio and video files?
 
-Not in 0.2.4. File transcription is planned for 0.3.0 and will use the same recognition engine. Today VibeForma is a dictation tool.
+Yes, since 0.4.0. The same recognition engine takes `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav` and `m4a` files, one at a time, and can walk a folder as a batch. Results are written as TXT, JSON, SRT or VTT. See [File transcription](/file-transcription/).
+
+## Does file transcription need ffmpeg?
+
+No. PyAV decodes the file inside the application; there is no external `ffmpeg` binary to install.
 
 ## Does it translate?
 
@@ -61,7 +65,7 @@ Run `uninstall.cmd` with `--remove-data` to remove the app, models and `config.j
 
 ## Where is my data?
 
-In the install directory: `config.json`, `models\`, `logs\`, and — if enabled — `history.jsonl` and `stats.json`. Nothing is uploaded. See [Files and locations](/files-and-paths/).
+In the install directory: `config.json`, `models\`, `logs\`, and — if enabled — `history.jsonl` and `stats.json`. Transcripts of files are written beside their sources unless `--out` says otherwise. Nothing is uploaded. See [Files and locations](/files-and-paths/).
 
 ## Does history record everything?
 

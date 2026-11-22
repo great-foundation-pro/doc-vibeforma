@@ -67,22 +67,35 @@ A thin line runs from ice to cyan, and the overlay fades when the text appears.
 
 When a new release is found, a blue **Update** button appears on the panel. It uses the same update path as the tray and the settings.
 
+## The file progress strip
+
+A file or a folder batch adds a strip at the bottom of the panel. It shows the state, the current file name, its percent, a progress bar and — for a batch — the counter `N/M — P%` with the number of failed files. The strip stays for the whole queue, shows the error of one file while the batch continues, and hides a finished result after 8 seconds.
+
+The strip never takes the dictation overlay's place: dictation has priority and pauses a running file between segments. Details are on [File transcription](/file-transcription/).
+
 ## The tray menu
 
-The tray icon is colored by service state. Its menu has twelve items:
+The tray icon is colored by service state. Its menu carries these items; conditional ones appear only when they apply:
 
 1. Settings
 2. Show panel
-3. Setup assistant
-4. Diagnostics
-5. Pause / resume
-6. Input device
-7. Model
-8. Recognition language
-9. History
-10. Undo last insertion
-11. Logs folder
-12. Exit
+3. **Transcribe file…**
+4. **Transcribe folder…**
+5. Cancel batch — while a batch runs
+6. Open result folder — after a finished file job
+7. Setup assistant
+8. Diagnostics
+9. Release notes — when an update is found
+10. Update to `<version>` — when an update is found
+11. Update later — when an update is found
+12. Pause / resume
+13. Input device
+14. Model
+15. Recognition language
+16. History
+17. Undo last insertion
+18. Logs folder
+19. Exit
 
 The tray is the way back when the panel is hidden. A second launch does not start a second copy: it asks the running instance to show the panel.
 
@@ -102,5 +115,6 @@ The service writes `status.json` on every state change. It is a convenience for 
 
 - [Keyboard shortcuts](/hotkeys/) — the keys the panel and settings use.
 - [Dictation](/dictation/) — the full dictation loop.
+- [File transcription](/file-transcription/) — the tray actions and the progress strip.
 - [Updates](/updates/) — how the update button behaves.
 - [Files and locations](/files-and-paths/) — `status.json`, `service.lock` and logs.

@@ -30,9 +30,9 @@ if (args.includes('--help') || args.includes('-h')) {
 const SLUGS = [
   'introduction', 'comparison', 'quickstart', 'installation', 'requirements',
   'dictation', 'hotkeys', 'settings', 'models', 'interface', 'updates',
-  'dictionary', 'snippets', 'history', 'statistics',
-  'formamind',
-  'settings-reference', 'files-and-paths', 'cli', 'local-api', 'glossary',
+  'dictionary', 'snippets', 'history', 'statistics', 'file-transcription',
+  'formamind', 'agents',
+  'settings-reference', 'files-and-paths', 'cli', 'local-api', 'formats', 'glossary',
   'troubleshooting', 'faq', 'diagnostics', 'known-issues',
   'privacy', 'security',
   'changelog', 'roadmap', 'development', 'contributing',
@@ -251,7 +251,7 @@ function main() {
   const IMAGE_SLUGS = [
     'introduction', 'quickstart', 'dictation', 'hotkeys', 'settings',
     'models', 'interface', 'dictionary', 'snippets', 'history',
-    'statistics', 'local-api',
+    'statistics', 'local-api', 'file-transcription',
   ];
   let imagesOk = 0;
   for (const slug of IMAGE_SLUGS) {

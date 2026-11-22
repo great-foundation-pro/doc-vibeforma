@@ -196,6 +196,11 @@ export default defineConfig({
           translations: { ru: 'Текст и записи' },
           items: [
             {
+              label: 'File transcription',
+              translations: { ru: 'Транскрибация файлов' },
+              link: '/file-transcription',
+            },
+            {
               label: 'Dictionary',
               translations: { ru: 'Словарь' },
               link: '/dictionary',
@@ -226,6 +231,11 @@ export default defineConfig({
               translations: { ru: 'VibeForma в FormaMind' },
               link: '/formamind',
             },
+            {
+              label: 'AI agents and integrations',
+              translations: { ru: 'ИИ-агенты и интеграции' },
+              link: '/agents',
+            },
           ],
         },
         {
@@ -251,6 +261,11 @@ export default defineConfig({
               label: 'Local API',
               translations: { ru: 'Локальный API' },
               link: '/local-api',
+            },
+            {
+              label: 'Transcript formats',
+              translations: { ru: 'Форматы расшифровки' },
+              link: '/formats',
             },
             {
               label: 'Glossary',

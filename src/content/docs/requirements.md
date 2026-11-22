@@ -1,9 +1,9 @@
 ---
 title: System requirements
-description: The factual requirements for VibeForma 0.2.4 — Windows version, Python, disk space, GPU, network, audio and ports.
+description: The factual requirements for VibeForma 0.4.0 — Windows version, Python, disk space, GPU, network, audio, file transcription and ports.
 ---
 
-These are the checks the installer performs and the facts the application relies on. Numbers come from the 0.2.4 source and installer, not from estimates.
+These are the checks the installer performs and the facts the application relies on. Numbers come from the 0.4.0 source and installer, not from estimates.
 
 ## Operating system
 
@@ -67,6 +67,19 @@ After the model is on disk, dictation works offline.
 - Capture tries the device's own format first (WASAPI, mono then stereo), then the legacy host API, then 16 kHz.
 - Sample-rate conversion uses a windowed-sinc resampler.
 - If the clean path fails, it is retried once and the reason is written to the log.
+
+## File transcription
+
+| Requirement | Value |
+|---|---|
+| Input formats | `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav`, `m4a` |
+| Decoder | PyAV inside the application; no `ffmpeg` binary is installed or called |
+| Default size limit | 4096 MB (`file_max_mb`) |
+| Default duration limit | 6 hours (`file_max_s`) |
+| Storage | Local fixed or removable disks; UNC shares are refused |
+| Parallelism | One file at a time; dictation has priority |
+
+Long files run through the batched inference path on the same loaded model; short files and dictation stay sequential. The file-mode keys are listed on [Settings reference](/settings-reference/).
 
 ## Ports
 
