@@ -41,3 +41,15 @@ const alt = path.startsWith('/ru')
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content={alt} />
 <meta name="twitter:image" content={image} />
+<script is:inline>
+  // Documentation screenshots load eagerly: a page carries one or two of them,
+  // and in some embedded browsers a lazy image below the fold stays a blank
+  // frame even after scrolling into view.
+  addEventListener('DOMContentLoaded', () => {
+    document
+      .querySelectorAll('.sl-markdown-content img[loading="lazy"]')
+      .forEach((img) => {
+        img.loading = 'eager';
+      });
+  });
+</script>

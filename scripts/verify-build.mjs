@@ -5,11 +5,12 @@
  *   node scripts/verify-build.mjs --all   build, then verify (the canonical command)
  *   node scripts/verify-build.mjs         verify the existing dist/ only
  *
- * Required: every contracted route exists under dist/, both landing pages link
- * to documentation, blog, logs, the repository and the other language, and the
- * language switch keeps the current section on every documentation page.
+ * Contract: 31 documentation pages in English at the root and the same 31
+ * slugs in Russian under /ru/. Every page keeps the language switch on the
+ * same section, the landing pages link to the new documentation, the old
+ * /usage URL redirects, and llms.txt indexes both locales.
  *
- * Exit code 0 when all checks pass, 1 with an explicit list of failures.
+ * No network, no dependencies beyond Node. Exit 0 = green, 1 = red.
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
@@ -26,29 +27,30 @@ if (args.includes('--help') || args.includes('-h')) {
   process.exit(0);
 }
 
-// The contract: English at the root, Russian under /ru, plus the first
-// entries of the blog and the journal.
-const requiredRoutes = [
+const SLUGS = [
+  'introduction', 'comparison', 'quickstart', 'installation', 'requirements',
+  'dictation', 'hotkeys', 'settings', 'models', 'interface', 'updates',
+  'dictionary', 'snippets', 'history', 'statistics',
+  'formamind',
+  'settings-reference', 'files-and-paths', 'cli', 'local-api', 'glossary',
+  'troubleshooting', 'faq', 'diagnostics', 'known-issues',
+  'privacy', 'security',
+  'changelog', 'roadmap', 'development', 'contributing',
+];
+
+const EXTRA_ROUTES = [
   '/',
-  '/introduction/',
-  '/installation/',
-  '/usage/',
-  '/privacy/',
-  '/troubleshooting/',
   '/blog/',
   '/blog/2026-11-21-documentation-site/',
   '/logs/',
   '/logs/2026-11-21-start/',
-  '/ru/',
-  '/ru/introduction/',
-  '/ru/installation/',
-  '/ru/usage/',
-  '/ru/privacy/',
-  '/ru/troubleshooting/',
-  '/ru/blog/',
-  '/ru/blog/2026-11-21-documentation-site/',
-  '/ru/logs/',
-  '/ru/logs/2026-11-21-start/',
+];
+
+const requiredRoutes = [
+  ...EXTRA_ROUTES,
+  ...SLUGS.map((slug) => `/${slug}/`),
+  ...EXTRA_ROUTES.map((route) => `/ru${route === '/' ? '/' : route}`),
+  ...SLUGS.map((slug) => `/ru/${slug}/`),
 ];
 
 const landingChecks = [
@@ -57,10 +59,10 @@ const landingChecks = [
     file: 'index.html',
     hrefs: [
       '/introduction/',
+      '/quickstart/',
       '/installation/',
-      '/usage/',
+      '/dictation/',
       '/privacy/',
-      '/troubleshooting/',
       '/blog/',
       '/logs/',
       'https://github.com/FormaMindPro/vibeforma',
@@ -72,10 +74,10 @@ const landingChecks = [
     file: join('ru', 'index.html'),
     hrefs: [
       '/ru/introduction/',
+      '/ru/quickstart/',
       '/ru/installation/',
-      '/ru/usage/',
+      '/ru/dictation/',
       '/ru/privacy/',
-      '/ru/troubleshooting/',
       '/ru/blog/',
       '/ru/logs/',
       'https://github.com/FormaMindPro/vibeforma',
@@ -86,11 +88,7 @@ const landingChecks = [
 
 // The language switch must lead to the same section in the other language.
 const sectionPairs = [
-  '/introduction/',
-  '/installation/',
-  '/usage/',
-  '/privacy/',
-  '/troubleshooting/',
+  ...SLUGS.map((slug) => `/${slug}/`),
   '/blog/',
   '/logs/',
   '/logs/2026-11-21-start/',
@@ -202,10 +200,86 @@ function main() {
     }
   }
 
+  // Locale parity: every English page has a Russian twin and vice versa.
+  let parityOk = 0;
+  for (const slug of SLUGS) {
+    if (existsSync(routeFile(`/${slug}/`))) parityOk += 1;
+    if (existsSync(routeFile(`/ru/${slug}/`))) parityOk += 1;
+  }
+
+  // The old /usage URL must still resolve, in both locales.
+  let redirectsOk = 0;
+  for (const route of ['/usage/', '/ru/usage/']) {
+    const file = routeFile(route);
+    if (existsSync(file)) {
+      const target = route.startsWith('/ru/') ? '/ru/dictation' : '/dictation';
+      if (read(file).includes(target)) {
+        redirectsOk += 1;
+      } else {
+        failures.push(`${route} exists but does not point to ${target}`);
+      }
+    } else {
+      failures.push(`${route} redirect page is missing`);
+    }
+  }
+
+  // llms.txt indexes all pages in both locales.
+  let llmsOk = 0;
+  const llmsFile = join(dist, 'llms.txt');
+  if (existsSync(llmsFile)) {
+    const llms = read(llmsFile);
+    for (const slug of SLUGS) {
+      if (llms.includes(`https://vibeforma.pro/${slug}/`)) llmsOk += 1;
+      if (llms.includes(`https://vibeforma.pro/ru/${slug}/`)) llmsOk += 1;
+    }
+  } else {
+    failures.push('llms.txt is missing from dist/');
+  }
+
+  // Each built page must carry its own title, not the site title only.
+  let titlesOk = 0;
+  for (const slug of SLUGS) {
+    for (const prefix of ['', 'ru/']) {
+      const file = routeFile(`/${prefix}${slug}/`);
+      if (existsSync(file) && /<title>[^<]+<\/title>/.test(read(file))) {
+        titlesOk += 1;
+      }
+    }
+  }
+
+  // The task pages carry interface screenshots, in both locales.
+  const IMAGE_SLUGS = [
+    'introduction', 'quickstart', 'dictation', 'hotkeys', 'settings',
+    'models', 'interface', 'dictionary', 'snippets', 'history',
+    'statistics', 'local-api',
+  ];
+  let imagesOk = 0;
+  for (const slug of IMAGE_SLUGS) {
+    for (const prefix of ['', 'ru/']) {
+      const file = routeFile(`/${prefix}${slug}/`);
+      if (!existsSync(file)) {
+        failures.push(`/${prefix}${slug}/ is missing for an image check`);
+        continue;
+      }
+      const html = read(file);
+      const alts = Array.from(html.matchAll(/<img\b[^>]*\balt="([^"]*)"/g), (m) => m[1].trim());
+      if (alts.length > 0 && alts.every(Boolean) && html.includes('/_astro/')) {
+        imagesOk += 1;
+      } else {
+        failures.push(`/${prefix}${slug}/ has no documented screenshot with alt text`);
+      }
+    }
+  }
+
   console.log('');
   console.log(`Routes:           ${routesOk}/${requiredRoutes.length}`);
   console.log(`Landing links:    ${linksOk}/${linksTotal}`);
   console.log(`Language switch:  ${switchOk}/${switchTotal}`);
+  console.log(`Locale parity:    ${parityOk}/${SLUGS.length * 2}`);
+  console.log(`Old URL redirect: ${redirectsOk}/2`);
+  console.log(`llms.txt entries: ${llmsOk}/${SLUGS.length * 2}`);
+  console.log(`Page titles:      ${titlesOk}/${SLUGS.length * 2}`);
+  console.log(`Docs images:      ${imagesOk}/${IMAGE_SLUGS.length * 2}`);
 
   return report();
 }

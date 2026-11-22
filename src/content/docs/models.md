@@ -1,0 +1,91 @@
+---
+title: Models and languages
+description: The four recognition models, how to switch them without a restart, and how the fixed recognition language works.
+---
+
+VibeForma keeps one model loaded for the lifetime of the service. You choose the model and the recognition language; the app does not guess either.
+
+![The Model & language tab with the active model, recognition language and interface language.](../../assets/docs/app/settings-model-en.png)
+
+*Settings → Model & language: one active model and the exact recognition language.*
+## The four models
+
+| Model | Approximate size | Role |
+|---|---|---|
+| `large-v3` | 3.1 GB | The highest quality of the four; the slowest. |
+| `large-v3-turbo` | 1.6 GB | The default. Much faster than large-v3, with slightly weaker punctuation. |
+| `medium` | 1.5 GB | A middle option for weaker machines. |
+| `small` | 0.5 GB | The smallest; the installer suggests it on a CPU-only machine. |
+
+The README benchmark — a 12.5-second phrase, CUDA float16, best of three — is 1.53 s for `large-v3` and 0.64 s for `large-v3-turbo`, about 2.4 times faster. Those are the only published timings; do not expect the same numbers on other hardware.
+
+## How to choose
+
+- **Start with `large-v3-turbo`.** It is the default for a reason: near-large quality at a fraction of the time.
+- **Choose `large-v3`** when accuracy matters more than latency and the machine can carry 3.1 GB.
+- **Choose `medium` or `small`** when memory, disk or CPU is limited, or when you dictate short phrases and want the lowest latency.
+- **On a CPU-only machine**, `small` is the sane starting point; the installer picks it for unattended CPU installs.
+
+Quality also depends on the microphone, the room and the language. A larger model does not fix a bad input signal.
+
+## Switching a model
+
+The model can be changed in **Settings → Model & language** or from the tray. No restart is required.
+
+The switch runs through four phases:
+
+1. **download** — fetch the model if it is not on disk;
+2. **load** — load it into the service;
+3. **remove** — remove the old model if you chose not to keep it;
+4. **done**.
+
+If the download or load fails, the previous model is restored. If a dictation is running, the switch answers "busy" instead of interrupting it.
+
+`model_keep_old` controls whether the previous model stays on disk. Keeping it makes switching back fast at the cost of disk space.
+
+### Where a model comes from
+
+VibeForma looks for a model in this order:
+
+1. `models\<name>` inside the service folder;
+2. the shared Hugging Face cache;
+3. a fresh download.
+
+That order makes a reinstall work offline when the model is already present.
+
+## CUDA and CPU
+
+| Profile | Precision | When |
+|---|---|---|
+| NVIDIA CUDA | float16 | An NVIDIA GPU and a working CUDA setup are found |
+| CPU | int8 | No usable CUDA, or `-Cpu` was passed |
+
+CUDA wheels are installed only for the CUDA profile. If `config.json` says `cuda` but the machine has no usable CUDA, VibeForma corrects the configuration instead of failing every dictation.
+
+## Languages
+
+Two different numbers, often confused:
+
+- **The model** supports about 99 languages. That is a property of Whisper.
+- **The recognition menu** offers 26 language codes. That is the list VibeForma exposes.
+
+The recognition language is exact. VibeForma removed automatic detection: the model recognizes the chosen language and nothing else. This is deliberate — automatic detection on short phrases and mixed vocabulary is unreliable, and a wrong guess ruins the phrase.
+
+Language names are shown as endonyms — English, Русский, Українська, Deutsch — each language in its own script. The code is stored in `config.json`.
+
+Switch the language in **Settings → Model & language** or from the tray. It applies without a restart.
+
+### Prompt presets
+
+For Russian, English, Ukrainian, German, French and Spanish, VibeForma adds a language-specific prompt hint for punctuation and capitalization. Personal terms from `hotwords` always go into the initial prompt, regardless of language.
+
+### One language at a time
+
+VibeForma recognizes one chosen language per phrase. It does not translate, and it does not switch languages mid-phrase. For mixed speech, choose the dominant language and add the foreign terms to the dictionary or `hotwords`.
+
+## Where to go next
+
+- [Dictation](/dictation/) — how a phrase is captured and inserted.
+- [Dictionary](/dictionary/) — terms and replacements.
+- [System requirements](/requirements/) — disk and GPU facts.
+- [Settings reference](/settings-reference/) — model and language keys.

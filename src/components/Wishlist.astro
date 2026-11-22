@@ -1,0 +1,108 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getWishlist } from '../lib/wishlist';
+
+type Lang = 'en' | 'ru';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const { state, ideas } = await getWishlist();
+
+const t = {
+  en: {
+    title: 'Feature requests',
+    description:
+      'Suggest what VibeForma should do next and vote for the ideas you want most.',
+    intro:
+      'Every idea is a GitHub Discussion in the Ideas category of the product repository. Votes are the upvotes on that discussion.',
+    suggest: 'Suggest a feature',
+    votes: 'Votes',
+    comments: 'Comments',
+    idea: 'Idea',
+    noTokenTitle: 'The board is not connected yet',
+    noTokenBody:
+      'The list is built from GitHub Discussions at build time. Until the build has a community token, this page shows the honest empty state. You can already join the FormaMind community and say what you need.',
+    emptyTitle: 'No ideas yet',
+    emptyBody:
+      'The Ideas category is open. Be the first to describe what VibeForma should do next.',
+    community: 'Open the FormaMind community',
+  },
+  ru: {
+    title: 'Желаемые функции',
+    description:
+      'Предложите, что VibeForma должна делать дальше, и голосуйте за нужные идеи.',
+    intro:
+      'Каждая идея — обсуждение GitHub в категории Ideas репозитория продукта. Голоса — апвоты этого обсуждения.',
+    suggest: 'Предложить функцию',
+    votes: 'Голоса',
+    comments: 'Комментарии',
+    idea: 'Идея',
+    noTokenTitle: 'Доска ещё не подключена',
+    noTokenBody:
+      'Список собирается из GitHub Discussions во время сборки. Пока у сборки нет токена сообщества, страница честно показывает пустое состояние. Уже сейчас можно прийти в сообщество FormaMind и сказать, что нужно.',
+    emptyTitle: 'Идей пока нет',
+    emptyBody:
+      'Категория Ideas открыта. Опишите первым, что VibeForma должна делать дальше.',
+    community: 'Открыть сообщество FormaMind',
+  },
+}[lang];
+
+const suggestUrl =
+  'https://github.com/FormaMindPro/vibeforma/discussions/new?category=ideas';
+const boardUrl = 'https://github.com/FormaMindPro/vibeforma/discussions';
+const communityUrl = 'https://formamind.pro/community/';
+---
+
+<StarlightPage frontmatter={{ title: t.title, description: t.description }}>
+  <p>{t.intro}</p>
+
+  <p>
+    <a class="sl-link-button primary" href={suggestUrl}>{t.suggest}</a>
+  </p>
+
+  {
+    state === 'ideas' ? (
+      <table>
+        <thead>
+          <tr>
+            <th>{t.idea}</th>
+            <th>{t.votes}</th>
+            <th>{t.comments}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ideas.map((idea) => (
+            <tr>
+              <td>
+                <a href={idea.url}>{idea.title}</a>
+              </td>
+              <td>{idea.upvotes}</td>
+              <td>{idea.comments}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    ) : state === 'empty' ? (
+      <div>
+        <h2>{t.emptyTitle}</h2>
+        <p>{t.emptyBody}</p>
+        <p>
+          <a href={boardUrl}>{t.suggest}</a>
+        </p>
+      </div>
+    ) : (
+      <div>
+        <h2>{t.noTokenTitle}</h2>
+        <p>{t.noTokenBody}</p>
+        <p>
+          <a class="sl-link-button secondary" href={communityUrl}>
+            {t.community}
+          </a>
+        </p>
+      </div>
+    )
+  }
+</StarlightPage>
