@@ -386,6 +386,9 @@ const ru = {
 const t = isRu ? ru : en;
 const installHref = docHref('/installation/');
 const ogImage = `https://vibeforma.pro/og/${isRu ? 'landing-ru' : 'landing-en'}.jpg`;
+const imageAlt = isRu
+  ? 'VibeForma \u2014 \u0433\u043e\u043b\u043e\u0441\u043e\u0432\u043e\u0439 \u0432\u0432\u043e\u0434 \u0434\u043b\u044f Windows'
+  : 'VibeForma \u2014 voice input for Windows';
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -425,6 +428,11 @@ const jsonLd = {
     <link rel="alternate" hreflang="x-default" href="https://vibeforma.pro/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#04060a" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="author" content="FormaMindPro" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="VibeForma" />
     <meta property="og:title" content={t.title} />
@@ -438,12 +446,13 @@ const jsonLd = {
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content={isRu ? 'VibeForma — голосовой ввод для Windows' : 'VibeForma — voice input for Windows'}
+      content={imageAlt}
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={t.title} />
     <meta name="twitter:description" content={t.description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
