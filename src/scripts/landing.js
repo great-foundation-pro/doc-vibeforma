@@ -1352,10 +1352,13 @@ startHeroReveal();  // …while the title rises through it
 /* ---- cursor + magnetic buttons ---- */
 function initCursor() {
 if (reduced || !finePointer) return;
-const cursor = document.getElementById('cursor');
+const core = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
 const hint = document.getElementById('cursorHint');
 let cx = innerWidth / 2, cy = innerHeight / 2, dx = cx, dy = cy;
+let lastMove = -1e9, lastTick = performance.now();
 let overInteractive = false, hintRetired = false, pointerOn = false;
+const place = (el, x, y) => { el.style.transform = `translate3d(${x}px, ${y}px, 0)`; };
 // once the visitor bursts the entity themselves, the lesson is learned
 addEventListener('aeon:burst', () => {
 hintRetired = true;
@@ -1363,22 +1366,44 @@ hint && hint.classList.remove('is-on');
 }, { once: true });
 addEventListener('pointermove', (e) => {
 cx = e.clientX; cy = e.clientY;
-pointerOn = true;
-cursor.classList.add('is-on');
 overInteractive = !!e.target.closest('a, button, [data-magnetic], .rail-item, input');
+// re-entry from outside the window: snap the ring instead of sweeping across
+if (!pointerOn) { dx = cx; dy = cy; place(ring, dx, dy); }
+pointerOn = true;
+lastMove = performance.now();
+core.classList.add('is-on');
+// the core is the aiming point: exact position, no smoothing
+place(core, cx, cy);
+if (hint) place(hint, cx + 18, cy + 22);
+});
+document.documentElement.addEventListener('pointerleave', () => {
+pointerOn = false;
+core.classList.remove('is-on');
+ring.classList.remove('is-trail', 'is-hover');
+hint && hint.classList.remove('is-on');
 });
 gsap.ticker.add(() => {
-dx += (cx - dx) * 0.18;
-dy += (cy - dy) * 0.18;
-cursor.style.transform = `translate(${dx}px, ${dy}px)`;
-if (hint) {
-hint.style.transform = `translate(${dx + 18}px, ${dy + 22}px)`;
-hint.classList.toggle('is-on', pointerOn && !hintRetired && !overInteractive);
-}
+const now = performance.now();
+const dt = Math.min(now - lastTick, 50);
+lastTick = now;
+// time-based easing: the trail feels the same at 30, 60 or 144 fps
+const k = 1 - Math.exp(-dt / 120);
+dx += (cx - dx) * k;
+dy += (cy - dy) * k;
+place(ring, dx, dy);
+const moving = pointerOn && now - lastMove < 120;
+ring.classList.toggle('is-trail', moving && !overInteractive);
+if (hint) hint.classList.toggle('is-on', pointerOn && !hintRetired && !overInteractive);
 });
 document.querySelectorAll('a, button, .rail-item').forEach((el) => {
-el.addEventListener('pointerenter', () => cursor.classList.add('is-hover'));
-el.addEventListener('pointerleave', () => cursor.classList.remove('is-hover'));
+el.addEventListener('pointerenter', () => {
+ring.classList.add('is-hover');
+core.classList.add('is-hover');
+});
+el.addEventListener('pointerleave', () => {
+ring.classList.remove('is-hover');
+core.classList.remove('is-hover');
+});
 });
 }
 function initMagnetic() {
@@ -1386,11 +1411,12 @@ if (reduced || !finePointer) return;
 document.querySelectorAll('[data-magnetic]').forEach((btn) => {
 btn.addEventListener('pointermove', (e) => {
 const r = btn.getBoundingClientRect();
-gsap.to(btn, {
-x: (e.clientX - (r.left + r.width / 2)) * 0.35,
-y: (e.clientY - (r.top + r.height / 2)) * 0.35,
-duration: 0.5, ease: EASE,
-});
+const rawX = (e.clientX - (r.left + r.width / 2)) * 0.35;
+const rawY = (e.clientY - (r.top + r.height / 2)) * 0.35;
+// cap the pull so the target does not dodge the pointer
+const len = Math.hypot(rawX, rawY);
+const k = len > 10 ? 10 / len : 1;
+gsap.to(btn, { x: rawX * k, y: rawY * k, duration: 0.45, ease: EASE });
 });
 btn.addEventListener('pointerleave', () =>
 gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' }));

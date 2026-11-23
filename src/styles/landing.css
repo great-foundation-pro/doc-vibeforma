@@ -440,6 +440,40 @@ background: var(--pulse);
 box-shadow: 0 0 8px rgba(91, 233, 255, 0.6);
 }
 /* ============ CURSOR ============ */
+/* The core dot is the aiming point: it sits exactly under the pointer with no
+smoothing. The ring is decoration only: it trails the dot with a time-based
+ease and fades out when the pointer rests, so the resting look stays a single
+dot and the ring appears only in motion or over an interactive element. */
+.cursor-ring {
+position: fixed;
+top: 0;
+left: 0;
+z-index: 89;
+width: 36px;
+height: 36px;
+margin: -18px 0 0 -18px;
+border-radius: 50%;
+border: 1px solid rgba(91, 233, 255, 0.35);
+background: rgba(91, 233, 255, 0.04);
+box-shadow: 0 0 18px rgba(91, 233, 255, 0.08);
+pointer-events: none;
+opacity: 0;
+transition: width 0.25s var(--ease), height 0.25s var(--ease), margin 0.25s var(--ease),
+opacity 0.22s var(--ease), background 0.25s var(--ease), border-color 0.25s var(--ease);
+will-change: transform;
+}
+.cursor-ring.is-trail {
+opacity: 0.5;
+}
+.cursor-ring.is-hover {
+width: 44px;
+height: 44px;
+margin: -22px 0 0 -22px;
+opacity: 0.95;
+border-color: rgba(91, 233, 255, 0.55);
+background: rgba(91, 233, 255, 0.08);
+box-shadow: none;
+}
 .cursor {
 position: fixed;
 top: 0;
@@ -453,19 +487,17 @@ background: var(--pulse);
 box-shadow: 0 0 10px rgba(91, 233, 255, 0.6);
 pointer-events: none;
 opacity: 0;
-transition: width 0.4s var(--ease), height 0.4s var(--ease), margin 0.4s var(--ease),
-opacity 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+transition: width 0.2s var(--ease), height 0.2s var(--ease), margin 0.2s var(--ease),
+opacity 0.12s linear;
+will-change: transform;
 }
 .cursor.is-on {
-opacity: 0.9;
+opacity: 0.95;
 }
 .cursor.is-hover {
-width: 44px;
-height: 44px;
-margin: -22px 0 0 -22px;
-background: rgba(91, 233, 255, 0.1);
-border: 1px solid rgba(91, 233, 255, 0.5);
-box-shadow: none;
+width: 10px;
+height: 10px;
+margin: -5px 0 0 -5px;
 }
 /* burst affordance: mono label trailing the cursor over empty sky,
 retired permanently after the first click-burst */
@@ -489,11 +521,13 @@ transition: opacity 0.5s var(--ease);
 opacity: 0.8;
 }
 @media (pointer: coarse) {
+.cursor-ring,
+.cursor,
 .cursor-hint {
 display: none;
 }
 }
-@media (pointer: fine) {
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
 body {
 cursor: none;
 }
