@@ -303,14 +303,10 @@ nav[aria-labelledby='starlight__on-this-page--mobile'] {
   letter-spacing: -0.02em;
 }
 
-.site-title::before {
-  content: "";
-  flex: 0 0 auto;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--vf-pulse);
-  box-shadow: 0 0 10px var(--vf-pulse);
+/* The orbital mark carries the brand in the header; the old pulse dot is gone. */
+.site-title img {
+  height: 2.3rem;
+  width: auto;
 }
 
 .site-title:hover {
@@ -778,11 +774,36 @@ footer .meta a:hover {
   color: var(--vf-muted);
 }
 
+/* Documentation section banners */
+
+.vf-doc-banner {
+  aspect-ratio: 21 / 9;
+  margin: 1rem 0 1.3rem;
+  border: 1px solid var(--vf-line);
+  border-radius: 0.85rem;
+  overflow: hidden;
+  background-color: #0b1220;
+  background-image: var(--vf-banner);
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0 20px 45px -30px rgba(0, 0, 0, 0.75);
+}
+
+html[data-theme='light'] .vf-doc-banner {
+  border-color: rgba(11, 18, 32, 0.16);
+  box-shadow: 0 18px 38px -30px rgba(11, 18, 32, 0.45);
+}
+
 /* Mobile */
 
 @media (max-width: 50rem) {
   .content-panel {
     padding-block: 1.4rem;
+  }
+
+  .vf-doc-banner {
+    margin: 0.75rem 0 1rem;
+    border-radius: 0.7rem;
   }
 
   .content-panel:first-of-type {

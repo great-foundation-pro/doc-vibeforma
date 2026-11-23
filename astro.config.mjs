@@ -54,6 +54,14 @@ export default defineConfig({
       title: 'VibeForma',
       description:
         'Local voice dictation for Windows. Press a hotkey, speak, and the text appears at the cursor.',
+      // The mark follows the theme: colour on paper, ice on the dark desk.
+      // The wordmark beside it already names the site, so the image stays decorative.
+      logo: {
+        light: './src/assets/brand/vf-mark-line-color.svg',
+        dark: './src/assets/brand/vf-mark-line-white.svg',
+        alt: '',
+        replacesTitle: false,
+      },
       defaultLocale: 'root',
       locales: {
         root: { label: 'English', lang: 'en' },
@@ -93,6 +101,7 @@ export default defineConfig({
       },
       components: {
         Head: './src/components/Head.astro',
+        PageTitle: './src/components/PageTitle.astro',
       },
       plugins: [
         starlightBlog({

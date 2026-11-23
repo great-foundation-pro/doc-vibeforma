@@ -1,0 +1,28 @@
+---
+// Starlight's page title, with one visual header of its own above every
+// documentation page. The image is decorative: the title below carries the name.
+import banners from '../data/docs-banners.json';
+
+const pages = banners.pages as Record<string, string>;
+const entry = Astro.locals.starlightRoute.entry;
+const page = entry.id.replace(/^ru\//, '');
+const image = pages[page];
+const banner = image ? `/docs/headers/${image}.webp` : null;
+---
+
+{banner && (
+  <div class="vf-doc-banner" aria-hidden="true" style={`--vf-banner: url('${banner}')`}></div>
+)}
+<h1 id="_top">{entry.data.title}</h1>
+
+<style>
+  @layer starlight.core {
+    h1 {
+      margin-top: 1rem;
+      font-size: var(--sl-text-h1);
+      line-height: var(--sl-line-height-headings);
+      font-weight: 600;
+      color: var(--sl-color-white);
+    }
+  }
+</style>
