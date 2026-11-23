@@ -440,10 +440,10 @@ background: var(--pulse);
 box-shadow: 0 0 8px rgba(91, 233, 255, 0.6);
 }
 /* ============ CURSOR ============ */
-/* The core dot is the aiming point: it sits exactly under the pointer with no
-smoothing. The ring is decoration only: it trails the dot with a time-based
-ease and fades out when the pointer rests, so the resting look stays a single
-dot and the ring appears only in motion or over an interactive element. */
+/* Every layer sits exactly under the pointer with no positional easing, so the
+drawn cursor never lags the mouse. The ring is a halo that marks motion and
+interactive targets; it fades out when the pointer rests, so the resting look
+stays a single dot. */
 .cursor-ring {
 position: fixed;
 top: 0;
@@ -462,7 +462,7 @@ transition: width 0.25s var(--ease), height 0.25s var(--ease), margin 0.25s var(
 opacity 0.22s var(--ease), background 0.25s var(--ease), border-color 0.25s var(--ease);
 will-change: transform;
 }
-.cursor-ring.is-trail {
+.cursor-ring.is-move {
 opacity: 0.5;
 }
 .cursor-ring.is-hover {
@@ -499,7 +499,7 @@ width: 10px;
 height: 10px;
 margin: -5px 0 0 -5px;
 }
-/* burst affordance: mono label trailing the cursor over empty sky,
+/* burst affordance: mono label riding beside the pointer over empty sky,
 retired permanently after the first click-burst */
 .cursor-hint {
 position: fixed;

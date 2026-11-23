@@ -1355,8 +1355,7 @@ if (reduced || !finePointer) return;
 const core = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
 const hint = document.getElementById('cursorHint');
-let cx = innerWidth / 2, cy = innerHeight / 2, dx = cx, dy = cy;
-let lastMove = -1e9, lastTick = performance.now();
+let lastMove = -1e9;
 let overInteractive = false, hintRetired = false, pointerOn = false;
 const place = (el, x, y) => { el.style.transform = `translate3d(${x}px, ${y}px, 0)`; };
 // once the visitor bursts the entity themselves, the lesson is learned
@@ -1364,35 +1363,32 @@ addEventListener('aeon:burst', () => {
 hintRetired = true;
 hint && hint.classList.remove('is-on');
 }, { once: true });
-addEventListener('pointermove', (e) => {
-cx = e.clientX; cy = e.clientY;
+function follow(e) {
+const x = e.clientX, y = e.clientY;
 overInteractive = !!e.target.closest('a, button, [data-magnetic], .rail-item, input');
-// re-entry from outside the window: snap the ring instead of sweeping across
-if (!pointerOn) { dx = cx; dy = cy; place(ring, dx, dy); }
 pointerOn = true;
 lastMove = performance.now();
 core.classList.add('is-on');
-// the core is the aiming point: exact position, no smoothing
-place(core, cx, cy);
-if (hint) place(hint, cx + 18, cy + 22);
-});
+// every layer is the pointer: no easing, no catch-up on any of them
+place(core, x, y);
+place(ring, x, y);
+if (hint) place(hint, x + 18, y + 22);
+}
+// raw updates arrive ahead of the frame-aligned pointermove, so the drawn
+// cursor lands on the same frame as the native pointer; pointermove stays
+// as the fallback for browsers without pointerrawupdate
+addEventListener('pointerrawupdate', follow, { passive: true });
+addEventListener('pointermove', follow, { passive: true });
 document.documentElement.addEventListener('pointerleave', () => {
 pointerOn = false;
 core.classList.remove('is-on');
-ring.classList.remove('is-trail', 'is-hover');
+ring.classList.remove('is-move', 'is-hover');
 hint && hint.classList.remove('is-on');
 });
 gsap.ticker.add(() => {
 const now = performance.now();
-const dt = Math.min(now - lastTick, 50);
-lastTick = now;
-// time-based easing: the trail feels the same at 30, 60 or 144 fps
-const k = 1 - Math.exp(-dt / 120);
-dx += (cx - dx) * k;
-dy += (cy - dy) * k;
-place(ring, dx, dy);
 const moving = pointerOn && now - lastMove < 120;
-ring.classList.toggle('is-trail', moving && !overInteractive);
+ring.classList.toggle('is-move', moving && !overInteractive);
 if (hint) hint.classList.toggle('is-on', pointerOn && !hintRetired && !overInteractive);
 });
 document.querySelectorAll('a, button, .rail-item').forEach((el) => {
