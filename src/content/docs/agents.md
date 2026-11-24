@@ -11,6 +11,7 @@ There are three surfaces, in the order a harness should try them:
 |---|---|---|---|
 | Named pipe CLI | No | No | Anything that can start a process |
 | Local HTTP API | Yes, loopback | Yes | HTTP clients and OpenAI-compatible code |
+| MCP server `mcp.cmd` | Through the local HTTP API | Yes (reads `config.json`) | MCP clients: Claude Code, Cursor, Forma Mind |
 | Files on disk | No | No | Reading finished transcripts |
 
 ## Discovery: location.json
@@ -21,7 +22,7 @@ The service publishes `%LOCALAPPDATA%\VibeForma\location.json` so a harness neve
 {
   "schema": 2,
   "app": "vibeforma",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "launcher": "C:\\Users\\you\\AppData\\Local\\VibeForma\\run.cmd",
   "python": "C:\\Users\\you\\AppData\\Local\\VibeForma\\.venv\\Scripts\\python.exe",
   "entry": "C:\\Users\\you\\AppData\\Local\\VibeForma\\main.py",
@@ -104,6 +105,30 @@ Authentication is `Authorization: Bearer <token>` or `X-VibeForma-Token: <token>
 | `GET /health` | Live state plus `file_mode`, `jobs_running` and `jobs_queued` |
 
 A job pauses when a dictation starts and resumes when the service is idle. The HTTP surface answers `409` while a dictation is in progress, so a caller should retry rather than compete with the microphone. Details and status codes are on [Local API](/local-api/).
+
+## The MCP server
+
+An MCP-capable client starts `%LOCALAPPDATA%\VibeForma\mcp.cmd` as a stdio server:
+
+```json
+{
+  "mcpServers": {
+    "vibeforma": {
+      "command": "C:\\Users\\<you>\\AppData\\Local\\VibeForma\\mcp.cmd"
+    }
+  }
+}
+```
+
+The server reads `location.json` for the actual port and `config.json` for the token, so nothing has to be hardcoded. It exposes three tools:
+
+| Tool | What it does |
+|---|---|
+| `vibeforma_capabilities` | The same facts as `GET /capabilities` |
+| `vibeforma_transcribe_file` | Queues a file through `/jobs` and returns the text when the job finishes |
+| `vibeforma_job_status` | The state and progress of a queued job |
+
+The local API must be on: without it the server answers with a named refusal. The service itself stays loopback-only — the MCP server adds no listener and never sends the token anywhere. Settings → **AI and automation** shows the endpoint, the launcher and a ready connection block with copy buttons.
 
 ## A minimal integration
 

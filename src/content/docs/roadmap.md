@@ -5,7 +5,7 @@ description: What VibeForma is working on now, next and later — without dates 
 
 The roadmap states direction, not deadlines. Features move when they are ready and accepted, not when a date says so.
 
-## Now — 0.4.4 :badge[Current]{variant=success}
+## Now — 0.4.5 :badge[Current]{variant=success}
 
 The current release is a complete local dictation and file transcription tool:
 
@@ -18,6 +18,7 @@ The current release is a complete local dictation and file transcription tool:
 - a tray menu, autostart and a single-instance lock;
 - a CLI with `--transcribe`, `--transcribe-folder` and `--cancel-batch`;
 - an optional loopback HTTP API, an OpenAI-compatible endpoint and a job API;
+- an MCP server (`mcp.cmd`) that hands an AI agent `vibeforma_capabilities`, `vibeforma_transcribe_file` and `vibeforma_job_status` over stdio;
 - English and Russian documentation.
 
 ## Next — FormaMind and deeper agent workflows :badge[Next]{variant=note}
@@ -25,7 +26,7 @@ The current release is a complete local dictation and file transcription tool:
 - **Native FormaMind integration** — voice control of project tasks and a tighter link between the project tool and the voice layer.
 - **Project workflows on top of the file mode** — recordings becoming notes, tasks and documents without leaving the machine.
 
-The agent surfaces are in 0.4.0: the named pipe, `location.json` schema 2, the file CLI, the OpenAI-compatible endpoint and the job API. FormaMind itself is in development. The published documentation does not present it as finished.
+The agent surfaces: the named pipe, `location.json` schema 2, the file CLI, the OpenAI-compatible endpoint and the job API (0.4.0); the MCP server joined them in 0.4.5. FormaMind itself is in development. The published documentation does not present it as finished.
 
 ## Later :badge[Later]{variant=caution}
 

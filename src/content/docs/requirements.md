@@ -1,6 +1,6 @@
 ---
 title: System requirements
-description: The factual requirements for VibeForma 0.4.4 — Windows version, Python, disk space, GPU, network, audio, file transcription and ports.
+description: The factual requirements for VibeForma 0.4.5 — Windows version, Python, disk space, GPU, network, audio, file transcription and ports.
 ---
 
 These are the checks the installer performs and the facts the application relies on. Numbers come from the 0.4.0 source and installer, not from estimates.

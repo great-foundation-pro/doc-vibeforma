@@ -5,7 +5,7 @@ description: The optional loopback HTTP API — enabling it, the token, /health,
 
 VibeForma can expose a small HTTP API for local tools. It is **off by default**. When enabled, it listens only on `127.0.0.1` and requires a token.
 
-This is the technical bridge for editors, scripts and agents — the surface FormaMind can use without a cloud account.
+This is the technical bridge for editors, scripts and agents — the surface FormaMind can use without a cloud account. An MCP-capable client can skip the raw HTTP: the bundled MCP server (`mcp.cmd`) wraps this API — see [AI agents and integrations](/agents/).
 
 ![The System tab with the local API switch for external forms.](../../assets/docs/app/settings-system-en.png)
 
@@ -35,7 +35,7 @@ Tools should read `location.json` instead of assuming 8787:
 {
   "schema": 2,
   "app": "vibeforma",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "config": "C:\\Users\\you\\AppData\\Local\\VibeForma\\config.json",
   "api": "on",
   "port": 8787,
