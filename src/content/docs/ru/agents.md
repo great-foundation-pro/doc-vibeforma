@@ -21,7 +21,7 @@ VibeForma рассчитана на вызов из другой локальн�
 {
   "schema": 2,
   "app": "vibeforma",
-  "version": "0.4.0",
+  "version": "0.4.4",
   "launcher": "C:\\Users\\you\\AppData\\Local\\VibeForma\\run.cmd",
   "python": "C:\\Users\\you\\AppData\\Local\\VibeForma\\.venv\\Scripts\\python.exe",
   "entry": "C:\\Users\\you\\AppData\\Local\\VibeForma\\main.py",

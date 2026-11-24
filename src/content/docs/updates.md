@@ -12,7 +12,9 @@ VibeForma checks GitHub Releases in the background and offers a new version. It 
 | After start | About 90 seconds after the service starts |
 | Recurring | Every `update_interval_h`, 2 hours by default |
 | Condition | Only while the service is idle |
-| Manual | **Settings → System → Check now** |
+| Manual | **Check for updates** in the settings window header |
+
+Since 0.4.3 the running version and a **Check for updates** button sit in the settings window header, on every page. The duplicate check button at the bottom of the System page is gone; the update toggles stay there.
 
 Checks can be turned off in the settings. With checks off, the app never contacts GitHub on its own.
 
@@ -27,12 +29,14 @@ A new release is **offered**, not installed:
 
 The update is installed only when you accept it, or unconditionally only if `auto_update` is set to `auto` — an explicit choice, not the default.
 
+The update is deferred while a recording is in flight or a file job is unfinished — a single file or a folder batch. The notification names the recording or transcription, and in `auto` mode the update retries by itself once the work completes.
+
 The tray also has a **What's new in …** item that opens the release page.
 
 ## How an update is installed
 
-1. VibeForma downloads the release archive from GitHub.
-2. It verifies the archive against `SHA256SUMS`.
+1. VibeForma downloads the release archive and the `SHA256SUMS` file from GitHub.
+2. It verifies the archive against `SHA256SUMS` before unpacking: a missing sums file, a missing line or a hash mismatch stops the installation.
 3. It keeps a backup of the current installation.
 4. It installs the new version with the same installer used for a first install.
 5. It restarts the service as a detached `pythonw` process.
@@ -62,9 +66,9 @@ irm https://raw.githubusercontent.com/FormaMindPro/vibeforma/main/install.ps1 -O
 
 ## Versioning
 
-The current version is shown in **Settings → System** and in `status.json`. Release notes are on the GitHub Releases page.
+The current version is 0.4.4. It is shown in the settings window header next to the **Check for updates** button and in `status.json`. Release notes are on the GitHub Releases page.
 
-The documentation describes version 0.4.0. Pages are updated with the product.
+The documentation describes version 0.4.4. Pages are updated with the product.
 
 ## If an update does not finish
 

@@ -15,7 +15,7 @@ VibeForma is open source under the MIT license. Contributions are welcome — is
 
 Include:
 
-1. The VibeForma version (**Settings → System** or `run.cmd --status`).
+1. The VibeForma version (the settings window header or `run.cmd --status`).
 2. Windows version and whether the machine has an NVIDIA GPU.
 3. Steps to reproduce.
 4. The expected and actual result.

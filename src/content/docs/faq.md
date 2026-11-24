@@ -29,7 +29,7 @@ No. There is no sign-in, no telemetry and no cloud sync.
 
 ## Does it run on macOS, Linux, iOS or Android?
 
-No. VibeForma 0.4.0 is Windows 10/11 only.
+No. VibeForma 0.4.4 is Windows 10/11 only.
 
 ## Can it transcribe audio and video files?
 

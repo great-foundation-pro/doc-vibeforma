@@ -75,7 +75,7 @@ The agent surfaces are in 0.4.0: the named pipe, `location.json` schema 2, `--tr
 ## What this means for you today
 
 - If you want **local dictation on Windows**, VibeForma is ready now. Start with [Quickstart](/quickstart/).
-- If you want **video and podcast transcription**, 0.4.0 does it locally, including a whole folder as a batch. See [File transcription](/file-transcription/).
+- If you want **video and podcast transcription**, 0.4.4 does it locally, including a whole folder as a batch. See [File transcription](/file-transcription/).
 - If you are **building an integration**, the CLI, the named pipe, the OpenAI-compatible endpoint and the job API are usable today. See [AI agents and integrations](/agents/).
 
 ## Where to go next

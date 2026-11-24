@@ -41,7 +41,7 @@ VibeForma is free and open source under the MIT license.
 
 ## What it does not do
 
-VibeForma 0.4.0 is a local dictation and file transcription tool, not a meeting or media platform:
+VibeForma 0.4.4 is a local dictation and file transcription tool, not a meeting or media platform:
 
 - It runs on Windows only.
 - It does not detect the language automatically; you choose it.
