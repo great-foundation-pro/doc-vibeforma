@@ -77,6 +77,7 @@ The documentation describes version 0.4.5. Pages are updated with the product.
 3. Check the network and the GitHub status.
 4. Restart the app. A repeated install continues from the failed step.
 5. If the service does not start, restore from the backup created by the updater.
+6. If the folder is left mixed — some files of the old version, some of the new — do a full reset: quit the app, delete the install folder and install again into the same place. The installer treats a missing folder as a fresh install. Steps are on [Installation](/installation/).
 
 More in [Troubleshooting](/troubleshooting/) and [Diagnostics and logs](/diagnostics/).
 

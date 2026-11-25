@@ -61,7 +61,7 @@ VibeForma checks GitHub Releases in the background and offers a new version with
 
 ## How do I remove it completely?
 
-Run `uninstall.cmd` with `--remove-data` to remove the app, models and `config.json`. Without the flag, models and settings stay for a reinstall.
+Run `uninstall.cmd` with `--remove-data` to remove the app, models and `config.json`. Without the flag, models and settings stay for a reinstall. The uninstaller does not remove every file of the installation — delete the install folder afterwards for a complete removal. See [Installation](/installation/) for the full procedure and for reinstalling into the same place.
 
 ## Where is my data?
 

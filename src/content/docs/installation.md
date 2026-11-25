@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Install VibeForma on Windows — the one-line command, installer parameters, the install transaction, shortcuts and removal.
+description: Install VibeForma on Windows — the one-line command, installer parameters, the install transaction, shortcuts, removal and reinstalling into the same place.
 ---
 
 VibeForma installs from a PowerShell script into your user profile. No administrator rights are required, and the installer refuses system directories on purpose.
@@ -90,26 +90,104 @@ After installation, the service starts and the three-step assistant appears:
 
 Updates use the same release archive and the same installer. Automatic checks are described on [Updates](/updates/). Your model, dictionary, history and `config.json` are preserved.
 
-## Uninstalling
+## Uninstalling and reinstalling
 
-Run:
+VibeForma lives in a single folder: the code, the virtual environment, the model and your data. There is no system service, driver or shared library elsewhere. Removal is therefore predictable, and a full reset — delete the folder, install again into the same place — is a supported repair, not a workaround.
+
+### Before you remove anything
+
+1. **Quit the app.** Right-click the tray icon and choose **Exit**. While the service runs, Windows keeps `pythonw.exe` and the DLLs in `.venv` open, and the folder is deleted only partly. If the tray does not respond, end `pythonw.exe` in Task Manager or restart the PC.
+2. **Keep the evidence if something failed.** `logs\install.log` and `logs\service.log` name the failed step and the tail of the error, and they disappear with the folder. Copy them somewhere first.
+3. **Decide about your data.** `config.json` holds settings, hotwords, dictionary and snippets; `models\` holds the model; `history.jsonl` and `stats.json` hold records. The model is the expensive part to download again.
+
+### Uninstall with the uninstaller
 
 ```powershell
-uninstall.cmd
+cd "$env:LOCALAPPDATA\VibeForma"
+.\uninstall.cmd
 ```
 
-or:
+`python uninstall.py` does the same when the virtual environment is already broken.
 
-```powershell
-python uninstall.py
-```
-
-The uninstaller removes shortcuts, the autostart entry, the **Apps** entry and the service files. Models and `config.json` stay by default, so a reinstall starts offline.
+The uninstaller asks for confirmation and removes the desktop, Start menu and Startup shortcuts, the **Settings → Apps** entry and the service files, including `.venv`.
 
 | Flag | Effect |
 |---|---|
-| `--remove-data` | Also removes models and `config.json`. |
-| `--keep-data` | Keeps data without asking. |
+| `--remove-data` | Also removes `models\`, `config.json` and `logs\`. |
+| `--keep-data` | Keeps them without asking. |
+| `--yes` | Skips the confirmation prompt — for a script. |
+
+By default models and `config.json` stay, so a reinstall starts without downloading the model again.
+
+**The uninstaller does not erase every file.** `history.jsonl`, `history_audio\`, `stats.json`, `status.json`, `location.json`, `mcp.cmd` and the `vibeforma\` package are outside its removal list; when any of them stays, the folder stays too. That is harmless for a reinstall into the same place, but for a complete removal delete the folder after the uninstaller.
+
+### Delete the folder
+
+Delete the install directory — `%LOCALAPPDATA%\VibeForma` unless you installed with `-Target`.
+
+Inside it:
+
+| Item | What it is |
+|---|---|
+| `main.py`, `run.cmd`, `vibeforma\`, `.venv` | The application and its Python environment |
+| `config.json` | Settings, hotwords, dictionary and snippets |
+| `models\` | The downloaded recognition model |
+| `history.jsonl`, `history_audio\` | Dictation history, if it was enabled |
+| `stats.json` | Counters, if statistics were enabled |
+| `logs\` | `install.log`, `service.log` and their rotated copies |
+
+Outside it:
+
+| Location | What stays | What happens |
+|---|---|---|
+| Desktop, Start menu, Startup | `VibeForma.lnk` | A reinstall recreates them. Without one, delete them: the Startup copy would point at a missing target at every logon. |
+| `HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\VibeForma` | The **Settings → Apps** entry | A reinstall rewrites it. Without one, the Uninstall button there points at a deleted `uninstall.cmd`; run the uninstaller before deleting the folder to remove it. |
+| `%LOCALAPPDATA%\VibeForma\location.json` | The discovery file for forms and agents | With a custom `-Target` it stays here although the app lives elsewhere. It is rewritten at the next service start; a stale file points at an `install_dir` that no longer exists. |
+| `%USERPROFILE%\.cache\huggingface`, `%LOCALAPPDATA%\pip\Cache` | Shared download caches | Harmless. They only save a download next time. |
+| System Python 3.10–3.14 | The prerequisite | Untouched by removal, and needed for a reinstall. |
+
+### Reinstall into the same folder
+
+A missing or empty folder is a **fresh install** for the installer: it copies the application, creates `.venv`, installs the dependencies, downloads the model and writes a new `config.json`. Nothing of the old installation is reused or mixed in — which is exactly why this is the cleanest repair after a broken update.
+
+1. Quit the app.
+2. Copy `logs\install.log` and `logs\service.log` aside if you are investigating the failure.
+3. Optional: move `models\` to another disk so the model is not downloaded again. If you also keep `config.json`, the same model is selected; otherwise pass `-Model` with its name, or the installer picks its default.
+4. Delete the install folder completely. An empty folder is accepted; a partly deleted one is not — see below.
+5. Install again into the same place:
+
+```powershell
+irm https://raw.githubusercontent.com/FormaMindPro/vibeforma/main/install.ps1 -OutFile install.ps1
+.\install.ps1 -Target "$env:LOCALAPPDATA\VibeForma"
+```
+
+Without `-Target` the installer uses `%LOCALAPPDATA%\VibeForma`; an interactive run asks for the folder and accepts the old path.
+
+6. Put `models\` back before the first start if you moved it aside. The installer skips the download when `models\<model>\model.bin` is already there.
+7. Start the app. The installer starts the service at the end unless it ran with `-NoRun`; otherwise use the desktop shortcut or `.\run.cmd`.
+
+**Why the installer may refuse the folder.** It accepts a missing folder, an empty one, or an existing VibeForma installation — the `.vibeforma-install.json` marker, or `run.cmd` together with `main.py`. A partly deleted folder that still holds `models\` and `config.json` is none of these, and the installer stops with "the target folder is not empty and does not look like a VibeForma install" instead of writing into it. Finish the deletion or choose a new folder.
+
+**What is lost.** Settings, hotwords, dictionary and snippets (`config.json`), history and statistics unless you kept the files, and the model unless it is in the shared Hugging Face cache or you saved `models\`. Nothing else is tied to the folder: the new install is complete on its own.
+
+### Starting and restarting
+
+- After an install or a reinstall the service is already running; look for the tray icon.
+- To restart it, choose **Exit** in the tray and start the desktop shortcut or `.\run.cmd` again. A second launch does not create a second copy: it asks the running instance to show the panel.
+- Autostart starts the service with Windows and is toggled in **Settings → System**. A reinstall recreates the autostart shortcut.
+- If the service does not come up after a reinstall, read `logs\service.log` and run `.\run.cmd --doctor`; see [Diagnostics and logs](/diagnostics/).
+
+### When a full reset will not help
+
+Deleting the folder repairs what lives inside it: files half-written by an interrupted update, a broken `.venv`, a mix of versions. It does not repair the environment around it, and a clean folder meets the same wall when:
+
+- Python is missing, older than 3.10 or newer than 3.14;
+- disk space is short of the model plus about 4 GB;
+- antivirus, a proxy or a firewall blocks `pip` or the model download;
+- the CUDA driver does not match the installed build;
+- GitHub is unreachable.
+
+Read `install.log` first — it names the failed step and the tail of the error. `install.ps1 -DryRun` shows the checks without changes, and `.\run.cmd --doctor` checks the machine. A failed in-place update already restores the previous version, so a normal reinstall is worth one attempt before the reset.
 
 ## If installation fails
 

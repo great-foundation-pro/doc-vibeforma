@@ -107,8 +107,9 @@ The installer and updater write each step and the tail of an error here. It is t
 ## Backup and removal
 
 - **Back up** `config.json`, `models\`, and — if you need them — `history.jsonl`, `stats.json`, `corrections.json`. Transcripts are ordinary files next to their sources; back them up with those folders.
-- **Uninstall** removes shortcuts, autostart and service files; models and `config.json` stay unless `--remove-data` is passed.
-- **A clean reset** is a reinstall with `--remove-data`, or deleting the install directory after uninstalling.
+- **Uninstall** removes shortcuts, autostart, the **Apps** entry and service files; models and `config.json` stay unless `--remove-data` is passed. History, statistics, `location.json` and `status.json` are not in its removal list.
+- **A complete removal** is deleting the install directory after the uninstaller.
+- **A clean reset** is deleting the folder and installing again into the same place — a missing or empty folder is a fresh install. The full procedure is on [Installation](/installation/).
 
 ## Where to go next
 
