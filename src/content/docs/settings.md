@@ -17,9 +17,10 @@ Open it from the tray menu or from the panel. Changes apply to the running servi
 The input device, the dictation mode and the timing of a phrase:
 
 - microphone device;
+- sound source — microphone or system audio; a system take feeds live subtitles;
 - hold-to-talk or toggle;
 - silence before a phrase ends — `silence_ms`, default 2000;
-- maximum phrase length — `max_record_s`, default 120 seconds;
+- maximum phrase length — `max_record_s`, default 120 seconds; it applies when continuous dictation is off;
 - partial transcription interval — `partial_every_s`, default 1.5 seconds;
 - start and end beeps;
 - paste method — `Shift+Insert` or `Ctrl+V`;
@@ -35,16 +36,16 @@ Changing the hotkey is protected: an invalid combination is not saved, the new l
 
 ### 3. Model and language
 
-- the recognition model: `large-v3`, `large-v3-turbo`, `medium`, `small`;
-- the recognition language: one of 26 codes, fixed, no automatic detection;
-- personal terms (`hotwords`) that always go into the recognition prompt;
+- the recognition model: `large-v3`, `large-v3-turbo`, `medium`, `small` — or a path to a converted CT2 folder;
+- the recognition language: one of 26 codes, fixed, no automatic detection; a hint names a likely other language when the pinned one looks wrong;
+- personal terms (`hotwords`) that go into every 30-second recognition window;
 - whether the previous model is kept on disk after a switch.
 
-Changing the model opens a progress dialog with four phases: **download → load → remove → done**. If a dictation is running, the answer is "busy". A failed download rolls everything back.
+Changing the model opens a progress dialog with four phases: **download → load → remove → done**. If a dictation is running, the answer is "busy". A failed download rolls everything back. A model path is loaded from the folder with `local_files_only`; a folder without `model.bin`, `config.json`, `tokenizer.json` or the vocabulary is refused with a named error instead of downloading another model.
 
 ### 4. Dictionary
 
-Term → replacement pairs, up to 500, with import, export and a preview. Learning from corrections is offered here after the same correction repeats. Details: [Dictionary](/dictionary/).
+Term → replacement pairs, up to 500, with import, export and a preview. Learning from corrections is offered here after the same correction repeats. The same tab has application profiles: a dictionary and snippets bound to a process name and/or a window-title fragment. Details: [Dictionary](/dictionary/).
 
 ### 5. Snippets
 
@@ -52,7 +53,7 @@ Spoken trigger → prepared text, up to 500 pairs, with import, export, preview 
 
 ### 6. History
 
-The opt-in record of the last 100 dictations: the table, search, filters, selection, deletion and the switches below the table. Details: [History](/history/).
+The opt-in record of the last 100 dictations: the table, search, filters, selection, deletion and the switches below the table. Sound is a separate key, `history_audio`, and has no switch here yet. Details: [History](/history/).
 
 ### 7. Statistics
 
@@ -65,6 +66,18 @@ The panel's transparency (`hud_alpha`), automatic growth (`hud_autogrow`), wheth
 ### 9. System
 
 Autostart, update checks and their interval, the manual **Check now** action, the local HTTP API switch and port, the logs folder, diagnostics, and the application version.
+
+## Options that live in config.json only
+
+Some 0.5.0 options have no control in the window yet. They are read from `config.json` when the service starts:
+
+| Key | Default | What it does |
+|---|---|---|
+| `continuous` | `true` | Splits a long take at pauses or every 30 seconds instead of stopping at `max_record_s` |
+| `dictation_context` | `false` | Adds the previous phrase and the selected text to the next dictation's `hotwords` |
+| `text_cleanup` | `false` | Converts numbers and dates, removes filler words and fixes capitalization |
+| `history_audio` | `false` | Keeps a WAV of each dictation and enables **Retranscribe last** |
+| `actions` | empty | Spoken phrases that run a command, switch the model or start an agent |
 
 ## Window behavior
 
@@ -86,7 +99,7 @@ These changes reach the running service immediately:
 
 - silence duration;
 - streaming interval;
-- maximum recording length;
+- maximum recording length — `max_record_s`, used when continuous dictation is off;
 - panel transparency and autogrow;
 - beeps;
 - hotkey;

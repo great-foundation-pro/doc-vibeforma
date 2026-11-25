@@ -35,7 +35,7 @@ VibeForma может открыть небольшой HTTP API для лока�
 {
   "schema": 2,
   "app": "vibeforma",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "config": "C:\\Users\\you\\AppData\\Local\\VibeForma\\config.json",
   "api": "on",
   "port": 8787,
@@ -91,7 +91,7 @@ Authorization: Bearer <token>
 
 ### `GET /capabilities`
 
-Повторяет факты обнаружения для харнесса, не нашедшего `location.json`: `file_mode`, `word_timestamps`, `formats`, `models`, `languages`, `max_file_mb`, `max_file_s`, `max_sync_s`, `pipe`, `launcher`, `python`, `entry` и счётчики очереди. Пока модель грузится, отвечает `503`.
+Повторяет факты обнаружения для харнесса, не нашедшего `location.json`: `file_mode`, `word_timestamps`, `formats`, `models`, `languages`, `max_file_mb`, `max_file_s`, `max_sync_s`, `pipe`, `launcher`, `python`, `entry`, объявленные `prompt` и `clip_timestamps` и счётчики очереди. Пока модель грузится, отвечает `503`.
 
 ### `POST /transcribe`
 
@@ -121,8 +121,10 @@ OpenAI-совместимый файловый endpoint. Принимает mult
 | `response_format` | `json`, `text`, `srt`, `vtt` или `verbose_json` |
 | `prompt` | Начальный промпт, до 1024 знаков |
 | `temperature` | Температура сэмплирования |
+| `word_timestamps` | Пословные таймкоды; принимается и написание OpenAI `timestamp_granularities[]=word` |
+| `clip_timestamps` | Диапазоны для расшифровки, например `12.5,30` |
 
-Синхронный ответ останавливается на `file_max_sync_s` (по умолчанию 900 секунд). Более длинный файл получает `413` с `"job_endpoint": "/jobs"`. Ответ — сама расшифровка; файлов endpoint не пишет.
+Синхронный ответ останавливается на `file_max_sync_s` (по умолчанию 900 секунд). Более длинный файл получает `413` с `"job_endpoint": "/jobs"`. Ответ — сама расшифровка; файлов endpoint не пишет. `verbose_json` несёт чтения движка: `avg_logprob`, `no_speech_prob`, `compression_ratio` и `temperature` у каждого сегмента и `words[]` верхнего уровня с `probability`.
 
 ### API задач
 
@@ -130,12 +132,12 @@ OpenAI-совместимый файловый endpoint. Принимает mult
 
 | Метод и путь | Что делает |
 |---|---|
-| `POST /jobs` | Ставит файл в очередь; multipart `file` или JSON `{ "path": "...", "language": "ru", "formats": ["srt"] }`; отвечает `202` с `job_id`, `state` и заголовком `Location` |
-| `GET /jobs/<id>` | `state`, `progress`, `source`, `language`, `model`, `duration_s`, `segments`, `outputs`, `error` |
+| `POST /jobs` | Ставит файл в очередь; multipart `file` или JSON `{ "path": "...", "language": "ru", "formats": ["srt"] }`; принимает также `prompt`, `word_timestamps` и `clip_timestamps`; отвечает `202` с `job_id`, `state` и заголовком `Location` |
+| `GET /jobs/<id>` | `state`, `progress`, `source`, `language`, `model`, `duration_s`, `segments`, `outputs`, `error` и применённые `prompt`, `word_timestamps`, `clip_timestamps` |
 | `GET /jobs/<id>/result?format=txt` | Готовая расшифровка в `txt`, `json`, `srt` или `vtt` |
 | `DELETE /jobs/<id>` | Отменяет задачу |
 
-Задача встаёт на паузу, пока идёт диктовка, и продолжается, когда сервис свободен. `GET /jobs/<id>/result` отвечает `409`, пока задача не готова.
+Задача встаёт на паузу, пока идёт диктовка, и продолжается, когда сервис свободен. `GET /jobs/<id>/result` отвечает `409`, пока задача не готова. Плохой диапазон или промпт длиннее 1024 знаков возвращает `400`.
 
 ## Коды ответов
 

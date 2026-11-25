@@ -22,7 +22,7 @@ The service publishes `%LOCALAPPDATA%\VibeForma\location.json` so a harness neve
 {
   "schema": 2,
   "app": "vibeforma",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "launcher": "C:\\Users\\you\\AppData\\Local\\VibeForma\\run.cmd",
   "python": "C:\\Users\\you\\AppData\\Local\\VibeForma\\.venv\\Scripts\\python.exe",
   "entry": "C:\\Users\\you\\AppData\\Local\\VibeForma\\main.py",
@@ -72,6 +72,9 @@ The CLI talks to the running service over `\\.\pipe\VibeForma-<user>`, created w
 | Flag | Answer |
 |---|---|
 | `--transcribe` | Progress on stderr, the result path or a JSON object on stdout |
+| `--prompt <text>` | Initial prompt for the job, up to 1024 characters; the configured preset is used when omitted |
+| `--words` | Ask for word timestamps |
+| `--clip <ranges>` | Transcribe only the named ranges, for example `12.5,30` |
 | `--transcribe-folder` | A JSON summary of the batch on stdout |
 | `--cancel-batch [<id>]` | Stops every unfinished batch, or the named one |
 | `--status` | The service state as JSON |
@@ -90,21 +93,25 @@ With the local API on, `POST /v1/audio/transcriptions` accepts multipart form da
 | `response_format` | `json`, `text`, `srt`, `vtt` or `verbose_json` |
 | `prompt` | Initial prompt, up to 1024 characters |
 | `temperature` | Sampling temperature |
+| `word_timestamps` | Ask for word timings; `timestamp_granularities[]=word` is accepted as the OpenAI spelling |
+| `clip_timestamps` | Transcribe only the named ranges, for example `12.5,30` |
 
 Authentication is `Authorization: Bearer <token>` or `X-VibeForma-Token: <token>`. The endpoint answers synchronously while the file is at or below `file_max_sync_s` (900 s by default). A longer file returns `413` with `"job_endpoint": "/jobs"`.
+
+`verbose_json` follows the OpenAI shape and adds the engine readings: `segments[]` carries `avg_logprob`, `no_speech_prob`, `compression_ratio` and `temperature`, and a top-level `words[]` carries `word`, `start`, `end` and `probability`.
 
 ## The job API for long files
 
 | Method and path | What it does |
 |---|---|
-| `POST /jobs` | Queues a file and returns its id and `Location` header |
-| `GET /jobs/<id>` | State, progress, duration, segment count and outputs |
+| `POST /jobs` | Queues a file and returns its id and `Location` header; accepts `prompt`, `word_timestamps` and `clip_timestamps` |
+| `GET /jobs/<id>` | State, progress, duration, segment count, outputs and the applied `prompt`, `word_timestamps` and `clip_timestamps` |
 | `GET /jobs/<id>/result?format=txt` | The finished transcript in one of the four formats |
 | `DELETE /jobs/<id>` | Cancels the job |
-| `GET /capabilities` | Formats, models, limits, pipe and launcher |
+| `GET /capabilities` | Formats, models, limits, pipe, launcher, and the declared `prompt` and `clip_timestamps` |
 | `GET /health` | Live state plus `file_mode`, `jobs_running` and `jobs_queued` |
 
-A job pauses when a dictation starts and resumes when the service is idle. The HTTP surface answers `409` while a dictation is in progress, so a caller should retry rather than compete with the microphone. Details and status codes are on [Local API](/local-api/).
+A job pauses when a dictation starts and resumes when the service is idle. The HTTP surface answers `409` while a dictation is in progress, so a caller should retry rather than compete with the microphone. A bad range or a prompt longer than 1024 characters is refused with `400`. Details and status codes are on [Local API](/local-api/).
 
 ## The MCP server
 
@@ -125,8 +132,8 @@ The server reads `location.json` for the actual port and `config.json` for the t
 | Tool | What it does |
 |---|---|
 | `vibeforma_capabilities` | The same facts as `GET /capabilities` |
-| `vibeforma_transcribe_file` | Queues a file through `/jobs` and returns the text when the job finishes |
-| `vibeforma_job_status` | The state and progress of a queued job |
+| `vibeforma_transcribe_file` | Queues a file through `/jobs` and returns the text when the job finishes; accepts `prompt`, `word_timestamps` and `clip_timestamps` |
+| `vibeforma_job_status` | The state, progress and applied contract of a queued job |
 
 The local API must be on: without it the server answers with a named refusal. The service itself stays loopback-only — the MCP server adds no listener and never sends the token anywhere. Settings → **AI and automation** shows the endpoint, the launcher and a ready connection block with copy buttons.
 

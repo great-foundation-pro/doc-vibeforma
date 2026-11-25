@@ -24,6 +24,9 @@ Examples below use `run.cmd`.
 | `--cancel` | Discards the recording or the panel draft. |
 | `--status` | Prints the running instance's `status.json`: state, version, pid, timestamp. |
 | `--transcribe <file>` | Transcribes one audio or video file over the named pipe. |
+| `--prompt <text>` | A recognition hint for this file; the configured prompt is used when omitted. |
+| `--words` | Asks for word-level timestamps and probabilities (`--word-timestamps` is an accepted alias). |
+| `--clip <start[,end]>` | Transcribes only that time range, in seconds; a start alone runs to the end of the file. |
 | `--transcribe-folder <dir>` | Queues every supported file in a folder as one batch. |
 | `--cancel-batch [<id>]` | Stops every unfinished batch, or the named one. |
 | `--doctor` | Runs the diagnostic checks and prints `OK` / `WARN` / `FAIL` per line. |
@@ -77,6 +80,9 @@ Transcribes one audio or video file. The call goes to the running service over t
 | `--lang <code>` | Recognition language, for example `ru` or `en`; default is the config |
 | `--format <name>` | `txt`, `json`, `srt`, `vtt` or `all`; default `srt` |
 | `--out <path>` | Write the result there instead of beside the source |
+| `--prompt <text>` | A recognition hint for this file; without it the configured preset is used |
+| `--words` | Ask for word timestamps and word probabilities; also cuts SRT/VTT by sentences |
+| `--clip <start[,end]>` | Transcribe only that range in seconds; one value runs to the end of the file |
 | `--json` | Machine-readable answer on stdout |
 | `--force` | Overwrite an existing output file |
 

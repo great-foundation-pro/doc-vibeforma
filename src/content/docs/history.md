@@ -21,14 +21,29 @@ Each record has these fields:
 | `chars` | Number of characters |
 | `app` | The application that received the text |
 | `way` | How it was delivered: inserted or copied |
+| `audio` | The WAV file name, only when history audio is on |
 
 Records are written atomically, so a crash does not leave a half-written line.
+
+## Sound
+
+`history_audio` is off by default and works only together with `history`. When both are on, VibeForma keeps a 16-bit WAV of each dictation in the `history_audio` folder next to `history.jsonl`.
+
+- The folder is capped at 200 MiB; the oldest file goes first, and the record keeps its text while only the link to the missing sound disappears.
+- Deleting a record deletes its WAV. Clearing history or dropping a record out of the 100-record ring does the same.
+- Turning the option off at start deletes the sound saved by the previous run.
+
+Audio is local like the text: it is never uploaded, synced or included in diagnostics.
+
+## Retranscribe the last record
+
+**Tray → Retranscribe last** asks for a prompt and decodes the WAV of the last record again. The dialog is prefilled with `hotwords`; you can also pick another model in the tray before the pass. The new text arrives in the panel draft, where you can edit, copy, insert it or cancel. The pass needs the WAV, so history audio must be on and the record must still have its sound.
 
 ## Turning history on and off
 
 Use the switches under the history table in **Settings → History**.
 
-Turning history **off deletes the file**. That is the intended behavior: disabling the record should remove what was recorded, not keep it quietly.
+Turning history **off deletes the file**. That is the intended behavior: disabling the record should remove what was recorded, not keep it quietly. Saved sound goes with it. The `history_audio` switch is not in the settings window yet; the key lives in `config.json`.
 
 ## The table
 
@@ -92,6 +107,8 @@ With history enabled, the `‹` and `›` arrows in the panel header page throug
 
 - 100 records is a fixed cap; older records are dropped as new ones arrive.
 - There is no export of the history table.
+- History audio is off by default, has no settings switch yet, and its folder is capped at 200 MiB.
+- Retranscription works on the last record only and needs that record's WAV.
 - Undo is limited to the last insertion, 30 seconds, and the same window.
 
 ## Where to go next

@@ -19,7 +19,7 @@ Dictation is the main loop of VibeForma: a hotkey starts listening, speech is re
    - release the hotkey in hold-to-talk mode.
 5. The text is inserted at the cursor.
 
-A phrase is capped at 120 seconds. When the limit is reached, recording stops and the phrase is recognized.
+A phrase is no longer capped at 120 seconds. Continuous dictation is on by default: a long take is cut at a pause of 400 ms after at least one second of speech, or at 30 seconds with the last 300 ms carried into the next chunk. The chunks are recognized by the final pass, joined without repeated words at the seams, and inserted once. With `continuous: false`, `max_record_s` stops a phrase at 120 seconds as before.
 
 ## Modes
 
@@ -37,6 +37,45 @@ The mode is chosen in **Settings → Recording** and applies to the running serv
 - Partial transcriptions are streamed to the panel about every 1.5 seconds (`partial_every_s`).
 - The panel shows the microphone level and a VAD indicator, so you can see whether the app hears you.
 - Start and end beeps can be enabled (`beep_on`, `beep_off`).
+
+## Doubtful phrases
+
+The engine reports how sure it is: `avg_logprob`, `compression_ratio`, `no_speech_prob` and `temperature` for a segment, `probability` for a word. When the readings are poor — or the final pass needed a temperature above zero — the phrase stays in the panel draft and nothing is inserted. The doubtful words are underlined in the draft; **Insert** still pastes the whole phrase if you agree with it.
+
+A drafted doubtful phrase also offers **Recognize more precisely**: the same recording is decoded again with beam 10 at temperature 0, and the new text replaces the draft with its own highlighting. **Restore previous** returns the exact earlier text. A confident phrase does not get the button. The recording is kept for this purpose; a long continuous take needs history audio on, because only the whole take can be decoded again.
+
+## Text cleanup
+
+Text cleanup is opt-in (`text_cleanup`, off by default). When on, it runs after the dictionary, text rules and snippets, so both the draft and the insertion get the cleaned text:
+
+- numbers and dates are written as digits for Russian and English ("двадцать три рубля" → "23 рубля");
+- filler words — "эээ", "ну", "как бы", "um", "you know" — are removed where it is safe, never inside a word;
+- a capital letter starts the text and each sentence after `. ! ? …` or a line break;
+- protected fragments stay byte for byte: `snake_case`, `camelCase`, dotted paths, URLs, e-mail addresses, Windows paths and text in backticks.
+
+Punctuation is not rewritten: it still comes from Whisper. A small single numeral outside a recognized phrase may stay as words ("пять рублей"), and there is no settings tab yet — the key lives in `config.json`.
+
+## Voice actions
+
+The optional `actions` list turns a whole spoken phrase into a command:
+
+```json
+"actions": [
+  {"trigger": "open browser", "kind": "command"},
+  {"trigger": "switch to the small model", "kind": "model", "model": "small"},
+  {"trigger": "ask the agent", "kind": "agent", "command": "\"C:\\tools\\agent.exe\""}
+]
+```
+
+`command` runs `hook_command` (or the record's own `command`) through stdin without a shell; `model` switches the model after the phrase ends; `agent` starts its own command. Matching comes after the dictionary and snippets and requires the whole phrase, so an action does not fire from the middle of ordinary speech. A triggered action is not inserted as text. A failed command still inserts the phrase and writes the exit code to the log.
+
+## Context from the previous phrase
+
+`dictation_context` is off by default. When on, the tail of the previous phrase (160 characters) and the text selected in the target window (up to 400 characters) join `hotwords`, so a name said once is spelled the same way next time. Context is read for the next dictation only and does not rewrite `config.json`.
+
+## Live subtitles
+
+With the sound source set to **System audio**, the dictation hotkey does not insert text: it feeds live subtitles. The panel shows the last one or two phrases, refreshed at most every 4 seconds over the last 10 seconds of sound, and the same hotkey stops it. Nothing goes into the active window, and there is no draft, history record or transcript file. Read [Panel, tray and autostart](/interface/) for the plate itself; the **Sound source** switch is on **Settings → Recording**.
 
 ## Cancel a phrase
 
@@ -98,6 +137,12 @@ Notifications report the number of characters — for example, "Inserted, 42 cha
 ## Language
 
 The recognition language is fixed in the settings. VibeForma does not guess it. If the wrong language is chosen, recognition quality drops; change it in **Settings → Model & language** or from the tray.
+
+The app does not switch the language on its own, but it can say when the wrong one is pinned. If the pinned language scores below 50% and another language scores at least 50%, the panel shows "looks like X (..%), Y selected (..%)" for 20 seconds. The pinned language stays in force.
+
+## Where the dictionary fits
+
+Every 30-second window of a long take now carries the dictionary terms through the engine's `hotwords` parameter, and up to 223 tokens are chosen by correction frequency. Application profiles can add their own terms and snippets in a specific app. Details: [Dictionary](/dictionary/).
 
 ## If dictation does not work
 

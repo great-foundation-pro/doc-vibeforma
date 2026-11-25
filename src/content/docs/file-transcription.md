@@ -70,6 +70,18 @@ A file at or above 60 seconds runs through `faster_whisper.BatchedInferencePipel
 
 If the batched path is unavailable or fails mid-file, the job falls back to the sequential path without duplicate text. On the project's test machine a 660-second MP4 with `large-v3-turbo` on CUDA float16 ran 5.2× faster than the sequential path: 19.9 s median against 103.6 s. That number is a measurement on one machine, not a promise for every file.
 
+The batched path is no longer an unguarded exception: every batched segment is checked against the same thresholds as the sequential path (`avg_logprob`, `no_speech_prob`, compression ratio), and a segment that fails is decoded again sequentially on its own slice of the block. A warning names the segment and the retry; the replacement passes the same post-filter. A 600-second block seam carries the last 200 characters of the previous block into the next prompt, so a name given in the first block survives the second one and the prompt does not grow.
+
+## Quality guards
+
+- **Invented text is dropped.** A stop list of typical false phrases in Russian and English, a `no_speech_prob` threshold of 0.6, a compression-ratio check of 1.35 on non-speech and a 2-second silence threshold remove text invented on silence and music before it reaches the transcript. A repetition loop the engine reads as speech is kept with a warning.
+- **A broken word-timing block does not fail the file.** An `IndexError` from `find_alignment` in faster-whisper 1.2.1 is caught per block, the block is retried without word timestamps, the warning is logged, and already emitted segments are not repeated.
+- **Per-job control.** A job can carry its own `prompt` (up to 1024 characters), `word_timestamps` and `clip_timestamps`; the applied values are reported back by `/jobs/<id>`. A range that is not numeric or runs backwards is refused with `400`.
+
+## Subtitle cues
+
+SRT and VTT are cut by sentences, not by the engine's 30-second window: a sentence end or a pause of 0.6 seconds closes a cue, and a seam between windows or 600-second blocks no longer splits a sentence. Without word timings the engine's own segments stand. TXT and JSON are unchanged.
+
 ## Limits
 
 | Key | Default | Meaning |
@@ -79,7 +91,7 @@ If the batched path is unavailable or fails mid-file, the job falls back to the 
 | `file_max_s` | `21600` (6 h) | Input duration limit |
 | `file_max_sync_s` | `900` (15 min) | Cap for the synchronous API; longer files go to `/jobs` |
 | `job_keep_s` | `86400` (24 h) | How long a finished job stays in memory |
-| `file_word_timestamps` | `false` | Add word-level timings to JSON |
+| `file_word_timestamps` | `false` | Add word-level timings to JSON and cut SRT/VTT by sentences |
 | `file_folder_recursive` | `false` | Include subfolders in the tray folder dialog |
 
 Network paths and UNC shares are refused: the file must live on a local disk. The full key list is on [Settings reference](/settings-reference/).
@@ -105,6 +117,8 @@ The four formats — TXT, JSON, SRT and VTT — are described on [Transcript for
 - It does not translate, label speakers or burn subtitles into video.
 - It does not read from a network share or a cloud drive.
 - It does not require or use `ffmpeg`; decoding is internal.
+- It does not rewrite punctuation: sentence punctuation comes from Whisper, and Silero is not included (ADR 0001).
+- It does not save a system-audio take as a file yet: that take feeds live subtitles instead.
 
 ## Where to go next
 

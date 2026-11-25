@@ -5,18 +5,19 @@ description: What VibeForma is working on now, next and later — without dates 
 
 The roadmap states direction, not deadlines. Features move when they are ready and accepted, not when a date says so.
 
-## Now — 0.4.5 :badge[Current]{variant=success}
+## Now — 0.5.0 :badge[Current]{variant=success}
 
 The current release is a complete local dictation and file transcription tool:
 
-- local recognition with four models and a fixed language;
-- toggle and hold-to-talk modes, VAD and a 120-second phrase limit;
+- local recognition with four models, 26 language presets and a fixed language with a hint when it looks wrong;
+- toggle and hold-to-talk modes, VAD and continuous dictation without the 120-second cap;
+- live subtitles for system audio, text cleanup, doubtful-word highlighting and **Recognize more precisely**;
 - a monitoring panel with streaming, privacy mode, a draft action row and a file progress strip;
 - nine settings sections applied to the live service;
-- dictionary, snippets, history and statistics;
+- dictionary with application profiles, snippets, history with optional sound, and statistics;
 - **file transcription** of audio and video, folder batches, TXT/JSON/SRT/VTT output and a queue that gives dictation priority;
 - a tray menu, autostart and a single-instance lock;
-- a CLI with `--transcribe`, `--transcribe-folder` and `--cancel-batch`;
+- a CLI with `--transcribe`, `--transcribe-folder`, `--prompt`, `--words`, `--clip` and `--cancel-batch`;
 - an optional loopback HTTP API, an OpenAI-compatible endpoint and a job API;
 - an MCP server (`mcp.cmd`) that hands an AI agent `vibeforma_capabilities`, `vibeforma_transcribe_file` and `vibeforma_job_status` over stdio;
 - English and Russian documentation.

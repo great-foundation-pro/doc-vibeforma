@@ -35,7 +35,7 @@ Tools should read `location.json` instead of assuming 8787:
 {
   "schema": 2,
   "app": "vibeforma",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "config": "C:\\Users\\you\\AppData\\Local\\VibeForma\\config.json",
   "api": "on",
   "port": 8787,
@@ -91,7 +91,7 @@ Reports the service state:
 
 ### `GET /capabilities`
 
-Repeats the discovery facts for a harness that found no `location.json`: `file_mode`, `word_timestamps`, `formats`, `models`, `languages`, `max_file_mb`, `max_file_s`, `max_sync_s`, `pipe`, `launcher`, `python`, `entry` and the queue counters. It answers `503` while the model is still loading.
+Repeats the discovery facts for a harness that found no `location.json`: `file_mode`, `word_timestamps`, `formats`, `models`, `languages`, `max_file_mb`, `max_file_s`, `max_sync_s`, `pipe`, `launcher`, `python`, `entry`, the declared `prompt` and `clip_timestamps`, and the queue counters. It answers `503` while the model is still loading.
 
 ### `POST /transcribe`
 
@@ -121,8 +121,10 @@ The OpenAI-compatible file endpoint. It takes multipart form data:
 | `response_format` | `json`, `text`, `srt`, `vtt` or `verbose_json` |
 | `prompt` | Initial prompt, up to 1024 characters |
 | `temperature` | Sampling temperature |
+| `word_timestamps` | Word timings; `timestamp_granularities[]=word` is accepted as the OpenAI spelling |
+| `clip_timestamps` | Ranges to transcribe, for example `12.5,30` |
 
-The synchronous answer stops at `file_max_sync_s` (900 seconds by default). A longer file returns `413` with `"job_endpoint": "/jobs"`. The response is the transcript itself; the endpoint does not write files.
+The synchronous answer stops at `file_max_sync_s` (900 seconds by default). A longer file returns `413` with `"job_endpoint": "/jobs"`. The response is the transcript itself; the endpoint does not write files. `verbose_json` carries the engine readings: `avg_logprob`, `no_speech_prob`, `compression_ratio` and `temperature` on each segment, and a top-level `words[]` with `probability`.
 
 ### The job API
 
@@ -130,12 +132,12 @@ For long files, uploads or paths on disk:
 
 | Method and path | What it does |
 |---|---|
-| `POST /jobs` | Queues a file; multipart `file` or JSON `{ "path": "...", "language": "ru", "formats": ["srt"] }`; answers `202` with `job_id`, `state` and a `Location` header |
-| `GET /jobs/<id>` | `state`, `progress`, `source`, `language`, `model`, `duration_s`, `segments`, `outputs`, `error` |
+| `POST /jobs` | Queues a file; multipart `file` or JSON `{ "path": "...", "language": "ru", "formats": ["srt"] }`; also accepts `prompt`, `word_timestamps` and `clip_timestamps`; answers `202` with `job_id`, `state` and a `Location` header |
+| `GET /jobs/<id>` | `state`, `progress`, `source`, `language`, `model`, `duration_s`, `segments`, `outputs`, `error` and the applied `prompt`, `word_timestamps`, `clip_timestamps` |
 | `GET /jobs/<id>/result?format=txt` | The finished transcript as `txt`, `json`, `srt` or `vtt` |
 | `DELETE /jobs/<id>` | Cancels the job |
 
-A job pauses while a dictation runs and resumes when the service is idle. `GET /jobs/<id>/result` answers `409` until the job is done.
+A job pauses while a dictation runs and resumes when the service is idle. `GET /jobs/<id>/result` answers `409` until the job is done. A bad clip range or a prompt longer than 1024 characters returns `400`.
 
 ## Status codes
 

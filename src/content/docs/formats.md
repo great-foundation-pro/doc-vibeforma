@@ -8,7 +8,7 @@ A file transcription can be written in four formats. The recognition result is t
 | Format | Best for | Timecodes |
 |---|---|---|
 | `txt` | Reading, pasting into notes | No |
-| `json` | Scripts, agents, downstream processing | Yes, per segment |
+| `json` | Scripts, agents, downstream processing | Yes, per segment and per word |
 | `srt` | Subtitles in players and editors | Yes, per cue |
 | `vtt` | Web players and web pages | Yes, per cue |
 
@@ -44,13 +44,25 @@ A machine-readable object with the full text, the facts about the run, and the s
     {
       "start": 0.0,
       "end": 4.32,
-      "text": "Good morning."
+      "text": "Good morning.",
+      "avg_logprob": -0.21,
+      "compression_ratio": 1.24,
+      "no_speech_prob": 0.01,
+      "temperature": 0.0,
+      "words": [
+        {"start": 0.0, "end": 0.42, "text": "Good", "probability": 0.98},
+        {"start": 0.42, "end": 1.1, "text": "morning.", "probability": 0.95}
+      ]
     },
     {
       "start": 4.32,
       "end": 9.15,
       "text": "Today we review the release."
     }
+  ],
+  "words": [
+    {"word": "Good", "start": 0.0, "end": 0.42, "probability": 0.98},
+    {"word": "morning.", "start": 0.42, "end": 1.1, "probability": 0.95}
   ]
 }
 ```
@@ -62,9 +74,13 @@ A machine-readable object with the full text, the facts about the run, and the s
 | `model` | The model that produced the transcript |
 | `duration` | Source duration in seconds |
 | `segments` | Cues with `start`, `end` and `text` |
-| `segments[].words` | Optional word timings, present when `file_word_timestamps` is on |
+| `segments[].avg_logprob`, `compression_ratio`, `no_speech_prob`, `temperature` | The engine's confidence readings for the segment, rounded to four decimals; each is present only when the engine returned it |
+| `segments[].words` | Optional word timings with `start`, `end`, `text` and `probability` |
+| `words` | A top-level array naming every word of the file: `word`, `start`, `end` and `probability` |
 
-Word timings use the same `start`/`end`/`text` shape inside a segment. They are off by default because segment timings are enough for most work.
+Word timings appear when `file_word_timestamps` is on, when a job asks for `word_timestamps`, or with the CLI `--words` flag. The engine also produces word probabilities for the panel's doubtful-word highlighting; the JSON publishes them for clients.
+
+The readings are the raw engine values, not a percentage. `temperature` above zero means the first decode failed a check and a fallback ran; `avg_logprob`, `no_speech_prob` and `compression_ratio` are the checks behind the anti-hallucination guard. A reading is absent when the engine did not return it, so a client must tolerate missing keys.
 
 ## SRT
 
@@ -94,6 +110,12 @@ Good morning.
 Today we review the release.
 ```
 
+## How SRT and VTT cues are cut
+
+When word timings are available, a cue follows a sentence, not an engine window. A sentence end (`. ! ? …`, with a closing quote or bracket after it) or a pause of 0.6 seconds closes the cue. Words from neighbouring engine windows and 600-second blocks join when the pause is shorter, so a sentence is not split at an engine seam. A cue runs from its first word to its last, and its start is pressed against the end of the previous cue.
+
+Without word timings the engine's segments stand: one cue per window, exactly as before. A finished result is clamped to zero and kept monotonic in both cases.
+
 ## Where a format is chosen
 
 | Surface | How the format is chosen |
@@ -103,14 +125,14 @@ Today we review the release.
 | `POST /v1/audio/transcriptions` | `response_format`: `json`, `text`, `srt`, `vtt` or `verbose_json` |
 | `GET /jobs/<id>/result` | `?format=txt\|json\|srt\|vtt`; default `txt` |
 
-`verbose_json` returns the full JSON object above; plain `json` returns only `{"text": "..."}`. The API answers in the response body and does not write files. The CLI writes files beside the source unless `--out` points elsewhere, and never overwrites without `--force`.
+`verbose_json` returns the full JSON object above, including the confidence readings and the top-level `words` array; plain `json` returns only `{"text": "..."}`. The API answers in the response body and does not write files. The CLI writes files beside the source unless `--out` points elsewhere, and never overwrites without `--force`.
 
 ## What the formats do not carry
 
-- Speaker labels and confidence scores are not written.
+- Speaker labels are not written. Confidence is written in JSON as segment readings and word probabilities, but it is not styled into subtitles.
 - There is no styling, positioning or karaoke timing inside a cue.
 - Translation is not part of the transcript; the text is in the recognition language.
-- Word timings are available in JSON only.
+- Word-level timings are written in JSON only; SRT and VTT use them to cut sentences but carry no per-word marks.
 
 ## Where to go next
 

@@ -1,6 +1,6 @@
 ---
 title: Known issues and limitations
-description: What VibeForma 0.4.5 does not do, which limits are deliberate, and which issues are known.
+description: What VibeForma 0.5.0 does not do, which limits are deliberate, and which issues are known.
 ---
 
 This page is the honest boundary of the product. Some limits are deliberate design choices; some are known issues; some are out of scope.
@@ -21,7 +21,10 @@ This page is the honest boundary of the product. Some limits are deliberate desi
 | One language per phrase | No mid-phrase switching and no translation. |
 | 26 menu codes | The menu offers 26 language codes; the model supports about 99 languages. The menu is not the model's full list. |
 | No diarization | VibeForma does not separate speakers. |
-| 120-second phrase cap | A longer recording stops at the limit. |
+| 120-second cap only when continuous is off | Continuous dictation is on by default; with `continuous: false`, a recording stops at `max_record_s` (120 s). |
+| Continuous backlog cap | If recognition falls behind and continuous dictation buffers 240 s, the buffered backlog is dropped with a warning in the log. It is a memory guard, not the phrase limit. |
+| Punctuation comes from Whisper | Silero is not included: its model is CC BY-NC-SA 4.0 (non-commercial), recorded in ADR 0001. Numbers may be converted by wetext when text cleanup is on. |
+| Live subtitles can invent text on music | A live partial carries no `no_speech_prob` or compression ratio; only a short stop list and a repetition loop are filtered. |
 
 ## File transcription
 
@@ -32,7 +35,8 @@ This page is the honest boundary of the product. Some limits are deliberate desi
 | Default limits | 4096 MB per file and 6 hours of duration; both are config keys. |
 | No overwrite by default | An existing output is skipped unless `--force` is passed. |
 | Recorded batch failures | A bad file or a duplicate output name is recorded as an error; the rest of the batch continues. |
-| Word timings are off | `file_word_timestamps` adds them to JSON and is off by default. |
+| Word timings are off | `file_word_timestamps` adds them to JSON and enables sentence cues in SRT/VTT; it is off by default. |
+| System audio is subtitles, not a file | A system-audio take feeds live subtitles and is not saved as a transcript yet. |
 | Long-file speed depends on hardware | The batched path helps on CUDA; a CPU-only machine is slower. |
 
 ## Installation and updates
@@ -71,7 +75,7 @@ These are not planned as part of the dictation product:
 
 - speaker diarization;
 - translation;
-- video subtitles;
+- burning subtitles into video;
 - cloud recognition;
 - parallel transcription of several files at once;
 - meetings, summaries, teams and billing;

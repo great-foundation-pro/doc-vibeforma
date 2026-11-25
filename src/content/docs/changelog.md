@@ -1,10 +1,44 @@
 ---
 title: Changelog
-description: User-facing changes in VibeForma 0.4.5 — the MCP server for AI agents and the AI and automation settings page.
+description: User-facing changes in VibeForma 0.5.0 — live subtitles, continuous dictation, text cleanup, application profiles and the guarded batched path.
 ---
 
 This page summarizes the user-facing changes in VibeForma releases. Release notes are also published on the GitHub Releases page.
 
+
+## 0.5.0 — 25 November 2026
+
+### Added
+
+- **Live subtitles for system audio.** With the sound source set to **System audio**, the panel shows the last one or two phrases while a film, a video or a call plays. Nothing is inserted into the active window, and the same hotkey stops the take. A partial covers the last 10 seconds and refreshes at most every 4 seconds; the capture buffer is capped at 30 seconds, so a take can run for hours without growing. On music an invented phrase can still reach the plate: a live partial carries no engine readings, so only a short stop list and a repetition loop are filtered.
+- **"Recognize more precisely" for a doubtful draft.** When the final pass ran at a temperature above zero or the phrase looks uncertain, the panel offers **Recognize more precisely**: the same recording is decoded again with beam 10 at temperature 0 and replaces the draft. **Restore previous** returns the exact earlier text and highlighting. A confident phrase does not get the button. A long doubtful take offers it when history audio is on, because the whole recording is needed.
+- **Text cleanup, off by default.** With `text_cleanup` on, numbers and dates are written as digits for Russian and English (through wetext), filler words — "эээ", "ну", "как бы", "um", "you know" — are removed where it is safe, and a capital letter starts the text and every sentence. Punctuation still comes from Whisper. Protected fragments — `snake_case`, `camelCase`, dotted paths, URLs, e-mail addresses, Windows paths and text in backticks — stay byte for byte. There is no settings tab yet; the key lives in `config.json`.
+- **Continuous dictation without the 120-second cap.** `continuous` is on by default. A long take is cut at a pause of 400 ms after at least one second of speech, or at 30 seconds with the last 300 ms carried into the next chunk. Chunks are recognized by the final pass, joined without repeated words at the seams and inserted once. With `continuous: false`, `max_record_s` stops a phrase as before.
+- **Dictionary terms reach every window.** Terms now go through the engine's `hotwords` parameter on every 30-second window, not only into the first prompt. The target form is used, and up to 223 tokens are selected by correction frequency instead of an alphabetical cut. The same path serves dictation, live partials and file transcription.
+- **Application profiles.** `app_profiles` binds a dictionary and snippets to a process name and/or a window-title fragment. The profile is chosen by the window that will receive the text, overlays the global dictionary and snippets without duplicates, and is edited in **Settings → Dictionary** (up to 50 profiles).
+- **Voice actions.** The list `actions` runs a command through `hook_command`, switches the model, or starts an external agent when a whole phrase matches. Matching comes after the dictionary and snippets; a triggered action is not inserted as text; a failed command still inserts the phrase and writes the exit code to the log.
+- **History with sound, and retranscription of the last record.** `history_audio` keeps a 16-bit WAV of each dictation in `history_audio/` next to `history.jsonl`. The folder is capped at 200 MiB, the oldest file goes first, and deleting a record deletes its WAV. **Tray → Retranscribe last** asks for a prompt, can use another model and puts the new text in the panel draft.
+- **Punctuation presets for all 26 menu languages.** Every language in the recognition menu now has its own prompt preset with punctuation and capitalization guidance, written in that language.
+- **A language hint.** When the pinned language scores below 50% and another language scores at least 50%, the panel shows "looks like X (..%), Y selected (..%)" for 20 seconds. The pinned language does not change.
+- **A model from a folder.** `model` accepts a path to a converted CT2 folder. VibeForma loads it with `local_files_only`, checks `model.bin`, `config.json`, `tokenizer.json` and the vocabulary, and refuses a broken folder with a named error instead of downloading a different model.
+- **The batched path is guarded like the sequential one.** A batched segment over the thresholds is re-decoded sequentially on its own slice of the block; a warning names the segment, and the replacement passes the same post-filter. A 600-second block seam carries the last 200 characters of the previous block, so a name given in the first block survives the second one; the prompt does not grow.
+- **Context for the next phrase, off by default.** With `dictation_context` on, the tail of the previous phrase (160 characters) and the text selected in the target window (up to 400 characters) go into `hotwords`, so names are spelled the same way.
+- **A hallucination guard.** A stop list of typical invented phrases in Russian and English, a `no_speech_prob` threshold of 0.6, a compression-ratio check of 1.35 on non-speech and a 2-second silence threshold drop invented text on silence and music before it reaches the panel or the transcript. A loop the engine reads as speech is kept with a warning.
+- **Confidence is kept.** Every segment carries `avg_logprob`, `compression_ratio`, `no_speech_prob` and `temperature`; every word carries `probability`. JSON and `verbose_json` publish them. A doubtful phrase stays in the panel draft with its doubtful words underlined instead of being pasted blindly; **Insert** still pastes it.
+- **The agent contract carries the engine.** `/jobs`, `/v1/audio/transcriptions`, the CLI and the MCP tools accept `prompt`, `word_timestamps` and `clip_timestamps` and report the values applied. `verbose_json` follows the OpenAI schema with segment readings and a top-level `words[]` with `probability`.
+- **Subtitle cues follow sentences.** SRT and VTT are cut by word timings: a sentence end or a pause of 0.6 seconds closes a cue, and a seam between engine windows no longer splits a sentence. Without word timings the previous behavior stands.
+
+### Fixed
+
+- **Word timings no longer fail a file.** An `IndexError` from `find_alignment` in faster-whisper 1.2.1 is caught per block; the block is retried without word timestamps, the warning is logged, and segments already emitted are not repeated.
+
+### Limits
+
+- **Silero punctuation is not included.** The model is licensed CC BY-NC-SA 4.0 (non-commercial); the decision is recorded in ADR 0001. Punctuation stays with Whisper, numbers with wetext.
+- **A live subtitle can invent text on music.** A live partial has no `no_speech_prob` or compression ratio, so only a short stop list and a repetition loop are filtered.
+- **The system-audio mode does not write a file yet.** A system take feeds live subtitles and is not saved as a transcript; file output for it is planned for a later release.
+- **Text cleanup has no settings tab yet**, and it does not convert a small single numeral outside a recognized phrase: "пять рублей" stays words.
+- **Continuous dictation has a memory guard.** If recognition falls behind and the buffer reaches 240 seconds, the buffered backlog is dropped with a warning in the log. It is not the old phrase cap: `max_record_s` stays out of the way while continuous dictation is on.
 
 ## 0.4.5 — 24 November 2026
 

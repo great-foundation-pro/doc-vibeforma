@@ -20,7 +20,9 @@ The panel shows:
 - a VAD indicator — whether voice activity is detected;
 - the recognized text, streamed while you speak;
 - the current state — idle, recording, processing, paused, error;
-- the latest draft and a row of actions when a draft exists.
+- the latest draft and a row of actions when a draft exists;
+- doubtful words underlined in a draft, and a language hint when the pinned language looks wrong;
+- the last one or two phrases as a subtitle plate during a system-audio take.
 
 | Behavior | Detail |
 |---|---|
@@ -42,10 +44,18 @@ The microphone button starts a recording without the hotkey. The recognized text
 | **Copy** | Puts the draft in the clipboard. |
 | **Insert into the selected window** | Inserts into the window you choose after the draft appears; a maximized window stays maximized. |
 | **Cancel** | Discards the draft. |
+| **Recognize more precisely** | On a doubtful draft: decodes the same recording again with beam 10 at temperature 0 and replaces the draft. |
+| **Restore previous** | Returns the exact text and highlighting from before the wide pass. |
+
+Doubtful words are underlined in the draft. The two extra buttons appear only when they apply: a confident phrase gets neither, and **Restore previous** appears after a successful wide pass.
 
 If no window is selected, the text goes to the clipboard. `Ctrl+Enter` inserts the panel draft.
 
 With history enabled, the `‹` and `›` arrows in the panel header browse saved dictations. The same action row works on the shown record. When the panel has focus, the dictation hotkey starts a new draft and clears the history view.
+
+## Live subtitles
+
+With the sound source set to **System audio**, the panel shows a plate with the last one or two phrases instead of a draft. The text is not inserted anywhere; the same hotkey stops the take. A plate is capped at 400 characters and refreshes at most every 4 seconds, so the panel stays readable during a long film. On music an invented phrase may still appear: a live partial has no `no_speech_prob` or compression ratio, so only a short stop list and a repetition loop are filtered.
 
 ## Privacy mode
 
@@ -93,9 +103,10 @@ The tray icon is colored by service state. Its menu carries these items; conditi
 14. Model
 15. Recognition language
 16. History
-17. Undo last insertion
-18. Logs folder
-19. Exit
+17. Retranscribe last — asks for a prompt and puts the new text in the panel draft
+18. Undo last insertion
+19. Logs folder
+20. Exit
 
 The tray is the way back when the panel is hidden. A second launch does not start a second copy: it asks the running instance to show the panel.
 
