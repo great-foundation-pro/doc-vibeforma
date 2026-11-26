@@ -1,6 +1,6 @@
 ---
 title: Changelog
-description: User-facing changes in VibeForma 0.5.1 — system-audio recordings, the take clock, recognition quality presets, local model folders and per-entry re-recognition.
+description: User-facing changes in every VibeForma release — new features, fixes and the limits we name honestly.
 ---
 
 This page summarizes the user-facing changes in VibeForma releases. Release notes are also published on the GitHub Releases page.
