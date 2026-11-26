@@ -64,14 +64,14 @@ export const releaseStrip: {
   link: { label: Record<CatalogLocale, string>; href: Record<CatalogLocale, string> };
 } = {
   label: {
-    en: '0.5.0 · new in this release',
-    ru: '0.5.0 · новое в релизе',
+    en: '0.5.1 · new in this release',
+    ru: '0.5.1 · новое в релизе',
   },
   chips: [
-    { key: 'system-audio', label: { en: 'System audio', ru: 'Системный звук' } },
-    { key: 'accuracy', label: { en: 'Recognize more precisely', ru: 'Распознать точнее' } },
-    { key: 'accuracy', label: { en: 'Continuous dictation', ru: 'Непрерывная диктовка' } },
-    { key: 'accuracy', label: { en: 'Application profiles', ru: 'Профили приложений' } },
+    { key: 'system-audio', label: { en: 'System audio → files', ru: 'Системный звук → файлы' } },
+    { key: 'panel', label: { en: 'Take clock', ru: 'Секундомер записи' } },
+    { key: 'accuracy', label: { en: 'Quality presets', ru: 'Пресеты качества' } },
+    { key: 'memory', label: { en: 'Retry one record', ru: 'Перераспознать запись' } },
   ],
   link: {
     label: { en: 'All changes', ru: 'Все изменения' },
@@ -145,6 +145,10 @@ export const catalog: CatalogCategory[] = [
     items: {
       en: [
         'Monitoring panel: microphone level, VAD indicator, streaming recognized text; transparency and auto-expansion are configurable.',
+        {
+          t: 'A take clock left of the level bar: the remaining time for a limited microphone take, the elapsed time for continuous dictation and system audio.',
+          tag: '0.5.1',
+        },
         'The panel grows proportionally to the text: it doesn\'t crawl up off-screen, the draft keeps at least six lines.',
         'DPI-aware geometry of the panel and settings window: readable at 150%.',
         'Dictation from the panel: microphone button, a row of "Correct / Copy / Paste / Cancel"; "Paste" — into the selected window, without a selection — to the clipboard.',
@@ -163,6 +167,10 @@ export const catalog: CatalogCategory[] = [
       ],
       ru: [
         'Панель мониторинга: уровень микрофона, индикатор VAD, стриминг распознанного текста; прозрачность и авторасширение настраиваются.',
+        {
+          t: 'Секундомер записи слева от индикатора уровня: остаток для микрофона с лимитом, прошедшее время для непрерывной диктовки и системного звука.',
+          tag: '0.5.1',
+        },
         'Рост панели пропорционален тексту: панель не «ползёт» вверх за экран, черновик держит минимум шесть строк.',
         'DPI-aware геометрия панели и окна настроек: читаемость при 150%.',
         'Диктовка с панели: кнопка микрофона, ряд «Корректировать / Копировать / Вставить / Отмена»; «Вставить» — в выбранное окно, без выбора — в буфер.',
@@ -200,6 +208,10 @@ export const catalog: CatalogCategory[] = [
       en: [
         'Local history is off by default: the last 100 dictations; turning it off deletes the file.',
         'History table: "When / Characters / Application / Text", search, filters, deletion.',
+        {
+          t: 'Re-recognize one history entry whose WAV is still on disk; the pass runs in the background and the table stays usable.',
+          tag: '0.5.1',
+        },
         '"Undo last paste": Ctrl+Z into the same window, within 30 seconds.',
         '"Restore clipboard": the clipboard returns to the state before dictation.',
         'Dictionary: term → replacement pairs, up to 500 pairs; the longest term wins; JSON import and export.',
@@ -217,6 +229,10 @@ export const catalog: CatalogCategory[] = [
       ru: [
         'Локальная история по умолчанию выключена: последние 100 диктовок; выключение удаляет файл.',
         'Таблица истории: «Когда / Знаков / Приложение / Текст», поиск, фильтры, удаление.',
+        {
+          t: 'Перераспознать одну запись истории, у которой ещё есть WAV; проход идёт в фоне, таблица остаётся рабочей.',
+          tag: '0.5.1',
+        },
         '«Отменить последнюю вставку»: Ctrl+Z в то же окно, в пределах 30 секунд.',
         '«Вернуть буфер»: буфер возвращается к состоянию до диктовки.',
         'Словарь: пары термин → замена, до 500 пар; побеждает самый длинный термин; импорт и экспорт JSON.',
@@ -305,7 +321,10 @@ export const catalog: CatalogCategory[] = [
         'The installer is a transaction: a failure stops the chain, a re-run continues from the failure point.',
         'The model and installation directory are chosen during setup.',
         'Auto-update offers a release rather than installing silently — the "Update" button on the panel.',
-        'Removal — uninstall.cmd; models and config.json remain, reinstallation starts offline.',
+        {
+          t: 'Removal — uninstall.cmd: --keep-data keeps models and config, --remove-data removes everything the app created and leaves the folder ready for a fresh install; links are never followed outside.',
+          tag: '0.5.1',
+        },
       ],
       ru: [
         'Одна команда: irm … | iex — установщик сам находит Python, скачивает релиз и ставит сервис.',
@@ -313,7 +332,10 @@ export const catalog: CatalogCategory[] = [
         'Установщик — транзакция: сбой останавливает цепочку, повторный запуск продолжает с места сбоя.',
         'Модель и каталог установки выбираются при установке.',
         'Автообновление предлагает релиз, а не ставит молча — кнопка «Обновить» на панели.',
-        'Удаление — uninstall.cmd; модели и config.json остаются, переустановка стартует офлайн.',
+        {
+          t: 'Удаление — uninstall.cmd: --keep-data сохраняет модели и конфиг, --remove-data убирает всё созданное приложением и оставляет папку готовой к чистой установке; ссылки наружу не преследуются.',
+          tag: '0.5.1',
+        },
       ],
     },
     docs: { en: '/installation/', ru: '/ru/installation/' },
@@ -418,15 +440,15 @@ export const catalog: CatalogCategory[] = [
     key: 'system-audio',
     no: '09',
     image: '09-system-audio.webp',
-    flag: { en: '0.5.0', ru: '0.5.0' },
+    flag: { en: '0.5.1', ru: '0.5.1' },
     title: { en: 'System audio', ru: 'Системный звук' },
     tagline: {
-      en: 'Live subtitles from YouTube, calls and films — local, never inserted into a window.',
-      ru: 'Живые субтитры с YouTube, созвонов и фильмов — локально и без вставки в окно.',
+      en: 'Live subtitles and a recording from YouTube, calls and films — local, never inserted into a window.',
+      ru: 'Живые субтитры и запись с YouTube, созвонов и фильмов — локально и без вставки в окно.',
     },
     desc: {
-      en: 'System audio is recognized on the fly: the last phrases appear in a plate, nothing is typed into the active window.',
-      ru: 'Системный звук распознаётся на лету: последние фразы видны в плашке, ничего не печатается в активное окно.',
+      en: 'System audio is recognized on the fly: the last phrases appear in a plate, nothing is typed into the active window, and the take is recorded to a WAV with TXT and SRT beside it.',
+      ru: 'Системный звук распознаётся на лету: последние фразы видны в плашке, в активное окно ничего не печатается, а заход пишется в WAV с TXT и SRT рядом.',
     },
     items: {
       en: [
@@ -442,7 +464,10 @@ export const catalog: CatalogCategory[] = [
           t: 'Nothing is inserted into the active window; dictation history is not filled.',
           tag: '0.5.0',
         },
-        'Audio is not written to a file: recording and transcribing system audio is a separate task, not in 0.5.0.',
+        {
+          t: 'A take is recorded to a WAV — 16-bit, 16 kHz mono — in the recordings folder, with TXT and SRT beside it on stop; the path is shown while it runs.',
+          tag: '0.5.1',
+        },
         'Music and noise may produce invented text — an honest limit of recognition.',
         {
           t: 'Capture starts and stops with the same hotkey as dictation.',
@@ -464,7 +489,10 @@ export const catalog: CatalogCategory[] = [
           t: 'В активное окно ничего не вставляется; история диктовки не пополняется.',
           tag: '0.5.0',
         },
-        'Звук не пишется в файл: запись и транскрибация системного звука — отдельная задача, её в 0.5.0 нет.',
+        {
+          t: 'Заход пишется в WAV — 16 бит / 16 кГц моно — в папку записей, а по остановке рядом появляются TXT и SRT; путь виден, пока идёт заход.',
+          tag: '0.5.1',
+        },
         'Музыка и шум могут дать выдуманный текст — это честный предел распознавания.',
         {
           t: 'Захват стартует и останавливается тем же хоткеем, что и диктовка.',
@@ -481,7 +509,7 @@ export const catalog: CatalogCategory[] = [
     key: 'accuracy',
     no: '10',
     image: '10-accuracy.webp',
-    flag: { en: '0.5.0', ru: '0.5.0' },
+    flag: { en: '0.5.1', ru: '0.5.1' },
     title: { en: 'Accuracy and control', ru: 'Точность и контроль' },
     tagline: {
       en: 'Recognize more precisely, clean speech without filler words, app profiles and predictable punctuation.',
@@ -493,6 +521,14 @@ export const catalog: CatalogCategory[] = [
     },
     items: {
       en: [
+        {
+          t: 'Three quality presets for the final dictation pass: Normal, Accurate, Fast — no raw temperature.',
+          tag: '0.5.1',
+        },
+        {
+          t: 'A list of local CT2 model folders: add, use, remove the record, return to the built-in; a user folder is never deleted on a switch.',
+          tag: '0.5.1',
+        },
         {
           t: '"Recognize more precisely" on a doubtful draft: beam 10 at temperature 0, the previous text can be restored.',
           tag: '0.5.0',
@@ -535,6 +571,14 @@ export const catalog: CatalogCategory[] = [
         },
       ],
       ru: [
+        {
+          t: 'Три пресета качества финального прохода диктовки: «Обычный», «Точный», «Быстрый» — без ручной температуры.',
+          tag: '0.5.1',
+        },
+        {
+          t: 'Список локальных CT2-папок моделей: добавить, использовать, убрать запись, вернуть встроенную; папка пользователя не удаляется при переключении.',
+          tag: '0.5.1',
+        },
         {
           t: '«Распознать точнее» на сомнительном черновике: beam 10 при температуре 0, прежний текст возвращается.',
           tag: '0.5.0',

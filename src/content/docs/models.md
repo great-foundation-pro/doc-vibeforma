@@ -41,7 +41,22 @@ The switch runs through four phases:
 
 If the download or load fails, the previous model is restored. If a dictation is running, the switch answers "busy" instead of interrupting it.
 
-`model_keep_old` controls whether the previous model stays on disk. Keeping it makes switching back fast at the cost of disk space.
+`model_keep_old` controls whether the previous model stays on disk. Keeping it makes switching back fast at the cost of disk space. When the option is off, only a downloaded model inside `models\` can be removed: an absolute path, a `..` step, another drive or a link leading outside is refused, so a folder you added is never a deletion target.
+
+## Local model folders
+
+**Settings → Model & language** keeps a list of CT2 model folders you can switch between without typing a path. Each row shows the folder's name, its path and a validity mark; the current model is marked. The buttons work like this:
+
+| Button | What it does |
+|---|---|
+| **Add folder** | Opens a directory picker and refuses a folder without `model.bin` with a named error; a duplicate is not added. |
+| **Use** | Switches to the folder through the same progress dialog, so a failed switch keeps the model that was in use. |
+| **Remove from the list** | Deletes the record only and never a file. The current model's record stays with an explanation. |
+| **Return to the built-in** | Selects a catalog model again. |
+
+Validity is `model.bin` present, computed every time the list is drawn, so a folder that lost the file turns invalid instead of keeping a stale mark. It is a presence check, not a deep inspection: damaged weights surface when the model loads, and the model that was in use is kept.
+
+The list lives in `config.json` as `model_folders` — `{name, path}` records, absolute paths, no duplicates, up to 20 — survives a restart, and an old config without the key reads as an empty list. A manual path in `model` keeps working beside it.
 
 ### Where a model comes from
 
@@ -51,7 +66,7 @@ VibeForma looks for a model in this order:
 2. the shared Hugging Face cache;
 3. a fresh download.
 
-That order makes a reinstall work offline when the model is already present.
+That order makes a reinstall work offline when the model is already present. A folder saved in the local list is used from its own path as it is and is not looked up in that order.
 
 ## CUDA and CPU
 

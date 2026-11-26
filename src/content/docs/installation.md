@@ -107,23 +107,23 @@ cd "$env:LOCALAPPDATA\VibeForma"
 .\uninstall.cmd
 ```
 
-`python uninstall.py` does the same when the virtual environment is already broken.
+`python uninstall.py` does the same when the virtual environment is already broken. `uninstall.cmd` uses a Python installed outside the install folder when one is available: Windows keeps the folder's own `.venv` interpreter locked while it runs.
 
-The uninstaller asks for confirmation and removes the desktop, Start menu and Startup shortcuts, the **Settings → Apps** entry and the service files, including `.venv`.
+The uninstaller asks for confirmation and removes the desktop, Start menu and Startup shortcuts, the **Settings → Apps** entry and everything the installer and the service created — except your data, which stays unless you pass `--remove-data`.
 
 | Flag | Effect |
 |---|---|
-| `--remove-data` | Also removes `models\`, `config.json` and `logs\`. |
-| `--keep-data` | Keeps them without asking. |
+| `--remove-data` | Also removes your data: `models\`, `config.json`, `logs\`, `history.jsonl`, `history_audio\`, `stats.json` and `corrections.json`. |
+| `--keep-data` | Keeps your data without asking. |
 | `--yes` | Skips the confirmation prompt — for a script. |
 
-By default models and `config.json` stay, so a reinstall starts without downloading the model again.
+By default models and `config.json` stay. To reuse them, move them aside, delete the remaining folder, reinstall and put them back before the first start — see **Reinstall into the same folder**.
 
-**The uninstaller does not erase every file.** `history.jsonl`, `history_audio\`, `stats.json`, `status.json`, `location.json`, `mcp.cmd` and the `vibeforma\` package are outside its removal list; when any of them stays, the folder stays too. That is harmless for a reinstall into the same place, but for a complete removal delete the folder after the uninstaller.
+**With `--remove-data` nothing of the installation stays.** The product files and the runtime state — `status.json`, `location.json`, `service.lock`, `mcp.cmd`, the requirements files and the `vibeforma\` package among them — are removed in every mode; `--remove-data` adds your data. Then the folder itself is deleted when it is empty, and the installer accepts that path as a fresh install: the folder is missing, not half-deleted. Files you put in the folder yourself stay; the folder then is not empty, and the installer refuses it until they are removed. A `.py` file at the top level counts as the application's own — keep your own scripts elsewhere.
 
 ### Delete the folder
 
-Delete the install directory — `%LOCALAPPDATA%\VibeForma` unless you installed with `-Target`.
+To remove the installation by hand — or to delete the data the uninstaller kept — delete the install directory: `%LOCALAPPDATA%\VibeForma` unless you installed with `-Target`.
 
 Inside it:
 
@@ -134,6 +134,7 @@ Inside it:
 | `models\` | The downloaded recognition model |
 | `history.jsonl`, `history_audio\` | Dictation history, if it was enabled |
 | `stats.json` | Counters, if statistics were enabled |
+| `corrections.json` | Learned dictionary corrections, if dictionary learning was used |
 | `logs\` | `install.log`, `service.log` and their rotated copies |
 
 Outside it:
@@ -142,13 +143,13 @@ Outside it:
 |---|---|---|
 | Desktop, Start menu, Startup | `VibeForma.lnk` | A reinstall recreates them. Without one, delete them: the Startup copy would point at a missing target at every logon. |
 | `HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\VibeForma` | The **Settings → Apps** entry | A reinstall rewrites it. Without one, the Uninstall button there points at a deleted `uninstall.cmd`; run the uninstaller before deleting the folder to remove it. |
-| `%LOCALAPPDATA%\VibeForma\location.json` | The discovery file for forms and agents | With a custom `-Target` it stays here although the app lives elsewhere. It is rewritten at the next service start; a stale file points at an `install_dir` that no longer exists. |
+| `%LOCALAPPDATA%\VibeForma\location.json` | The discovery file for forms and agents | With the default target the uninstaller removes it with the folder. With a custom `-Target` it stays here although the app lives elsewhere; it is rewritten at the next service start, and a stale file points at an `install_dir` that no longer exists. |
 | `%USERPROFILE%\.cache\huggingface`, `%LOCALAPPDATA%\pip\Cache` | Shared download caches | Harmless. They only save a download next time. |
 | System Python 3.10–3.14 | The prerequisite | Untouched by removal, and needed for a reinstall. |
 
 ### Reinstall into the same folder
 
-A missing or empty folder is a **fresh install** for the installer: it copies the application, creates `.venv`, installs the dependencies, downloads the model and writes a new `config.json`. Nothing of the old installation is reused or mixed in — which is exactly why this is the cleanest repair after a broken update.
+A missing or empty folder is a **fresh install** for the installer — the state `uninstall.cmd --remove-data` leaves behind. It copies the application, creates `.venv`, installs the dependencies, downloads the model and writes a new `config.json`. Nothing of the old installation is reused or mixed in — which is exactly why this is the cleanest repair after a broken update.
 
 1. Quit the app.
 2. Copy `logs\install.log` and `logs\service.log` aside if you are investigating the failure.

@@ -30,12 +30,25 @@ A phrase is no longer capped at 120 seconds. Continuous dictation is on by defau
 
 The mode is chosen in **Settings → Recording** and applies to the running service without a restart.
 
+## Recognition quality
+
+**Settings → Recording** carries a **Recognition quality** preset, and it shapes the final pass of a dictation:
+
+| Preset | What it changes |
+|---|---|
+| **Normal (recommended)** | Beam 5 with the temperature fallback from 0.0 to 0.2 |
+| **Accurate** | Beam 10 at temperature 0 — a wider search, slower |
+| **Fast** | Beam 1 at temperature 0 — quicker, weaker on a complex phrase |
+
+The preset is read when the final pass starts, so a saved change applies to the next phrase without a restart. It is the only quality control of that pass: there is no separate temperature setting. File transcription and live subtitles keep their own settings.
+
 ## What happens while you speak
 
 - The microphone is captured at 16 kHz mono internally; the capture path follows the device format and resamples when needed.
 - Voice activity detection (VAD) uses 512-sample frames — 32 ms each.
 - Partial transcriptions are streamed to the panel about every 1.5 seconds (`partial_every_s`).
 - The panel shows the microphone level and a VAD indicator, so you can see whether the app hears you.
+- A take clock sits left of the level bar: a limited microphone take counts down to `max_record_s`, while continuous dictation and a system take count elapsed time. Details: [Panel, tray and autostart](/interface/).
 - Start and end beeps can be enabled (`beep_on`, `beep_off`).
 
 ## Doubtful phrases
@@ -73,9 +86,13 @@ The optional `actions` list turns a whole spoken phrase into a command:
 
 `dictation_context` is off by default. When on, the tail of the previous phrase (160 characters) and the text selected in the target window (up to 400 characters) join `hotwords`, so a name said once is spelled the same way next time. Context is read for the next dictation only and does not rewrite `config.json`.
 
-## Live subtitles
+## System audio: live subtitles and a recording
 
-With the sound source set to **System audio**, the dictation hotkey does not insert text: it feeds live subtitles. The panel shows the last one or two phrases, refreshed at most every 4 seconds over the last 10 seconds of sound, and the same hotkey stops it. Nothing goes into the active window, and there is no draft, history record or transcript file. Read [Panel, tray and autostart](/interface/) for the plate itself; the **Sound source** switch is on **Settings → Recording**.
+With the sound source set to **System audio**, the dictation hotkey does not insert text: it feeds live subtitles and records the take to a file. The panel shows the last one or two phrases, refreshed at most every 4 seconds over the last 10 seconds of sound, and the same hotkey stops the take. Nothing goes into the active window, and no draft or history record appears.
+
+The take is written as a 16-bit, 16 kHz mono WAV into the recordings folder — `Documents\VibeForma\Recordings` by default, a date subfolder, the file named by the take's start time. The panel's status line names the path for the whole take, and a notification repeats it. On stop, TXT and SRT are queued beside the WAV through the file queue. A folder that cannot be written is reported before the take starts.
+
+Two limits are worth knowing: a take longer than `file_max_s` (6 hours) or larger than `file_max_mb` (4 GB) is not transcribed, and `Esc` or exiting the app closes the WAV but does not queue the transcript. The live capture buffer stays capped at 30 seconds, so a take can run for hours without growing. Read [Panel, tray and autostart](/interface/) for the plate itself and [Files and locations](/files-and-paths/) for the folder; the **Sound source** switch is on **Settings → Recording**.
 
 ## Cancel a phrase
 

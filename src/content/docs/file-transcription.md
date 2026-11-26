@@ -118,7 +118,7 @@ The four formats — TXT, JSON, SRT and VTT — are described on [Transcript for
 - It does not read from a network share or a cloud drive.
 - It does not require or use `ffmpeg`; decoding is internal.
 - It does not rewrite punctuation: sentence punctuation comes from Whisper, and Silero is not included (ADR 0001).
-- It does not save a system-audio take as a file yet: that take feeds live subtitles instead.
+- It does not record system audio: a system-audio take writes its own WAV, TXT and SRT on stop (see [Dictation](/dictation/)); this mode transcribes files and folders that already exist.
 
 ## Where to go next
 

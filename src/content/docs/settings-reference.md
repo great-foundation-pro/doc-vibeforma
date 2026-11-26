@@ -3,7 +3,7 @@ title: Settings reference
 description: Every VibeForma setting by section — key, default, values and effect.
 ---
 
-This page lists the settings the 0.5.0 source and documentation name explicitly. A UI setting without a documented key still lives in `config.json`, but this page does not invent a key name for it.
+This page lists the settings the 0.5.1 source and documentation name explicitly. A UI setting without a documented key still lives in `config.json`, but this page does not invent a key name for it.
 
 Defaults are the values a fresh installation writes.
 
@@ -12,7 +12,9 @@ Defaults are the values a fresh installation writes.
 | Setting | Key | Default | Values | Effect |
 |---|---|---|---|---|
 | Input device | `input_device` | empty | a device-name fragment | The microphone VibeForma captures. |
-| Sound source | `audio_source` | `microphone` | `microphone`, `system` | `system` captures the default output through its WASAPI loopback, feeds live subtitles, and is not saved as a transcript yet. |
+| Sound source | `audio_source` | `microphone` | `microphone`, `system` | `system` captures the default output through its WASAPI loopback, feeds live subtitles and writes the take to a WAV with TXT and SRT beside it. |
+| Recognition quality | `quality_preset` | `normal` | `normal`, `accurate`, `fast` | The final dictation pass: `normal` — beam 5 with a 0.0 → 0.2 temperature fallback; `accurate` — beam 10 at temperature 0; `fast` — beam 1 at temperature 0. Read at the next final pass, so saving applies without a restart. An old config without the key and an unknown value read as `normal`. File transcription and live subtitles keep their own settings; no separate temperature key exists. |
+| System recordings folder | `system_recordings_dir` | empty | a folder path | Where a system-audio take writes its WAV, TXT and SRT. Empty means `Documents\VibeForma\Recordings`; a date subfolder is created per day. A folder that cannot be written is reported before the take starts. |
 | Hold to talk | `hold_to_talk` | `false` | `true` / `false` | `true` — hold the hotkey while speaking; `false` — press to start and stop. |
 | Continuous dictation | `continuous` | `true` | `true` / `false` | No phrase cap: a take is cut at a pause of 400 ms after 1 s of speech or every 30 s, and inserted once. `false` restores `max_record_s`. If recognition falls behind and 240 s accumulate, the buffered backlog is dropped with a log entry — a memory guard, not a phrase limit. |
 | Silence before the phrase ends | `silence_ms` | `2000` | milliseconds | How long a pause ends the phrase. |
@@ -37,7 +39,8 @@ Defaults are the values a fresh installation writes.
 | Setting | Key | Default | Values | Effect |
 |---|---|---|---|---|
 | Model | `model` | `large-v3-turbo` | `large-v3`, `large-v3-turbo`, `medium`, `small`, or a path to a CT2 folder | The recognition model. A folder is loaded with `local_files_only`; a broken folder is refused instead of downloading another model. |
-| Keep the previous model | `model_keep_old` | — | `true` / `false` | Leaves the old model on disk after a switch. |
+| Local model folders | `model_folders` | empty | up to 20 `{name, path}` records | CT2 folders listed in **Settings → Model & language**; paths are absolute. Validity is `model.bin` present, computed when the list is drawn. A folder is never a deletion target. |
+| Keep the previous model | `model_keep_old` | — | `true` / `false` | Leaves the old model on disk after a switch. Only downloaded models inside `models\` can be removed; an absolute path, a `..` step, another drive or a link leading outside is refused. |
 | Recognition language | `language` | chosen at first run | one of 26 codes | The exact language the model recognizes. No `auto`. |
 | Personal terms | `hotwords` | empty | list of terms | Your terms and the dictionary terms share a 223-token hotword budget on every 30-second window. |
 | Dictation context | `dictation_context` | `false` | `true` / `false` | Adds the previous phrase (tail of 160 characters) and the target window's selected text (up to 400 characters) to `hotwords` for the next take only. Off: nothing is read. |
@@ -62,7 +65,7 @@ Defaults are the values a fresh installation writes.
 | Setting | Key | Default | Values | Effect |
 |---|---|---|---|---|
 | History | `history` | `false` | `true` / `false` | Records the last 100 dictations. Turning it off deletes `history.jsonl` and saved sound. |
-| History with sound | `history_audio` | `false` | `true` / `false` | With history on, keeps a 16-bit WAV per dictation in `history_audio/`; the folder is capped at 200 MiB, oldest first, and deleting a record deletes its WAV. No settings tab yet. |
+| History with sound | `history_audio` | `false` | `true` / `false` | With history on, keeps a 16-bit WAV per dictation in `history_audio/`; the folder is capped at 200 MiB, oldest first, and deleting a record deletes its WAV. A record with its WAV can be re-recognized by **Recognize more precisely** in the history window. No settings tab yet. |
 
 ## Statistics
 

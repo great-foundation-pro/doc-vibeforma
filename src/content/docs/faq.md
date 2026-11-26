@@ -29,7 +29,7 @@ No. There is no sign-in, no telemetry and no cloud sync.
 
 ## Does it run on macOS, Linux, iOS or Android?
 
-No. VibeForma 0.5.0 is Windows 10/11 only.
+No. VibeForma 0.5.1 is Windows 10/11 only.
 
 ## Can it transcribe audio and video files?
 
@@ -61,7 +61,7 @@ VibeForma checks GitHub Releases in the background and offers a new version with
 
 ## How do I remove it completely?
 
-Run `uninstall.cmd` with `--remove-data` to remove the app, models and `config.json`. Without the flag, models and settings stay for a reinstall. The uninstaller does not remove every file of the installation — delete the install folder afterwards for a complete removal. See [Installation](/installation/) for the full procedure and for reinstalling into the same place.
+Run `uninstall.cmd` with `--remove-data` to remove the app, models, `config.json`, history and statistics. The folder is emptied and removed, and the installer accepts the same path as a fresh install. Without the flag, models, settings and history stay for a reinstall. See [Installation](/installation/) for the full procedure and for reinstalling into the same place.
 
 ## Where is my data?
 

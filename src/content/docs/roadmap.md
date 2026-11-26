@@ -5,21 +5,24 @@ description: What VibeForma is working on now, next and later — without dates 
 
 The roadmap states direction, not deadlines. Features move when they are ready and accepted, not when a date says so.
 
-## Now — 0.5.0 :badge[Current]{variant=success}
+## Now — 0.5.1 :badge[Current]{variant=success}
 
 The current release is a complete local dictation and file transcription tool:
 
 - local recognition with four models, 26 language presets and a fixed language with a hint when it looks wrong;
+- recognition quality presets — **Normal (recommended)**, **Accurate** and **Fast** — and local CT2 model folders kept in a list, with a folder that is never deleted on a switch;
 - toggle and hold-to-talk modes, VAD and continuous dictation without the 120-second cap;
-- live subtitles for system audio, text cleanup, doubtful-word highlighting and **Recognize more precisely**;
+- live subtitles for system audio, and a system-audio take recorded to a WAV with TXT and SRT beside it;
+- a take clock on the panel, text cleanup, doubtful-word highlighting and **Recognize more precisely**;
 - a monitoring panel with streaming, privacy mode, a draft action row and a file progress strip;
 - nine settings sections applied to the live service;
-- dictionary with application profiles, snippets, history with optional sound, and statistics;
+- dictionary with application profiles, snippets, history with optional sound and per-entry re-recognition, and statistics;
 - **file transcription** of audio and video, folder batches, TXT/JSON/SRT/VTT output and a queue that gives dictation priority;
 - a tray menu, autostart and a single-instance lock;
 - a CLI with `--transcribe`, `--transcribe-folder`, `--prompt`, `--words`, `--clip` and `--cancel-batch`;
 - an optional loopback HTTP API, an OpenAI-compatible endpoint and a job API;
 - an MCP server (`mcp.cmd`) that hands an AI agent `vibeforma_capabilities`, `vibeforma_transcribe_file` and `vibeforma_job_status` over stdio;
+- an uninstaller whose `--remove-data` leaves the install folder ready for a fresh install;
 - English and Russian documentation.
 
 ## Next — FormaMind and deeper agent workflows :badge[Next]{variant=note}

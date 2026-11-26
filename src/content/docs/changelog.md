@@ -1,10 +1,22 @@
 ---
 title: Changelog
-description: User-facing changes in VibeForma 0.5.0 — live subtitles, continuous dictation, text cleanup, application profiles and the guarded batched path.
+description: User-facing changes in VibeForma 0.5.1 — system-audio recordings, the take clock, recognition quality presets, local model folders and per-entry re-recognition.
 ---
 
 This page summarizes the user-facing changes in VibeForma releases. Release notes are also published on the GitHub Releases page.
 
+
+## 0.5.1 — 26 November 2026
+
+### Added
+
+- **A system-audio take is recorded to files.** With the sound source set to **System audio**, the take is written as a 16-bit, 16 kHz mono WAV into the recordings folder — `Documents\VibeForma\Recordings` by default, a date subfolder, the file named by the take's start time — and on stop TXT and SRT are queued beside it. The path appears on the panel's status line for the whole take, and a notification repeats it. Nothing is inserted, and dictation history and statistics stay untouched. A folder that cannot be written is reported before the take starts. Live subtitles and the 30-second capture buffer are unchanged.
+- **A take clock on the panel.** A monospaced clock sits in a fixed-width column left of the level bar and appears only during a take. A microphone take with a limit (`continuous: false`) counts down to `max_record_s` with a minus sign and turns amber under 30 seconds and red under 10; continuous dictation and a system-audio take count elapsed time in neutral color. Hovering says which time it shows, and the digits never shift the line below.
+- **Recognition quality presets.** **Settings → Recording** gains **Recognition quality** right under the sound source: **Normal (recommended)** — beam 5 with the 0.0 → 0.2 temperature fallback; **Accurate** — beam 10 at temperature 0, slower; **Fast** — beam 1 at temperature 0, quicker but weaker on a complex phrase. The choice is stored as `quality_preset` and read when the final dictation pass starts, so a saved change applies to the next phrase without a restart. It is the only quality control of that pass: there is no separate temperature setting. File transcription and live subtitles keep their own settings.
+- **Local model folders.** **Settings → Model & language** lists CT2 model folders with their name, path and a validity mark, and marks the current one. **Add folder** refuses a folder without `model.bin`; **Use** switches through the existing progress dialog, and a failed switch keeps the model that was in use; **Remove from the list** deletes only the record and never a file; **Return to the built-in** selects a catalog model again. The list lives in `config.json` as `model_folders` (absolute paths, up to 20), survives a restart, and a manual path in `model` keeps working.
+- **A saved model folder survives a switch.** With `model_keep_old: false` only downloaded models inside `models\` are deleted. A folder you added is never a deletion target: an absolute path, a `..` step, another drive or a link leading outside is refused.
+- **"Recognize more precisely" for one history entry.** The history window offers the button for exactly one selected entry whose WAV is still on disk; without the sound it stays disabled with the reason. The pass decodes the WAV again in the background with beam 10 at temperature 0 while the table stays usable, and replaces the entry's text and confidence. A failed, empty or unreadable pass leaves the entry as it was.
+- **A complete uninstall.** `uninstall.cmd --remove-data` removes what the installer and the application created — the `vibeforma\` package, `mcp.cmd`, the requirements files, history and its sound, statistics, `status.json`, `location.json`, corrections, the top-level `.py` files and `.venv` — and leaves the folder ready for a fresh install. `--keep-data` keeps models, configuration, logs, history, statistics and corrections; files that belong to you stay and are named on screen.
 
 ## 0.5.0 — 25 November 2026
 

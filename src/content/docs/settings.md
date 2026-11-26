@@ -17,7 +17,8 @@ Open it from the tray menu or from the panel. Changes apply to the running servi
 The input device, the dictation mode and the timing of a phrase:
 
 - microphone device;
-- sound source — microphone or system audio; a system take feeds live subtitles;
+- sound source — microphone or system audio; a system take feeds live subtitles, is recorded to a WAV and gets TXT and SRT beside it;
+- recognition quality — **Normal (recommended)**, **Accurate** or **Fast**; the preset sets the search width and fallback of the final dictation pass, and there is no separate temperature setting;
 - hold-to-talk or toggle;
 - silence before a phrase ends — `silence_ms`, default 2000;
 - maximum phrase length — `max_record_s`, default 120 seconds; it applies when continuous dictation is off;
@@ -37,11 +38,12 @@ Changing the hotkey is protected: an invalid combination is not saved, the new l
 ### 3. Model and language
 
 - the recognition model: `large-v3`, `large-v3-turbo`, `medium`, `small` — or a path to a converted CT2 folder;
+- local model folders — a list of CT2 folders with their name, path and validity, **Add folder**, **Use**, **Remove from the list** (the record only, never the files) and **Return to the built-in**; the list is `model_folders`, up to 20, and the current folder is marked;
 - the recognition language: one of 26 codes, fixed, no automatic detection; a hint names a likely other language when the pinned one looks wrong;
 - personal terms (`hotwords`) that go into every 30-second recognition window;
-- whether the previous model is kept on disk after a switch.
+- whether the previous model is kept on disk after a switch — a folder you added is never deleted by a switch.
 
-Changing the model opens a progress dialog with four phases: **download → load → remove → done**. If a dictation is running, the answer is "busy". A failed download rolls everything back. A model path is loaded from the folder with `local_files_only`; a folder without `model.bin`, `config.json`, `tokenizer.json` or the vocabulary is refused with a named error instead of downloading another model.
+Changing the model opens a progress dialog with four phases: **download → load → remove → done**. If a dictation is running, the answer is "busy". A failed download or switch rolls back or keeps the model that was in use. A model path is loaded from the folder with `local_files_only`; a folder without `model.bin`, `config.json`, `tokenizer.json` or the vocabulary is refused with a named error instead of downloading another model. A folder added to the local list is refused at once when `model.bin` is missing. Details: [Models and languages](/models/).
 
 ### 4. Dictionary
 
@@ -69,14 +71,15 @@ Autostart, update checks and their interval, the manual **Check now** action, th
 
 ## Options that live in config.json only
 
-Some 0.5.0 options have no control in the window yet. They are read from `config.json` when the service starts:
+Some 0.5.1 options have no control in the window yet. They are read from `config.json` when the service starts:
 
 | Key | Default | What it does |
 |---|---|---|
 | `continuous` | `true` | Splits a long take at pauses or every 30 seconds instead of stopping at `max_record_s` |
 | `dictation_context` | `false` | Adds the previous phrase and the selected text to the next dictation's `hotwords` |
 | `text_cleanup` | `false` | Converts numbers and dates, removes filler words and fixes capitalization |
-| `history_audio` | `false` | Keeps a WAV of each dictation and enables **Retranscribe last** |
+| `history_audio` | `false` | Keeps a WAV of each dictation and enables **Retranscribe last** and per-entry re-recognition |
+| `system_recordings_dir` | empty | Where a system-audio take writes its WAV, TXT and SRT; empty means `Documents\VibeForma\Recordings` |
 | `actions` | empty | Spoken phrases that run a command, switch the model or start an agent |
 
 ## Window behavior
@@ -100,6 +103,7 @@ These changes reach the running service immediately:
 - silence duration;
 - streaming interval;
 - maximum recording length — `max_record_s`, used when continuous dictation is off;
+- recognition quality preset — it is read at the next final dictation pass;
 - panel transparency and autogrow;
 - beeps;
 - hotkey;

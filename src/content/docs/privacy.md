@@ -7,7 +7,7 @@ VibeForma is local by design: speech recognition runs on your machine, and there
 
 ## What never leaves the machine
 
-- **Audio.** It is captured, recognized and discarded. Recordings are not stored after recognition.
+- **Audio.** It is captured and recognized on this machine and never uploaded. When you choose to keep it — history audio on, or a system-audio take — the recording stays in a local file.
 - **File audio and transcripts.** Files are decoded and recognized locally. A transcript is written beside its source only when you transcribe a file, and it is not uploaded.
 - **Recognized text.** It goes to the target window and, if you enable it, to the local history file. It is not uploaded.
 - **Dictionary, snippets, hotwords.** They stay in `config.json`.
@@ -35,6 +35,7 @@ There is no analytics service, no crash reporting endpoint, no account server an
 | `models\` | The recognition model | Always |
 | `logs\` | State changes, insertions with character counts, errors | Always; no dictated text |
 | `history.jsonl` | The last 100 dictations with text | Off |
+| `history_audio\` | One 16-bit WAV per dictation, next to `history.jsonl`; capped at 200 MiB, the oldest file goes first | Off; only with history on |
 | `stats.json` | Four counters per day | Always, numbers only |
 | `corrections.json` | Only the words changed by correction learning | When learning is used |
 | `location.json` | Paths and the actual API port; no secret | When the service runs |
@@ -43,9 +44,9 @@ There is no analytics service, no crash reporting endpoint, no account server an
 
 ## History is opt-in
 
-History is off by default. When you turn it on, it keeps the last 100 dictations in `history.jsonl` next to `config.json`. Turning it off **deletes the file**.
+History is off by default. When you turn it on, it keeps the last 100 dictations in `history.jsonl` next to `config.json`. Turning it off **deletes the file** and the saved sound.
 
-History stores text, application name and direction. It does not store window titles or audio.
+History stores text, application name and direction; it never stores window titles. With `history_audio` on it also stores the WAV of each dictation in `history_audio\` next to `history.jsonl`, and that folder is capped at 200 MiB, the oldest file going first. Deleting a record deletes its WAV, clearing history deletes the saved sound, and turning `history_audio` off removes the sound saved by the previous run.
 
 ## Statistics are numbers only
 
@@ -79,7 +80,7 @@ The `--doctor` report is read-only and excludes dictated text, window titles, ho
 
 | To delete | Do this |
 |---|---|
-| History | Turn history off, or delete `history.jsonl` |
+| History and its sound | Turn history off (deletes `history.jsonl` and the saved sound), delete a record (deletes its WAV), or turn `history_audio` off (removes the stored sound at the next start) |
 | Statistics | Reset on the Statistics tab, or delete `stats.json` |
 | Learning data | Delete `corrections.json` |
 | Models and settings | Uninstall with `--remove-data`, or delete the install directory |
@@ -96,5 +97,5 @@ The `--doctor` report is read-only and excludes dictated text, window titles, ho
 
 - [Security](/security/) — the threat model and the API.
 - [Files and locations](/files-and-paths/) — every file and its format.
-- [History](/history/) — the opt-in text record.
+- [History](/history/) — the opt-in record of dictations and their sound.
 - [Statistics](/statistics/) — counters without text.

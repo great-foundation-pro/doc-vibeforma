@@ -1,6 +1,6 @@
 ---
 title: Known issues and limitations
-description: What VibeForma 0.5.0 does not do, which limits are deliberate, and which issues are known.
+description: What VibeForma 0.5.1 does not do, which limits are deliberate, and which issues are known.
 ---
 
 This page is the honest boundary of the product. Some limits are deliberate design choices; some are known issues; some are out of scope.
@@ -36,7 +36,8 @@ This page is the honest boundary of the product. Some limits are deliberate desi
 | No overwrite by default | An existing output is skipped unless `--force` is passed. |
 | Recorded batch failures | A bad file or a duplicate output name is recorded as an error; the rest of the batch continues. |
 | Word timings are off | `file_word_timestamps` adds them to JSON and enables sentence cues in SRT/VTT; it is off by default. |
-| System audio is subtitles, not a file | A system-audio take feeds live subtitles and is not saved as a transcript yet. |
+| Long system-audio takes are not transcribed | A recording longer than `file_max_s` (6 hours) or larger than `file_max_mb` (4 GB) stays a WAV but gets no TXT or SRT. |
+| `Esc` and exit skip the transcript | Both close the WAV safely; neither queues the TXT/SRT pass. The WAV stays and can be transcribed by hand. |
 | Long-file speed depends on hardware | The batched path helps on CUDA; a CPU-only machine is slower. |
 
 ## Installation and updates
@@ -47,6 +48,7 @@ This page is the honest boundary of the product. Some limits are deliberate desi
 | Checksums, not signatures | Releases ship with `SHA256SUMS`; a checksum detects corruption, not authorship. |
 | No silent update by default | A release is offered; automatic installation only with `auto_update: auto`. |
 | Python required | The installer needs Python 3.10–3.14 on the machine. |
+| The venv blocks an in-folder uninstall | Windows locks the interpreter inside `.venv`, so `uninstall.cmd` starts a Python from outside the folder. Without one it says the `.venv` stays, and the folder is not empty. |
 
 ## Data and history
 
@@ -54,6 +56,8 @@ This page is the honest boundary of the product. Some limits are deliberate desi
 |---|---|
 | History cap | The last 100 dictations. |
 | No history export | The table has no export action. |
+| A saved model folder stays on switch | By design: `model_keep_old: false` removes only downloaded models inside `models\`, and a folder you added is never a deletion target. Model validity is only `model.bin` present. |
+| No cancel for re-recognition | The per-entry pass has an indeterminate progress bar and no cancel; a tray retranscription can run at the same time, and both need the entry's WAV. |
 | Dictionary and snippet cap | Up to 500 pairs each. |
 | Clipboard managers | A third-party clipboard manager may keep dictated text even though Windows clipboard history and cloud sync are excluded. |
 | Undo window | `Ctrl+Z` works only within 30 seconds and in the same window. |

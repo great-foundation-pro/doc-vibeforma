@@ -39,6 +39,14 @@ Audio is local like the text: it is never uploaded, synced or included in diagno
 
 **Tray → Retranscribe last** asks for a prompt and decodes the WAV of the last record again. The dialog is prefilled with `hotwords`; you can also pick another model in the tray before the pass. The new text arrives in the panel draft, where you can edit, copy, insert it or cancel. The pass needs the WAV, so history audio must be on and the record must still have its sound.
 
+## Re-recognize one entry
+
+The history window has its own **Recognize more precisely** button. It works on exactly one selected entry whose WAV is still on disk: with no entry or several selected it stays disabled, and an entry without saved sound stays disabled too, with a hint that names the reason. A file that disappeared after the row was drawn is refused before anything runs.
+
+The pass decodes the entry's WAV again in the background with beam 10 at temperature 0 — the same wide search as the draft retry — while the table, filters and other actions stay usable; a progress bar shows that it runs. Success replaces the entry's `text` and its `confidence` (the mean word probability) and keeps the row selected. A failed, empty or unreadable pass leaves the entry exactly as it was and shows a localized reason. Only the engine's own text changes: the dictionary, text rules, snippets and voice actions are not re-applied.
+
+Re-recognition has no cancel and its progress is indeterminate. **Retranscribe last** in the tray can run at the same time, and both need the entry's saved sound.
+
 ## Turning history on and off
 
 Use the switches under the history table in **Settings → History**.
@@ -108,7 +116,8 @@ With history enabled, the `‹` and `›` arrows in the panel header page throug
 - 100 records is a fixed cap; older records are dropped as new ones arrive.
 - There is no export of the history table.
 - History audio is off by default, has no settings switch yet, and its folder is capped at 200 MiB.
-- Retranscription works on the last record only and needs that record's WAV.
+- Retranscription needs a saved WAV: the tray works on the last record, the history window on one selected entry.
+- Re-recognition has no cancel, its progress is indeterminate, and entries never re-recognized carry no `confidence` field; the table has no confidence column.
 - Undo is limited to the last insertion, 30 seconds, and the same window.
 
 ## Where to go next

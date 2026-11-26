@@ -3,7 +3,7 @@ title: Files and locations
 description: Where VibeForma keeps its configuration, models, logs, history, statistics, status and locks.
 ---
 
-All VibeForma files live in the install directory. The default is `%LOCALAPPDATA%\VibeForma`; `-Target` can move it.
+Most VibeForma files live in the install directory. The default is `%LOCALAPPDATA%\VibeForma`; `-Target` can move it. System-audio recordings are the exception: they are written to your Documents folder by default.
 
 ## The layout
 
@@ -45,6 +45,8 @@ The API token is a secret. Do not paste `config.json` into an issue; redact the 
 `models\<name>` inside the service folder is the first place VibeForma looks for a model. If it is absent, the shared Hugging Face cache is tried, then a fresh download.
 
 Deleting a model folder forces a download the next time that model is selected.
+
+A folder added to the local list in **Settings → Model & language** is a user file wherever it stands: a model switch never deletes it, `model_keep_old: false` removes only downloaded models inside `models\`, and a complete removal leaves it in place.
 
 ## Logs
 
@@ -88,6 +90,20 @@ A transcript is written beside its source file by default, with the source stem 
 
 TXT, JSON, SRT and VTT are described on [Transcript formats](/formats/). The API answers in the response body and writes no files.
 
+## System audio recordings
+
+A take with the sound source set to **System audio** is recorded, and its files are not part of the installation:
+
+| Path | What it is | Format |
+|---|---|---|
+| `<system_recordings_dir>\<date>\<HH-MM-SS>.wav` | The take's sound, 16-bit, 16 kHz mono | WAV |
+| The same name with `.txt` | The transcript queued on stop | Text |
+| The same name with `.srt` | The same transcript as subtitles | SRT |
+
+`system_recordings_dir` is empty by default, which means `Documents\VibeForma\Recordings` — the Windows Documents folder, which a redirected or OneDrive profile moves along with your other documents. A date subfolder is created per day and the file is named by the take's start time; a second take in the same second gets a numeric suffix instead of overwriting. A folder that cannot be used is reported before the take starts.
+
+The WAV, TXT and SRT are your files: a complete removal of the installation leaves them where they are, as it leaves every transcript produced by a file job.
+
 ## status.json
 
 Written on every state change. It contains state, version, pid and timestamp. It is a convenience for scripts, not a source of truth; a response older than 60 seconds is not trusted.
@@ -106,9 +122,9 @@ The installer and updater write each step and the tail of an error here. It is t
 
 ## Backup and removal
 
-- **Back up** `config.json`, `models\`, and — if you need them — `history.jsonl`, `stats.json`, `corrections.json`. Transcripts are ordinary files next to their sources; back them up with those folders.
-- **Uninstall** removes shortcuts, autostart, the **Apps** entry and service files; models and `config.json` stay unless `--remove-data` is passed. History, statistics, `location.json` and `status.json` are not in its removal list.
-- **A complete removal** is deleting the install directory after the uninstaller.
+- **Back up** `config.json`, `models\`, and — if you need them — `history.jsonl`, `stats.json`, `corrections.json`. Transcripts are ordinary files next to their sources; back them up with those folders. System-audio recordings live in the recordings folder and are backed up like any other document.
+- **Uninstall** from the tray or with `uninstall.cmd` removes shortcuts, autostart and the **Apps** entry. `--keep-data` keeps models, configuration, logs, history, statistics and corrections; `--remove-data` removes them too.
+- **A complete removal is `uninstall.cmd --remove-data`.** It removes what the installer and the application created — the `vibeforma\` package, `mcp.cmd`, the requirements files, history and its sound, statistics, `status.json`, `location.json`, corrections, the top-level `.py` files and `.venv` — and leaves the folder ready for a fresh install. A file that is not the application's stays and is named on screen. System-audio recordings, transcripts and model folders you added are user files outside the folder and stay as well. If `-Target` placed the installation elsewhere, `%LOCALAPPDATA%\VibeForma\location.json` stands outside the folder and is rewritten at the next launch.
 - **A clean reset** is deleting the folder and installing again into the same place — a missing or empty folder is a fresh install. The full procedure is on [Installation](/installation/).
 
 ## Where to go next

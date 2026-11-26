@@ -16,7 +16,7 @@ VibeForma has a small monitoring panel, a tray icon and an optional autostart en
 
 The panel shows:
 
-- the microphone level;
+- the microphone level and a take clock left of it;
 - a VAD indicator — whether voice activity is detected;
 - the recognized text, streamed while you speak;
 - the current state — idle, recording, processing, paused, error;
@@ -56,6 +56,20 @@ With history enabled, the `‹` and `›` arrows in the panel header browse save
 ## Live subtitles
 
 With the sound source set to **System audio**, the panel shows a plate with the last one or two phrases instead of a draft. The text is not inserted anywhere; the same hotkey stops the take. A plate is capped at 400 characters and refreshes at most every 4 seconds, so the panel stays readable during a long film. On music an invented phrase may still appear: a live partial has no `no_speech_prob` or compression ratio, so only a short stop list and a repetition loop are filtered.
+
+The same take is also recorded: the panel's status line names the WAV for the whole take, a notification repeats the path, and TXT and SRT join the WAV on stop. Read [Files and locations](/files-and-paths/) for the folder and [Dictation](/dictation/) for the mode and its limits.
+
+## The take clock
+
+Left of the level bar the panel shows a clock. It is hidden at rest and appears with a take:
+
+| Take | What the clock shows |
+|---|---|
+| Microphone with a limit (`continuous: false`) | The time left to `max_record_s`, with a minus sign — `−01:55` |
+| Continuous dictation (`continuous: true`, the default) | Elapsed take time, neutral |
+| System audio | Elapsed take time, neutral |
+
+The clock counts down with a minus only where a limit exists, rounds up so the last second reads `00:01`, and turns amber under 30 seconds and red under 10. The digits are monospaced in a fixed-width column, so the line below does not shift. Hovering explains what the number counts: "time left until the take limit (MM:SS)" or "take time". The limit is fixed when the take starts, so a settings change mid-take applies to the next one, and a take that ends earlier on silence ends before the countdown reaches zero — the clock names the limit, not the only ending.
 
 ## Privacy mode
 
