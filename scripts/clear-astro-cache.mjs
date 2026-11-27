@@ -1,15 +1,30 @@
 // Wipe the Astro content-layer caches before a build.
 //
-// The deploy environment keeps a persistent "astro" build cache across
-// deploys; on 2026-11-27 a deploy served pages rendered from stale cached
-// content even though the sources in the same commit were newer. Deleting
-// the caches here makes every build re-read the sources on disk.
-import { rmSync } from "node:fs";
+// The deploy environment keeps a persistent build-cache mount at
+// node_modules/.astro across deploys; on 2026-11-27 a deploy served pages
+// rendered from that stale cached store even though the sources in the
+// same commit were newer. The mount point itself cannot be removed
+// ("Device or resource busy"), so its contents are cleared instead.
+import { readdirSync, rmSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-for (const dir of [".astro", join("node_modules", ".astro"), "dist"]) {
-  rmSync(join(root, dir), { recursive: true, force: true });
-  console.log(`cleared ${dir}`);
+
+function clear(dir) {
+  const full = join(root, dir);
+  try {
+    rmSync(full, { recursive: true, force: true });
+    console.log(`cleared ${dir}`);
+  } catch (err) {
+    if (err.code !== "EBUSY") throw err;
+    for (const entry of readdirSync(full)) {
+      rmSync(join(full, entry), { recursive: true, force: true });
+    }
+    console.log(`cleared contents of ${dir} (mount point kept)`);
+  }
+}
+
+for (const dir of [".astro", join("node_modules", ".astro")]) {
+  clear(dir);
 }
