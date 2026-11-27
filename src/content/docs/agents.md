@@ -22,7 +22,7 @@ The service publishes `%LOCALAPPDATA%\VibeForma\location.json` so a harness neve
 {
   "schema": 2,
   "app": "vibeforma",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "launcher": "C:\\Users\\you\\AppData\\Local\\VibeForma\\run.cmd",
   "python": "C:\\Users\\you\\AppData\\Local\\VibeForma\\.venv\\Scripts\\python.exe",
   "entry": "C:\\Users\\you\\AppData\\Local\\VibeForma\\main.py",

@@ -3,7 +3,7 @@ title: Settings reference
 description: Every VibeForma setting by section — key, default, values and effect.
 ---
 
-This page lists the settings the 0.5.3 source and documentation name explicitly. A UI setting without a documented key still lives in `config.json`, but this page does not invent a key name for it.
+This page lists the settings the 0.5.4 source and documentation name explicitly. A UI setting without a documented key still lives in `config.json`, but this page does not invent a key name for it.
 
 Defaults are the values a fresh installation writes.
 

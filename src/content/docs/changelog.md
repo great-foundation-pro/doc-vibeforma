@@ -7,6 +7,14 @@ This page summarizes the user-facing changes in VibeForma releases. Release note
 
 
 
+## 0.5.4 — 27 November 2026
+
+### Fixed
+- **"Open" works before the first recording**: the "Open" button next to the recordings folder
+  creates the folder with the same rule a take uses before handing it to Explorer, so it works
+  on a clean setup right away; the "Could not open the recordings folder" message now appears
+  only when the folder genuinely cannot be created (a blocked path, an access denial).
+
 ## 0.5.3 — 27 November 2026
 
 ### Added

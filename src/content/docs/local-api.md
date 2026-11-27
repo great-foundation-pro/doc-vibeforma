@@ -35,7 +35,7 @@ Tools should read `location.json` instead of assuming 8787:
 {
   "schema": 2,
   "app": "vibeforma",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "config": "C:\\Users\\you\\AppData\\Local\\VibeForma\\config.json",
   "api": "on",
   "port": 8787,
