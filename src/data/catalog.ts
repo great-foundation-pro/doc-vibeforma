@@ -64,12 +64,11 @@ export const releaseStrip: {
   link: { label: Record<CatalogLocale, string>; href: Record<CatalogLocale, string> };
 } = {
   label: {
-    en: '0.5.1 · new in this release',
-    ru: '0.5.1 · новое в релизе',
+    en: '0.5.3–0.5.4 · new in the last releases',
+    ru: '0.5.3–0.5.4 · новое в последних релизах',
   },
   chips: [
-    { key: 'system-audio', label: { en: 'System audio → files', ru: 'Системный звук → файлы' } },
-    { key: 'panel', label: { en: 'Take clock', ru: 'Секундомер записи' } },
+    { key: 'system-audio', label: { en: 'Recordings folder → in settings', ru: 'Папка записей → в настройках' } },
     { key: 'accuracy', label: { en: 'Quality presets', ru: 'Пресеты качества' } },
     { key: 'memory', label: { en: 'Retry one record', ru: 'Перераспознать запись' } },
   ],
@@ -468,6 +467,10 @@ export const catalog: CatalogCategory[] = [
           t: 'A take is recorded to a WAV — 16-bit, 16 kHz mono — in the recordings folder, with TXT and SRT beside it on stop; the path is shown while it runs.',
           tag: '0.5.1',
         },
+        {
+          t: 'The recordings folder is a setting: the Recording tab shows the active path and offers "Change…", "Open" and "Default" (`Documents\\VibeForma\\Recordings`); an unusable folder is rejected before a take starts, and "Open" creates the folder if the first take has not yet.',
+          tag: '0.5.3',
+        },
         'Music and noise may produce invented text — an honest limit of recognition.',
         {
           t: 'Capture starts and stops with the same hotkey as dictation.',
@@ -492,6 +495,10 @@ export const catalog: CatalogCategory[] = [
         {
           t: 'Заход пишется в WAV — 16 бит / 16 кГц моно — в папку записей, а по остановке рядом появляются TXT и SRT; путь виден, пока идёт заход.',
           tag: '0.5.1',
+        },
+        {
+          t: 'Папка записей — настройка: вкладка «Запись» показывает действующий путь и предлагает «Изменить…», «Открыть» и «По умолчанию» (`Documents\\VibeForma\\Recordings`); негодная папка отклоняется до старта записи, а «Открыть» создаст папку, если первой записи ещё не было.',
+          tag: '0.5.3',
         },
         'Музыка и шум могут дать выдуманный текст — это честный предел распознавания.',
         {
