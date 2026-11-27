@@ -6,7 +6,7 @@
   "description": "Documentation site for VibeForma — local voice dictation for Windows",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/build-llms.mjs",
+    "prebuild": "node scripts/build-llms.mjs && node scripts/clear-astro-cache.mjs",
     "build": "astro build",
     "build:timings": "astro build --timings",
     "preview": "astro preview",
