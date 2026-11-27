@@ -9,6 +9,12 @@ This page summarizes the user-facing changes in VibeForma releases. Release note
 
 ## 0.5.3 — 27 November 2026
 
+### Added
+- **The system-audio recordings folder is a setting.** The Recording tab shows the folder
+  system-audio takes are written to, with the active path, and offers "Change…" (folder picker),
+  "Open" and "Default" (`Documents\VibeForma\Recordings`). An unusable folder is rejected with a
+  localized message before a take starts; the WAV, TXT and SRT of a take land in the chosen folder.
+
 ### Fixed
 - **A busy clipboard no longer eats the phrase.** The copy of the recognized text retries
   for a short moment when another program holds the clipboard and, if it still fails, ends
