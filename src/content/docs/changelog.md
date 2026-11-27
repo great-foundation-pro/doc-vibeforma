@@ -34,6 +34,10 @@ This page summarizes the user-facing changes in VibeForma releases. Release note
   into the backup, the backup survives a failed restore, and the venv is rebuilt from the
   restored requirements.
 - **Uninstall finds shortcuts at odd paths**: `-like` wildcard metacharacters are escaped.
+- **A failed model switch keeps the previous model**: the replacement loads before the running state is replaced, and a failed load leaves the previous model dictating.
+- **The hotkey survives heavy load**: handler work moved off the low-level hook thread into a worker with a queue — Windows no longer silently removes a slow hook mid-use.
+- **A broken config.json no longer stops the service**: a non-dictionary config (`null`, a list) reads as the defaults instead of crashing the start with a TypeError.
+- **The installer log moved out of the target folder**: written to `%LOCALAPPDATA%\VibeForma\logs` with the handle closed before cleanups, so a failed install does not block retries or uninstalling.
 
 ### Changed
 - CI measures coverage on a Python matrix (3.10–3.14) with a threshold; root modules are
