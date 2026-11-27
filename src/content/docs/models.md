@@ -43,6 +43,14 @@ If the download or load fails, the previous model is restored. If a dictation is
 
 `model_keep_old` controls whether the previous model stays on disk. Keeping it makes switching back fast at the cost of disk space. When the option is off, only a downloaded model inside `models\` can be removed: an absolute path, a `..` step, another drive or a link leading outside is refused, so a folder you added is never a deletion target.
 
+## Model updates
+
+Since 0.5.5 a background check every 24 hours (`model_update_interval_h`, `model_update_check` turns it off) compares your downloaded catalog models with Hugging Face. When a newer revision exists, **Settings → Model & language** offers it with **Update** and **Not now** buttons and one tray notification; a manual **Check model updates** button runs the check on demand. A declined revision is not offered again, even after a restart.
+
+The update runs only on your click, one model at a time, and only while the service is idle with no file queue — otherwise a clear "wait for the current cycle" refusal. The new revision is downloaded into a temporary folder, validated by the same gate any model passes, and swapped in. The previous revision is **kept on disk** as `previous-<model>-<revision>` beside the model folder: delete it to reclaim the space, or swap the folder names to go back without re-downloading. Any download, validation or load failure restores the previous folder and the working model. With no network, dictation is unaffected — the check just stays silent.
+
+`model_folders` folders are never checked or updated. A model living only in the shared Hugging Face cache is copied into `models\` first, and the cache itself is never removed.
+
 ## Local model folders
 
 **Settings → Model & language** keeps a list of CT2 model folders you can switch between without typing a path. Each row shows the folder's name, its path and a validity mark; the current model is marked. The buttons work like this:

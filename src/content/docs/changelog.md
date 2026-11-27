@@ -7,6 +7,11 @@ This page summarizes the user-facing changes in VibeForma releases. Release note
 
 
 
+## 0.5.5 — 27 November 2026
+
+### Added
+- **Whisper model updates by consent**: a background check every 24 hours compares downloaded models with Hugging Face; a newer revision is offered on the Model & language tab with Update / Not now, one tray notification and a manual check button. The update runs only on your click while the service is idle; the previous revision is kept on disk as `previous-<model>-<revision>` for a no-download rollback, and any failure restores the previous folder and the working model. Offline, dictation is unaffected.
+
 ## 0.5.4 — 27 November 2026
 
 ### Fixed
