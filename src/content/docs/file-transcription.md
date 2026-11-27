@@ -18,7 +18,7 @@ File transcription is the second input of the same recognition engine: instead o
 | Input | Formats |
 |---|---|
 | Video | `mp4`, `mkv`, `mov`, `webm` |
-| Audio | `mp3`, `wav`, `m4a` |
+| Audio | `mp3`, `wav`, `m4a`, `m4b`, `ogg`, `flac` |
 
 PyAV decodes the file to 16 kHz mono float32 inside the application. Recognition returns segments with a start and an end, so the result can be written as plain text or with timecodes.
 

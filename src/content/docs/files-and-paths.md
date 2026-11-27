@@ -100,7 +100,7 @@ A take with the sound source set to **System audio** is recorded, and its files 
 | The same name with `.txt` | The transcript queued on stop | Text |
 | The same name with `.srt` | The same transcript as subtitles | SRT |
 
-`system_recordings_dir` is empty by default, which means `Documents\VibeForma\Recordings` — the Windows Documents folder, which a redirected or OneDrive profile moves along with your other documents. A date subfolder is created per day and the file is named by the take's start time; a second take in the same second gets a numeric suffix instead of overwriting. A folder that cannot be used is reported before the take starts.
+`system_recordings_dir` is empty by default, which means `Documents\VibeForma\Recordings` — the Windows Documents folder, which a redirected or OneDrive profile moves along with your other documents. The folder is set in **Settings → Recording**: the field shows the effective path, **Change…** picks another folder and **Default** returns to the default; an empty key follows the Documents folder. A date subfolder is created per day and the file is named by the take's start time; a second take in the same second gets a numeric suffix instead of overwriting. A folder that cannot be used is reported before the take starts.
 
 The WAV, TXT and SRT are your files: a complete removal of the installation leaves them where they are, as it leaves every transcript produced by a file job.
 

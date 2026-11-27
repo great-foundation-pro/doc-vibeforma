@@ -66,7 +66,7 @@ If the panel is visible, it shows the microphone level and the text while VibeFo
 ## Transcribe a file
 
 1. Right-click the tray icon and choose **Transcribe file…**.
-2. Pick an audio or video file — `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav` or `m4a`.
+2. Pick an audio or video file — `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav`, `m4a`, `m4b`, `ogg` or `flac`.
 3. Watch the strip at the bottom of the panel: state, file name and percent. Dictation keeps working and pauses the file between segments.
 4. When it finishes, the notification names the transcript; **Tray → Open result folder** opens its folder.
 

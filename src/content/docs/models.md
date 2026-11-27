@@ -92,7 +92,7 @@ Switch the language in **Settings → Model & language** or from the tray. It ap
 
 ### Prompt presets
 
-For Russian, English, Ukrainian, German, French and Spanish, VibeForma adds a language-specific prompt hint for punctuation and capitalization. Personal terms from `hotwords` always go into the initial prompt, regardless of language.
+For every one of the 26 menu languages, VibeForma adds a language-specific prompt hint for punctuation and capitalization. Personal terms from `hotwords` always go into the initial prompt, regardless of language.
 
 ### One language at a time
 

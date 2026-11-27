@@ -1,9 +1,9 @@
 ---
 title: System requirements
-description: The factual requirements for VibeForma 0.5.1 — Windows version, Python, disk space, GPU, network, audio, file transcription and ports.
+description: The factual requirements for VibeForma 0.5.3 — Windows version, Python, disk space, GPU, network, audio, file transcription and ports.
 ---
 
-These are the checks the installer performs and the facts the application relies on. Numbers come from the 0.4.0 source and installer, not from estimates.
+These are the checks the installer performs and the facts the application relies on. Numbers come from the 0.5.3 source and installer, not from estimates.
 
 ## Operating system
 
@@ -72,7 +72,7 @@ After the model is on disk, dictation works offline.
 
 | Requirement | Value |
 |---|---|
-| Input formats | `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav`, `m4a` |
+| Input formats | `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav`, `m4a`, `m4b`, `ogg`, `flac` |
 | Decoder | PyAV inside the application; no `ffmpeg` binary is installed or called |
 | Default size limit | 4096 MB (`file_max_mb`) |
 | Default duration limit | 6 hours (`file_max_s`) |

@@ -18,6 +18,7 @@ The input device, the dictation mode and the timing of a phrase:
 
 - microphone device;
 - sound source — microphone or system audio; a system take feeds live subtitles, is recorded to a WAV and gets TXT and SRT beside it;
+- system recordings folder — the field shows the effective path and the **Change…**, **Open** and **Default** buttons act on it; WAV, TXT and SRT go to this folder in a date subfolder, and **Default** returns to `Documents\VibeForma\Recordings` (`system_recordings_dir`, empty means the default);
 - recognition quality — **Normal (recommended)**, **Accurate** or **Fast**; the preset sets the search width and fallback of the final dictation pass, and there is no separate temperature setting;
 - hold-to-talk or toggle;
 - silence before a phrase ends — `silence_ms`, default 2000;
@@ -71,7 +72,7 @@ Autostart, update checks and their interval, the manual **Check now** action, th
 
 ## Options that live in config.json only
 
-Some 0.5.1 options have no control in the window yet. They are read from `config.json` when the service starts:
+Some 0.5.3 options have no control in the window yet. They are read from `config.json` when the service starts:
 
 | Key | Default | What it does |
 |---|---|---|
@@ -79,7 +80,6 @@ Some 0.5.1 options have no control in the window yet. They are read from `config
 | `dictation_context` | `false` | Adds the previous phrase and the selected text to the next dictation's `hotwords` |
 | `text_cleanup` | `false` | Converts numbers and dates, removes filler words and fixes capitalization |
 | `history_audio` | `false` | Keeps a WAV of each dictation and enables **Retranscribe last** and per-entry re-recognition |
-| `system_recordings_dir` | empty | Where a system-audio take writes its WAV, TXT and SRT; empty means `Documents\VibeForma\Recordings` |
 | `actions` | empty | Spoken phrases that run a command, switch the model or start an agent |
 
 ## Window behavior

@@ -3,7 +3,7 @@ title: Settings reference
 description: Every VibeForma setting by section — key, default, values and effect.
 ---
 
-This page lists the settings the 0.5.1 source and documentation name explicitly. A UI setting without a documented key still lives in `config.json`, but this page does not invent a key name for it.
+This page lists the settings the 0.5.3 source and documentation name explicitly. A UI setting without a documented key still lives in `config.json`, but this page does not invent a key name for it.
 
 Defaults are the values a fresh installation writes.
 
@@ -14,7 +14,7 @@ Defaults are the values a fresh installation writes.
 | Input device | `input_device` | empty | a device-name fragment | The microphone VibeForma captures. |
 | Sound source | `audio_source` | `microphone` | `microphone`, `system` | `system` captures the default output through its WASAPI loopback, feeds live subtitles and writes the take to a WAV with TXT and SRT beside it. |
 | Recognition quality | `quality_preset` | `normal` | `normal`, `accurate`, `fast` | The final dictation pass: `normal` — beam 5 with a 0.0 → 0.2 temperature fallback; `accurate` — beam 10 at temperature 0; `fast` — beam 1 at temperature 0. Read at the next final pass, so saving applies without a restart. An old config without the key and an unknown value read as `normal`. File transcription and live subtitles keep their own settings; no separate temperature key exists. |
-| System recordings folder | `system_recordings_dir` | empty | a folder path | Where a system-audio take writes its WAV, TXT and SRT. Empty means `Documents\VibeForma\Recordings`; a date subfolder is created per day. A folder that cannot be written is reported before the take starts. |
+| System recordings folder | `system_recordings_dir` | empty | a folder path | **Settings → Recording**: where a system-audio take writes its WAV, TXT and SRT. The field shows the effective path, **Change…** picks a folder and **Default** returns to `Documents\VibeForma\Recordings`; an empty key follows the Documents folder. A date subfolder is created per day. A folder that cannot be written is reported before the take starts. |
 | Hold to talk | `hold_to_talk` | `false` | `true` / `false` | `true` — hold the hotkey while speaking; `false` — press to start and stop. |
 | Continuous dictation | `continuous` | `true` | `true` / `false` | No phrase cap: a take is cut at a pause of 400 ms after 1 s of speech or every 30 s, and inserted once. `false` restores `max_record_s`. If recognition falls behind and 240 s accumulate, the buffered backlog is dropped with a log entry — a memory guard, not a phrase limit. |
 | Silence before the phrase ends | `silence_ms` | `2000` | milliseconds | How long a pause ends the phrase. |

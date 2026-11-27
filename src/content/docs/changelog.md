@@ -6,6 +6,41 @@ description: User-facing changes in every VibeForma release — new features, fi
 This page summarizes the user-facing changes in VibeForma releases. Release notes are also published on the GitHub Releases page.
 
 
+
+## 0.5.3 — 27 November 2026
+
+### Fixed
+- **A busy clipboard no longer eats the phrase.** The copy of the recognized text retries
+  for a short moment when another program holds the clipboard and, if it still fails, ends
+  the insert with an explicit error status; the text stays in the history for a manual
+  re-insert.
+- **Holding `Esc` cancels once.** Autorepeat presses no longer spawn dozens of parallel
+  cancel threads; the watcher keeps a single cancel in flight.
+- **Recording stops safely and the sound monitor comes back.** Stopping no longer races the
+  audio writer; the live system-audio monitor revives after a device failure and partial
+  failures are reported honestly.
+- **Hand-written hotkey aliases start the service.** `control+alt+space` or `win+escape` in
+  `config.json` are normalized through one shared keymap.
+- **The installer survives Cyrillic and special-character paths**, reads child output as
+  UTF-8, expands `~/VibeForma` to the home folder, guards locale placeholders and gives
+  CUDA driver mismatches their own hints.
+- **A failed update rolls back to the old installation**: the previous marker is snapshotted
+  into the backup, the backup survives a failed restore, and the venv is rebuilt from the
+  restored requirements.
+- **Uninstall finds shortcuts at odd paths**: `-like` wildcard metacharacters are escaped.
+
+### Changed
+- CI measures coverage on a Python matrix (3.10–3.14) with a threshold; root modules are
+  covered by strict mypy; the installer stays a thin entry under 400 lines.
+
+## 0.5.2 — 26 November 2026
+
+### Fixed
+- **Insertion no longer races the hotkey.** VibeForma waits for `Ctrl+Alt+Space` to be
+  released before pasting, re-checks the target window, and leaves the text on the
+  clipboard as the manual fallback when the wait times out; the previous clipboard is
+  restored after a successful paste again.
+
 ## 0.5.1 — 26 November 2026
 
 ### Added

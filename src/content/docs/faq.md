@@ -29,11 +29,11 @@ No. There is no sign-in, no telemetry and no cloud sync.
 
 ## Does it run on macOS, Linux, iOS or Android?
 
-No. VibeForma 0.5.1 is Windows 10/11 only.
+No. VibeForma 0.5.3 is Windows 10/11 only.
 
 ## Can it transcribe audio and video files?
 
-Yes. The same recognition engine takes `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav` and `m4a` files, one at a time, and can walk a folder as a batch. Results are written as TXT, JSON, SRT or VTT. See [File transcription](/file-transcription/).
+Yes. The same recognition engine takes `mp4`, `mkv`, `mov`, `webm`, `mp3`, `wav`, `m4a`, `m4b`, `ogg` and `flac` files, one at a time, and can walk a folder as a batch. Results are written as TXT, JSON, SRT or VTT. See [File transcription](/file-transcription/).
 
 ## Does file transcription need ffmpeg?
 

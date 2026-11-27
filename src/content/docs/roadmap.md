@@ -5,7 +5,7 @@ description: What VibeForma is working on now, next and later — without dates 
 
 The roadmap states direction, not deadlines. Features move when they are ready and accepted, not when a date says so.
 
-## Now — 0.5.1 :badge[Current]{variant=success}
+## Now — 0.5.3 :badge[Current]{variant=success}
 
 The current release is a complete local dictation and file transcription tool:
 
