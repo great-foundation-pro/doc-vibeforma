@@ -329,6 +329,11 @@ export default defineConfig({
           translations: { ru: 'Проект' },
           items: [
             {
+              label: 'Chronicle',
+              translations: { ru: 'Хроника' },
+              link: '/chronicle',
+            },
+            {
               label: 'Changelog',
               translations: { ru: 'История версий' },
               link: '/changelog',
