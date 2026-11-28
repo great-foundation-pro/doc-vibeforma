@@ -1,9 +1,9 @@
 ---
 title: VibeForma chronicle
-description: From the first 0.1.0 release to 0.5.8 — dates, releases and turning points.
+description: From the first 0.1.0 release to 0.5.9 — dates, releases and turning points.
 ---
 
-VibeForma appeared on 20 November 2026 and went through thirty-one releases in eight days, from the first sound to 0.5.8. This page is the spine of the blog: a short chronology that every post in the series points back to.
+VibeForma appeared on 20 November 2026 and went through thirty-two releases in eight days, from the first sound to 0.5.9. This page is the spine of the blog: a short chronology that every post in the series points back to.
 
 The release dates are real. The posts were published on 28 November 2026 as a retrospective, assembled from the CHANGELOG, logs and sources rather than written on each release day. That is the honest version: the reader sees both the date of the event and the date of the telling.
 
@@ -51,7 +51,7 @@ Live subtitles of system audio, continuous dictation, confidence and a draft, te
 
 ## 28 November — the invented ending
 
-**0.5.6–0.5.8.** The guard against an invented ending: stop list, VAD, word duration, pace. 0.5.8 fixes the window offset on long takes so the cut does not take real words with it.
+**0.5.6–0.5.9.** The guard against an invented ending: stop list, VAD, word duration, pace. 0.5.8 fixes the window offset on long takes so the cut does not take real words with it. 0.5.9 makes the start and stop cues audible through the output device and adds invented subtitle credits to the stop list.
 
 [Post: “To be continued does not follow”](/blog/2026-11-28-10-to-be-continued-does-not-follow/)
 
