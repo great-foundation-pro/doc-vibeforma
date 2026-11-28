@@ -1,6 +1,6 @@
 ---
 title: Known issues and limitations
-description: What VibeForma 0.5.5 does not do, which limits are deliberate, and which issues are known.
+description: What VibeForma 0.5.8 does not do, which limits are deliberate, and which issues are known.
 ---
 
 This page is the honest boundary of the product. Some limits are deliberate design choices; some are known issues; some are out of scope.

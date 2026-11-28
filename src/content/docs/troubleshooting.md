@@ -24,7 +24,7 @@ Find the symptom that matches. Each section names the likely cause, the steps to
 
 **Likely cause:** a failed precheck or a network error during the model download.
 
-1. Read `install.log` in the install directory; it names the failed step.
+1. Read `install.log` in `%LOCALAPPDATA%\VibeForma\logs`; it names the failed step.
 2. Check free disk space: the model size plus about 4 GB.
 3. Run the installer again. It continues from the failed step and reuses the virtual environment, model and configuration.
 
@@ -164,7 +164,7 @@ The actual port may not be 8787; read it from `location.json`.
 
 ## The app does not start after an update
 
-1. Read `install.log` in the install directory.
+1. Read `install.log` in `%LOCALAPPDATA%\VibeForma\logs`.
 2. Run `run.cmd --doctor` and read the first `FAIL`.
 3. Restore the backup created by the updater.
 4. Reinstall with the same installer; it continues from the failed step.

@@ -26,7 +26,7 @@ Recognition uses faster-whisper, a local implementation of the Whisper model. Th
 
 ## What is included
 
-- **Dictation** in toggle or hold-to-talk mode, with voice activity detection, a 120-second phrase limit and `Esc` to cancel.
+- **Dictation** in toggle or hold-to-talk mode, with voice activity detection, continuous dictation cut on pauses (the 120-second phrase limit applies only when `continuous` is off) and `Esc` to cancel.
 - **File transcription** of audio and video on the same local engine, including folder batches, four output formats and a progress strip in the panel.
 - **A monitoring panel** with the microphone level, VAD indicator, streaming text, a privacy mode and actions for the latest draft.
 - **Nine settings sections**, applied to the running service without a restart.
@@ -41,7 +41,7 @@ VibeForma is free and open source under the MIT license.
 
 ## What it does not do
 
-VibeForma 0.5.5 is a local dictation and file transcription tool, not a meeting or media platform:
+VibeForma 0.5.8 is a local dictation and file transcription tool, not a meeting or media platform:
 
 - It runs on Windows only.
 - It does not detect the language automatically; you choose it.

@@ -64,13 +64,13 @@ export const releaseStrip: {
   link: { label: Record<CatalogLocale, string>; href: Record<CatalogLocale, string> };
 } = {
   label: {
-    en: '0.5.3–0.5.4 · new in the last releases',
-    ru: '0.5.3–0.5.4 · новое в последних релизах',
+    en: '0.5.5–0.5.8 · new in the last releases',
+    ru: '0.5.5–0.5.8 · новое в последних релизах',
   },
   chips: [
-    { key: 'system-audio', label: { en: 'Recordings folder → in settings', ru: 'Папка записей → в настройках' } },
-    { key: 'accuracy', label: { en: 'Quality presets', ru: 'Пресеты качества' } },
-    { key: 'memory', label: { en: 'Retry one record', ru: 'Перераспознать запись' } },
+    { key: 'invented-tail', label: { en: 'An invented ending is cut', ru: 'Выдуманное окончание срезается' } },
+    { key: 'long-take', label: { en: 'A long take keeps its words', ru: 'Длинный заход сохраняет слова' } },
+    { key: 'model-updates', label: { en: 'Model updates by consent', ru: 'Обновления моделей по согласию' } },
   ],
   link: {
     label: { en: 'All changes', ru: 'Все изменения' },

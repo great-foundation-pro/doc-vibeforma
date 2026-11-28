@@ -18,7 +18,6 @@ Most VibeForma files live in the install directory. The default is `%LOCALAPPDAT
 | `location.json` | Discovery file for local tools | JSON |
 | `status.json` | Current service state | JSON |
 | `service.lock` | Single-instance lock | Lock file |
-| `install.log` | Installer and updater steps | Text |
 | `test_ru.wav` | Test phrase for `--selftest` | WAV |
 | `.venv\` | The Python virtual environment | Directory |
 | `main.py`, `run.cmd` | The application entry points | Python / batch |
@@ -114,7 +113,7 @@ The single-instance lock. It prevents a second service from starting and fightin
 
 ## install.log
 
-The installer and updater write each step and the tail of an error here. It is the first file to read when installation or an update fails.
+The installer and updater write each step and the tail of an error to `%LOCALAPPDATA%\VibeForma\logs\install.log` — outside the install folder when `-Target` moves it, so a reinstall or a deleted folder does not take it. It is the first file to read when installation or an update fails.
 
 ## Temporary files
 

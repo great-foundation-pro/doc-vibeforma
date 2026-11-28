@@ -35,7 +35,7 @@ VibeForma sits between the first and the third group: it is an open-source, loca
 
 | Product | Type | Platforms | Recognition | Dictation | File transcription | CLI / API | UI languages | Price | Source |
 |---|---|---|---|---|---|---|---|---|---|
-| **VibeForma 0.5.5** | local dictation and file transcription | Windows 10/11 | local faster-whisper | Yes | Yes — files and folder batches | CLI + MCP server + local HTTP API + job API + hook | English, Russian | Free | Open source, MIT |
+| **VibeForma 0.5.8** | local dictation and file transcription | Windows 10/11 | local faster-whisper | Yes | Yes — files and folder batches | CLI + MCP server + local HTTP API + job API + hook | English, Russian | Free | Open source, MIT |
 | Handy | local dictation | Windows, macOS, Linux | local Whisper | Yes | n/v | CLI parameters | English (n/v) | Free | Open source |
 | VoiceInk | local dictation | macOS | local Whisper | Yes | n/v | n/v | English (n/v) | Free source build | Open source |
 | Buzz | local transcription | Windows, macOS, Linux | local Whisper | No | Yes | CLI | n/v | Free | Open source |
@@ -108,7 +108,7 @@ A commercial editor for audio and video with transcription at its center. It is 
 - **FormaMind as the intended host.** VibeForma is the voice layer of FormaMind, a project-management tool. The file and agent surfaces are in 0.4.0; the native FormaMind integration is the remaining step.
 - **A full English/Russian pair.** The application and the documentation exist in both languages with the same page structure. Most open-source analogues document in English only; most commercial ones localize the help center, not the product.
 - **No account, no cloud, no telemetry.** There is nothing to sign in to and no server that receives audio. The network is used for the model download and update checks, and both are named explicitly.
-- **Small and honest.** 0.5.5 does not pretend to be a meeting platform. Limits are documented on a separate page.
+- **Small and honest.** 0.5.8 does not pretend to be a meeting platform. Limits are documented on a separate page.
 
 ## Where VibeForma is stronger
 
@@ -127,7 +127,7 @@ A commercial editor for audio and video with transcription at its center. It is 
 - **No meetings, summaries, teams or billing.** Superwhisper, Wispr Flow and Descript cover scenarios VibeForma does not.
 - **No cloud models.** Everything runs on the local machine, so a very weak CPU or GPU means slower recognition; cloud products offload that cost.
 - **No mobile.** Dictation happens only at a Windows desk.
-- **Smaller ecosystem and shorter track record.** The project is at 0.5.5; the commercial products have years of releases and larger support teams.
+- **Smaller ecosystem and shorter track record.** The project is at 0.5.8; the commercial products have years of releases and larger support teams.
 - **Unsigned installer.** Windows SmartScreen may warn; there is no code-signing certificate yet.
 
 ## What VibeForma does its own way

@@ -53,7 +53,7 @@ Windows SmartScreen may warn when running the installer or the app. This is expe
 
 ## Rollback
 
-If the update fails, the previous installation is restored from the backup. If the service does not come back, the backup is the recovery path; `install.log` names the failed step.
+If the update fails, the previous installation is restored from the backup. If the service does not come back, the backup is the recovery path; `%LOCALAPPDATA%\VibeForma\logs\install.log` names the failed step.
 
 ## Manual update
 
@@ -66,13 +66,13 @@ irm https://raw.githubusercontent.com/FormaMindPro/vibeforma/main/install.ps1 -O
 
 ## Versioning
 
-The current version is 0.5.5. It is shown in the settings window header next to the **Check for updates** button and in `status.json`. Release notes are on the GitHub Releases page.
+The current version is 0.5.8. It is shown in the settings window header next to the **Check for updates** button and in `status.json`. Release notes are on the GitHub Releases page.
 
-The documentation describes version 0.5.5. Pages are updated with the product.
+The documentation describes version 0.5.8. Pages are updated with the product.
 
 ## If an update does not finish
 
-1. Check `install.log` in the install directory.
+1. Check `install.log` in `%LOCALAPPDATA%\VibeForma\logs`.
 2. Check free disk space: the new version needs room for the archive and the backup.
 3. Check the network and the GitHub status.
 4. Restart the app. A repeated install continues from the failed step.

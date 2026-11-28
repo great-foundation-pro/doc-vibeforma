@@ -47,7 +47,7 @@ Before it writes anything, the installer verifies:
 - The target directory: empty, an existing VibeForma installation, or a folder with the installation marker.
 - That the target is not a system directory, `Program Files`, a drive root or the root of the user profile.
 
-The first failing step stops the chain. Every step and the tail of an error go to `install.log`.
+The first failing step stops the chain. Every step and the tail of an error go to `%LOCALAPPDATA%\VibeForma\logs\install.log`.
 
 ## The install is a transaction
 
@@ -97,7 +97,7 @@ VibeForma lives in a single folder: the code, the virtual environment, the model
 ### Before you remove anything
 
 1. **Quit the app.** Right-click the tray icon and choose **Exit**. While the service runs, Windows keeps `pythonw.exe` and the DLLs in `.venv` open, and the folder is deleted only partly. If the tray does not respond, end `pythonw.exe` in Task Manager or restart the PC.
-2. **Keep the evidence if something failed.** `logs\install.log` and `logs\service.log` name the failed step and the tail of the error, and they disappear with the folder. Copy them somewhere first.
+2. **Keep the evidence if something failed.** `%LOCALAPPDATA%\VibeForma\logs\install.log` names the failed step and the tail of the error and survives the folder; `logs\service.log` disappears with it. Copy it somewhere first.
 3. **Decide about your data.** `config.json` holds settings, hotwords, dictionary and snippets; `models\` holds the model; `history.jsonl` and `stats.json` hold records. The model is the expensive part to download again.
 
 ### Uninstall with the uninstaller
@@ -135,7 +135,7 @@ Inside it:
 | `history.jsonl`, `history_audio\` | Dictation history, if it was enabled |
 | `stats.json` | Counters, if statistics were enabled |
 | `corrections.json` | Learned dictionary corrections, if dictionary learning was used |
-| `logs\` | `install.log`, `service.log` and their rotated copies |
+| `logs\` | `service.log` and its rotated copies |
 
 Outside it:
 
@@ -143,6 +143,7 @@ Outside it:
 |---|---|---|
 | Desktop, Start menu, Startup | `VibeForma.lnk` | A reinstall recreates them. Without one, delete them: the Startup copy would point at a missing target at every logon. |
 | `HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall\VibeForma` | The **Settings → Apps** entry | A reinstall rewrites it. Without one, the Uninstall button there points at a deleted `uninstall.cmd`; run the uninstaller before deleting the folder to remove it. |
+| `%LOCALAPPDATA%\VibeForma\logs\` | `install.log` | Written by the installer and updater; outside a custom `-Target` installation, so removing the folder does not erase it. |
 | `%LOCALAPPDATA%\VibeForma\location.json` | The discovery file for forms and agents | With the default target the uninstaller removes it with the folder. With a custom `-Target` it stays here although the app lives elsewhere; it is rewritten at the next service start, and a stale file points at an `install_dir` that no longer exists. |
 | `%USERPROFILE%\.cache\huggingface`, `%LOCALAPPDATA%\pip\Cache` | Shared download caches | Harmless. They only save a download next time. |
 | System Python 3.10–3.14 | The prerequisite | Untouched by removal, and needed for a reinstall. |
@@ -152,7 +153,7 @@ Outside it:
 A missing or empty folder is a **fresh install** for the installer — the state `uninstall.cmd --remove-data` leaves behind. It copies the application, creates `.venv`, installs the dependencies, downloads the model and writes a new `config.json`. Nothing of the old installation is reused or mixed in — which is exactly why this is the cleanest repair after a broken update.
 
 1. Quit the app.
-2. Copy `logs\install.log` and `logs\service.log` aside if you are investigating the failure.
+2. Copy `%LOCALAPPDATA%\VibeForma\logs\install.log` and `logs\service.log` aside if you are investigating the failure.
 3. Optional: move `models\` to another disk so the model is not downloaded again. If you also keep `config.json`, the same model is selected; otherwise pass `-Model` with its name, or the installer picks its default.
 4. Delete the install folder completely. An empty folder is accepted; a partly deleted one is not — see below.
 5. Install again into the same place:
@@ -188,11 +189,11 @@ Deleting the folder repairs what lives inside it: files half-written by an inter
 - the CUDA driver does not match the installed build;
 - GitHub is unreachable.
 
-Read `install.log` first — it names the failed step and the tail of the error. `install.ps1 -DryRun` shows the checks without changes, and `.\run.cmd --doctor` checks the machine. A failed in-place update already restores the previous version, so a normal reinstall is worth one attempt before the reset.
+Read `%LOCALAPPDATA%\VibeForma\logs\install.log` first — it names the failed step and the tail of the error. `install.ps1 -DryRun` shows the checks without changes, and `.\run.cmd --doctor` checks the machine. A failed in-place update already restores the previous version, so a normal reinstall is worth one attempt before the reset.
 
 ## If installation fails
 
-1. Read `install.log` in the install directory — it names the failed step and the tail of the error.
+1. Read `install.log` in `%LOCALAPPDATA%\VibeForma\logs` — it names the failed step and the tail of the error.
 2. Run `install.ps1 -DryRun` to see the checks without changes.
 3. Check the Python version: 3.10–3.14.
 4. Check free disk space: model size plus about 4 GB.

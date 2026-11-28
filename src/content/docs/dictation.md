@@ -102,17 +102,11 @@ The global `Esc` listener exists only while a dictation is in flight and is dest
 
 ## Where the text goes
 
-VibeForma inserts into the window that was active when you pressed the hotkey — not into whatever happens to be focused later.
+VibeForma inserts into the window that was active when you pressed the hotkey — not into whatever happens to be focused later. The target is captured at the start of the take.
 
-If the focus changes while the phrase is being recognized, VibeForma asks:
+If the focus changes while the phrase is being recognized, VibeForma does not ask and does not paste into a stranger: the recognized text stays in the clipboard, and a tray notification says so. Insert it yourself with `Ctrl+V` where you want it; the previous clipboard content is not restored over it.
 
-- **Insert here** — insert into the new active window.
-- **Copy** — leave the text in the clipboard.
-- **Cancel** — discard it.
-
-After 30 seconds without an answer, the text is copied. If the dialog cannot be shown, the text is copied as well. VibeForma never steals focus to show the question.
-
-When text stays in the clipboard, a tray notification says so.
+Insertion also waits for the stopping combination to be released: a paste sent while `Ctrl+Alt` is still held does not paste in any app, so the text lands only after the keys are up.
 
 ## Insertion and the clipboard
 

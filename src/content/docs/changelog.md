@@ -7,6 +7,21 @@ This page summarizes the user-facing changes in VibeForma releases. Release note
 
 
 
+## 0.5.8 — 28 November 2026
+
+### Fixed
+- **A long take keeps the words before an invented ending.** The 0.5.7 guard read the take's last 20 words but used the phrase's position in that window as if it were the position in the whole take. On a take longer than 20 words the cut started a window too early and real words before the invented line disappeared with it. The position is now carried from the window back into the take; a 25-word regression take keeps every word before the phrase. Short takes and the rule that keeps a spoken phrase are unchanged.
+
+## 0.5.7 — 28 November 2026
+
+### Fixed
+- **An invented ending hidden inside real speech is cut too.** The 0.5.6 guard read only the last segment and kept a stop phrase whenever its word timestamps overlapped detected speech, so a short take where the model continues itself could still carry the invented line into the text. The guard now reads the take's words as one stream across segments and cuts from the phrase's first word through the end: a phrase split between segments, a phrase before a final punctuation-only segment, and a take without word timestamps in silence are cut. A phrase stays only when the VAD hears speech under the tail, its own words each last a plausible time, and the take is not faster than a person can speak; a text-only segment in real speech is left alone. The log names the phrase and its time span, never the dictated text.
+
+## 0.5.6 — 28 November 2026
+
+### Fixed
+- **An invented ending is cut from the take.** Whisper sometimes appends a boilerplate line it never heard — most visibly a "to be continued" line — after the last word, and the stop list alone kept it whenever the phrase sat in a segment with real speech. The final dictation pass now checks the trailing stop phrase against the take's own audio through the VAD: when the phrase's words overlap less than 0.15 s of detected speech, the phrase and everything after its first word are cut from the segment — text, word list and subtitle cues together. A phrase the person really said keeps its place; a take without word timestamps or with a failing VAD is left untouched. Partial previews and file transcription are unchanged.
+
 ## 0.5.5 — 27 November 2026
 
 ### Added

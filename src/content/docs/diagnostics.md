@@ -110,7 +110,7 @@ Redact the API token and any personal text before posting. The doctor report alr
 ## If the app does not start at all
 
 1. Run `run.cmd --doctor` from a terminal and read the first `FAIL`.
-2. Read `install.log` in the install directory.
+2. Read `install.log` in `%LOCALAPPDATA%\VibeForma\logs`.
 3. Run `--selftest` to separate a model problem from a startup problem.
 4. Reinstall with the same installer; it continues from the failed step.
 

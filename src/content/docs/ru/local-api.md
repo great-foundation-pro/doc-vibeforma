@@ -35,7 +35,7 @@ VibeForma может открыть небольшой HTTP API для лока�
 {
   "schema": 2,
   "app": "vibeforma",
-  "version": "0.5.5",
+  "version": "0.5.8",
   "config": "C:\\Users\\you\\AppData\\Local\\VibeForma\\config.json",
   "api": "on",
   "port": 8787,

@@ -72,7 +72,7 @@ Autostart, update checks and their interval, the manual **Check now** action, th
 
 ## Options that live in config.json only
 
-Some 0.5.5 options have no control in the window yet. They are read from `config.json` when the service starts:
+Some options in this release have no control in the window yet. They are read from `config.json` when the service starts:
 
 | Key | Default | What it does |
 |---|---|---|
