@@ -15,7 +15,7 @@ tags:
 
 You dictate a message: “Use the runner for the whole wave, set the effort for all runners, run in several threads if the tasks allow it.” You insert it. At the end: “To be continued...”. You never said that. Not at the start, not at the end. The phrase was not in the recording.
 
-This is not a microphone glitch and not an insertion error. It is the model. Whisper is trained on a huge corpus of subtitles and videos, and in that corpus a service line often follows the last line: “To be continued”, “Thanks for watching”, “Subscribe to the channel”, “Subtitles by DimaTorzok”. Over silence, music or a pause, the model completes what usually happens at the end of a video. It does not hear the phrase — it predicts it.
+This is not a microphone glitch and not an insertion error. It is the model. Whisper is trained on a huge corpus of subtitles and videos, and in that corpus a service line often follows the last line: “To be continued”, “Thanks for watching”, “Subscribe to the channel”. Over silence, music or a pause, the model completes what usually happens at the end of a video. It does not hear the phrase — it predicts it.
 
 ## Why you cannot just ban the phrase
 
