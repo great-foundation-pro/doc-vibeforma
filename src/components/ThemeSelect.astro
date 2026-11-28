@@ -1,0 +1,51 @@
+---
+// The header carries the way back from any page: the landing and the docs
+// entry point stand to the left of the blog link that starlight-blog renders.
+import Default from '@astrojs/starlight/components/ThemeSelect.astro';
+import BlogThemeSelect from 'starlight-blog/components/ThemeSelect.astro';
+
+const { locale } = Astro.locals.starlightRoute;
+const ru = locale === 'ru';
+const links = [
+  { href: ru ? '/ru/' : '/', label: ru ? 'Сайт' : 'Site' },
+  {
+    href: ru ? '/ru/introduction/' : '/introduction/',
+    label: ru ? 'Документация' : 'Documentation',
+  },
+];
+---
+
+<div class="sl-site-header-links">
+  {links.map((link) => (
+    <a class="sl-site-header-link" href={link.href}>{link.label}</a>
+  ))}
+</div>
+<BlogThemeSelect><slot /></BlogThemeSelect>
+<Default><slot /></Default>
+
+<style>
+  .sl-site-header-links {
+    border-inline-end: 1px solid var(--sl-color-gray-5);
+    display: none;
+    gap: 1rem;
+    min-inline-size: 0;
+    padding-inline-end: 1rem;
+  }
+
+  @media (min-width: 50rem) {
+    .sl-site-header-links {
+      align-items: center;
+      display: flex;
+    }
+  }
+
+  .sl-site-header-link {
+    color: var(--sl-color-text-accent);
+    font-weight: 600;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>
