@@ -1,0 +1,24 @@
+---
+// The blog replaces the documentation sidebar with its own, so a reader who
+// came from the docs has no way back except the site title, which leads to the
+// landing. On blog routes the first entry returns to the docs entry point in
+// the same language; every other route renders the default sidebar untouched.
+import Default from '@astrojs/starlight/components/Sidebar.astro';
+
+const { sidebar, id, locale } = Astro.locals.starlightRoute;
+const slug = locale && id.startsWith(`${locale}/`) ? id.slice(locale.length + 1) : id;
+const isBlog = slug === 'blog' || slug.startsWith('blog/');
+
+if (isBlog) {
+  sidebar.unshift({
+    type: 'link',
+    label: locale === 'ru' ? 'Документация' : 'Documentation',
+    href: locale === 'ru' ? '/ru/introduction/' : '/introduction/',
+    isCurrent: false,
+    badge: undefined,
+    attrs: {},
+  });
+}
+---
+
+<Default />
